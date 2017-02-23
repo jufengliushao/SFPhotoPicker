@@ -15,6 +15,7 @@
 		E62886971E5EC73B00F19D20 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E62886951E5EC73B00F19D20 /* LaunchScreen.storyboard */; };
 		E62886A21E5EC73B00F19D20 /* SFPhotoPickerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886A11E5EC73B00F19D20 /* SFPhotoPickerTests.m */; };
 		E62886AD1E5EC73B00F19D20 /* SFPhotoPickerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886AC1E5EC73B00F19D20 /* SFPhotoPickerUITests.m */; };
+		E62886BE1E5ED64000F19D20 /* SFPhotoPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886BD1E5ED64000F19D20 /* SFPhotoPickerTool.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		E62886A81E5EC73B00F19D20 /* SFPhotoPickerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SFPhotoPickerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E62886AC1E5EC73B00F19D20 /* SFPhotoPickerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFPhotoPickerUITests.m; sourceTree = "<group>"; };
 		E62886AE1E5EC73B00F19D20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E62886BC1E5ED64000F19D20 /* SFPhotoPickerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoPickerTool.h; sourceTree = "<group>"; };
+		E62886BD1E5ED64000F19D20 /* SFPhotoPickerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoPickerTool.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,7 @@
 		E62886861E5EC73B00F19D20 /* SFPhotoPicker */ = {
 			isa = PBXGroup;
 			children = (
+				E62886BA1E5ED61E00F19D20 /* SFPhotoMain */,
 				E628868A1E5EC73B00F19D20 /* AppDelegate.h */,
 				E628868B1E5EC73B00F19D20 /* AppDelegate.m */,
 				E628868D1E5EC73B00F19D20 /* ViewController.h */,
@@ -138,6 +142,23 @@
 				E62886AE1E5EC73B00F19D20 /* Info.plist */,
 			);
 			path = SFPhotoPickerUITests;
+			sourceTree = "<group>";
+		};
+		E62886BA1E5ED61E00F19D20 /* SFPhotoMain */ = {
+			isa = PBXGroup;
+			children = (
+				E62886BB1E5ED61E00F19D20 /* SFPhotoTool */,
+			);
+			path = SFPhotoMain;
+			sourceTree = "<group>";
+		};
+		E62886BB1E5ED61E00F19D20 /* SFPhotoTool */ = {
+			isa = PBXGroup;
+			children = (
+				E62886BC1E5ED64000F19D20 /* SFPhotoPickerTool.h */,
+				E62886BD1E5ED64000F19D20 /* SFPhotoPickerTool.m */,
+			);
+			path = SFPhotoTool;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +228,7 @@
 				TargetAttributes = {
 					E62886831E5EC73B00F19D20 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = AR3398K2DD;
 						ProvisioningStyle = Automatic;
 					};
 					E628869C1E5EC73B00F19D20 = {
@@ -274,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E628868F1E5EC73B00F19D20 /* ViewController.m in Sources */,
+				E62886BE1E5ED64000F19D20 /* SFPhotoPickerTool.m in Sources */,
 				E628868C1E5EC73B00F19D20 /* AppDelegate.m in Sources */,
 				E62886891E5EC73B00F19D20 /* main.m in Sources */,
 			);
@@ -424,6 +447,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = AR3398K2DD;
 				INFOPLIST_FILE = SFPhotoPicker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -436,6 +460,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = AR3398K2DD;
 				INFOPLIST_FILE = SFPhotoPicker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -509,6 +534,7 @@
 				E62886B31E5EC73B00F19D20 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E62886B41E5EC73B00F19D20 /* Build configuration list for PBXNativeTarget "SFPhotoPickerTests" */ = {
 			isa = XCConfigurationList;
@@ -517,6 +543,7 @@
 				E62886B61E5EC73B00F19D20 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E62886B71E5EC73B00F19D20 /* Build configuration list for PBXNativeTarget "SFPhotoPickerUITests" */ = {
 			isa = XCConfigurationList;
@@ -525,6 +552,7 @@
 				E62886B91E5EC73B00F19D20 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

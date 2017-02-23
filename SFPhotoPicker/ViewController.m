@@ -7,8 +7,7 @@
 //
 
 #import "ViewController.h"
-#import <Photos/Photos.h>
-#import <AssetsLibrary/AssetsLibrary.h>
+#import "SFPhotoPickerTool.h"
 @interface ViewController ()
 
 @end
@@ -26,6 +25,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end
