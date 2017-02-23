@@ -16,6 +16,7 @@
 		E62886A21E5EC73B00F19D20 /* SFPhotoPickerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886A11E5EC73B00F19D20 /* SFPhotoPickerTests.m */; };
 		E62886AD1E5EC73B00F19D20 /* SFPhotoPickerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886AC1E5EC73B00F19D20 /* SFPhotoPickerUITests.m */; };
 		E62886BE1E5ED64000F19D20 /* SFPhotoPickerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886BD1E5ED64000F19D20 /* SFPhotoPickerTool.m */; };
+		E62886C21E5EDD7D00F19D20 /* SFPhotoAlbumInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886C11E5EDD7D00F19D20 /* SFPhotoAlbumInfoModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		E62886AE1E5EC73B00F19D20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E62886BC1E5ED64000F19D20 /* SFPhotoPickerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoPickerTool.h; sourceTree = "<group>"; };
 		E62886BD1E5ED64000F19D20 /* SFPhotoPickerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoPickerTool.m; sourceTree = "<group>"; };
+		E62886C01E5EDD7D00F19D20 /* SFPhotoAlbumInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoAlbumInfoModel.h; sourceTree = "<group>"; };
+		E62886C11E5EDD7D00F19D20 /* SFPhotoAlbumInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoAlbumInfoModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +150,7 @@
 		E62886BA1E5ED61E00F19D20 /* SFPhotoMain */ = {
 			isa = PBXGroup;
 			children = (
+				E62886BF1E5EDD6800F19D20 /* SFPhotoModel */,
 				E62886BB1E5ED61E00F19D20 /* SFPhotoTool */,
 			);
 			path = SFPhotoMain;
@@ -159,6 +163,15 @@
 				E62886BD1E5ED64000F19D20 /* SFPhotoPickerTool.m */,
 			);
 			path = SFPhotoTool;
+			sourceTree = "<group>";
+		};
+		E62886BF1E5EDD6800F19D20 /* SFPhotoModel */ = {
+			isa = PBXGroup;
+			children = (
+				E62886C01E5EDD7D00F19D20 /* SFPhotoAlbumInfoModel.h */,
+				E62886C11E5EDD7D00F19D20 /* SFPhotoAlbumInfoModel.m */,
+			);
+			path = SFPhotoModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,6 +312,7 @@
 				E62886BE1E5ED64000F19D20 /* SFPhotoPickerTool.m in Sources */,
 				E628868C1E5EC73B00F19D20 /* AppDelegate.m in Sources */,
 				E62886891E5EC73B00F19D20 /* main.m in Sources */,
+				E62886C21E5EDD7D00F19D20 /* SFPhotoAlbumInfoModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

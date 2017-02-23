@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
+#import "SFPhotoAlbumInfoModel.h"
 @interface SFPhotoPickerTool : NSObject
 /**
  init-method
@@ -16,5 +17,20 @@
  */
 + (SFPhotoPickerTool *)sharedInstance;
 
-@property (nonatomic, strong, readonly) NSArray *allAlbumTitleArr;
+@property (nonatomic, strong, readonly) NSArray *allAlbumInfoArr;
+
+
+/**
+ 返回用户自定义的相册
+
+ @return <#return value description#>
+ */
+- (PHFetchResult<PHAssetCollection *> *)sf_getAllUserAlbum;
+
+/**
+ 返回用户相机胶卷相册
+
+ @return <#return value description#>
+ */
+- (PHAssetCollection *)sf_getCarmerPhotoAlbum;
 @end

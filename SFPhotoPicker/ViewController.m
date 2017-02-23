@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [SFPhotoPickerTool sharedInstance].allAlbumInfoArr;
     // Do any additional setup after loading the view, typically from a nib.
 }
 
