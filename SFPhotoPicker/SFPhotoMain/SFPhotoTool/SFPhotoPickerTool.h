@@ -12,7 +12,7 @@
 
 typedef void(^AskPhotoRightResult)(PHAuthorizationStatus stat);
 typedef void(^CreatePhotoAlbumComplete)(PHAssetCollection *album, NSError * __autoreleasing* error);
-typedef void(^SaveImageComplete)(BOOL isSuccess, NSError * __autoreleasing * err);
+typedef void(^SaveImageComplete)(BOOL isSuccess, NSError * __autoreleasing * err, NSString *imgID);
 
 @interface SFPhotoPickerTool : NSObject
 /**
@@ -90,7 +90,7 @@ typedef void(^SaveImageComplete)(BOOL isSuccess, NSError * __autoreleasing * err
  @param complete 创建过程中的block 
                 参数 nil nil 则该名称相册已存在
                     nil !nil 创建失败
-                    !nil !nil 创建成功
+                    !nil nil 创建成功
  */
 - (void)sf_createAlbumWithTitle:(NSString *)albumTitle complete:(CreatePhotoAlbumComplete)complete;
 
@@ -109,4 +109,13 @@ typedef void(^SaveImageComplete)(BOOL isSuccess, NSError * __autoreleasing * err
  @param complete <#complete description#>
  */
 - (void)sf_saveImageSynchronizationInCamareAlbum:(UIImage *)img complete:(SaveImageComplete)complete;
+
+/**
+ 将图片添加到自定义相册
+
+ @param img <#img description#>
+ @param albumTitle <#albumTitle description#>
+ @param complete <#complete description#>
+ */
+- (void)sf_saveImageSynchronizationInAlbumWithImage:(UIImage *)img albumTitle:(NSString *)albumTitle complete:(SaveImageComplete)complete;
 @end
