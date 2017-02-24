@@ -29,6 +29,13 @@ static SFPhotoPickerTool *sf_ph = nil;
     return sf_ph;
 }
 
+- (instancetype)init{
+    if (self = [super init]) {
+        [self sf_askPhotoRightStatus];
+    }
+    return self;
+}
+
 #pragma mark - system method
 - (PHAuthorizationStatus)sf_askPhotoRightStatus{
     PHAuthorizationStatus photoAuthStatus = [PHPhotoLibrary authorizationStatus];
@@ -83,7 +90,7 @@ static SFPhotoPickerTool *sf_ph = nil;
         return nil;
     }
     // 获得所有的自定义相簿
-    PHFetchResult<PHAssetCollection *> *assetCollections = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+    PHFetchResult<PHAssetCollection *> *assetCollections = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAny options:nil];
     return assetCollections;
 }
 
@@ -140,6 +147,46 @@ static SFPhotoPickerTool *sf_ph = nil;
     return array;
 }
 
+- (PHAssetCollection *)sf_returnAlbumWithTitle:(NSString *)albumTitle{
+    // 从已存在相簿中查找这个应用对应的相簿
+    PHFetchResult<PHAssetCollection *> *assetCollections = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+    for (PHAssetCollection *assetCollection in assetCollections) {
+        if ([assetCollection.localizedTitle isEqualToString:albumTitle]) {
+            return assetCollection;
+        }
+    }
+    return nil;
+}
+
+- (void)sf_createAlbumWithTitle:(NSString *)albumTitle complete:(CreatePhotoAlbumComplete)complete{
+    NSError *err = nil;
+    if ([self sf_returnAlbumWithTitle:albumTitle]) {
+        // 相册已经存在
+        if (complete) {
+            complete(nil, &err);
+        }
+        return;
+    }
+    // PHAssetCollection的标识, 利用这个标识可以找到对应的PHAssetCollection对象(相簿对象)
+    __block NSString *assetCollectionLocalIdentifier = nil;
+    [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
+        // 创建相簿的请求
+        assetCollectionLocalIdentifier = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:albumTitle].placeholderForCreatedAssetCollection.localIdentifier;
+    } error:&err];
+    
+    // 如果有错误信息
+    if (err){
+        if(complete){
+            complete(nil, &err);
+        }
+        return;
+    }
+    
+    if (complete) {
+        complete([PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:@[assetCollectionLocalIdentifier] options:nil].lastObject, &err);
+    }
+}
+
 #pragma mark - tool method
 - (void)getAllAlbumInfo{
     if (!_hasPhotoRight) {
@@ -153,6 +200,7 @@ static SFPhotoPickerTool *sf_ph = nil;
         model.photosSum = assetCollection.estimatedAssetCount;
         model.startDate = assetCollection.startDate;
         model.endDate = assetCollection.endDate;
+        NSLog(@"%@", model.albumTitle);
         [_ablumAllArray addObject:model];
     }
 }

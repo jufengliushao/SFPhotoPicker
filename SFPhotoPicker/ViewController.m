@@ -19,7 +19,7 @@
     [super viewDidLoad];
     SFPhotoPickerTool *tool = [SFPhotoPickerTool sharedInstance];
     [[SFPhotoPickerTool sharedInstance] sf_askPhotoRight:^(PHAuthorizationStatus stat) {
-        NSLog(@"%@",[tool sf_getAllThumbOfAlbum:[tool sf_getAllUserAlbum][0]][5]);
+//        NSLog(@"%@",[tool sf_getAllThumbOfAlbum:[tool sf_getAllUserAlbum][0]][5]);
     }];
     // Do any additional setup after loading the view, typically from a nib.
 }

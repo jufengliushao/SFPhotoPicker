@@ -11,6 +11,7 @@
 #import "SFPhotoAlbumInfoModel.h"
 
 typedef void(^AskPhotoRightResult)(PHAuthorizationStatus stat);
+typedef void(^CreatePhotoAlbumComplete)(PHAssetCollection *album, NSError * __autoreleasing* error);
 
 @interface SFPhotoPickerTool : NSObject
 /**
@@ -72,4 +73,23 @@ typedef void(^AskPhotoRightResult)(PHAuthorizationStatus stat);
  @return <#return value description#>
  */
 - (NSArray *)sf_getAllOriginalPfAlbum:(PHAssetCollection *)album;
+
+/**
+ 返回指定相册名相册
+
+ @param albumTitle 相册名
+ @return 如果存在返回相册 不存在返回nil
+ */
+- (PHAssetCollection *)sf_returnAlbumWithTitle:(NSString *)albumTitle;
+
+/**
+ 创建指定标题的相册
+
+ @param albumTitle 相册标题
+ @param complete 创建过程中的block 
+                参数 nil nil 则该名称相册已存在
+                    nil !nil 创建失败
+                    !nil !nil 创建成功
+ */
+- (void)sf_createAlbumWithTitle:(NSString *)albumTitle complete:(CreatePhotoAlbumComplete)complete;
 @end
