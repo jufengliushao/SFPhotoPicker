@@ -105,6 +105,24 @@ static SFPhotoPickerTool *sf_ph = nil;
     return cameraRoll;
 }
 
+- (PHAssetCollection *)sf_getScreentShotAlbum{
+    if (!_hasPhotoRight) {
+        return nil;
+    }
+    // 获得相机胶卷
+    PHAssetCollection *screenShot = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumScreenshots options:nil].lastObject;
+    return screenShot;
+}
+
+- (PHAssetCollection *)sf_getRecentPhotoAlbum{
+    if (!_hasPhotoRight) {
+        return nil;
+    }
+    // 获得相机胶卷
+    PHAssetCollection *recent = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumRecentlyAdded options:nil].lastObject;
+    return recent;
+}
+
 - (NSArray *)sf_getAllThumbOfAlbum:(PHAssetCollection *)album{
     if (!_hasPhotoRight) {
         return nil;

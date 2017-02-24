@@ -46,7 +46,7 @@ typedef void(^SaveImageComplete)(BOOL isSuccess, NSError * __autoreleasing * err
 
 
 /**
- 返回用户自定义的相册
+ 返回用户自定义的相册----逻辑相册
 
  @return <#return value description#>
  */
@@ -58,6 +58,20 @@ typedef void(^SaveImageComplete)(BOOL isSuccess, NSError * __autoreleasing * err
  @return <#return value description#>
  */
 - (PHAssetCollection *)sf_getCarmerPhotoAlbum;
+
+/**
+ 返回用户手机截图相册
+
+ @return <#return value description#>
+ */
+- (PHAssetCollection *)sf_getScreentShotAlbum;
+
+/**
+ 返回用户最近添加的照片
+
+ @return <#return value description#>
+ */
+- (PHAssetCollection *)sf_getRecentPhotoAlbum;
 
 /**
  获取指定相册下的所有缩略图片
