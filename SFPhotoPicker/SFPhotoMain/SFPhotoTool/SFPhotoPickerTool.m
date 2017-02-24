@@ -187,6 +187,35 @@ static SFPhotoPickerTool *sf_ph = nil;
     }
 }
 
+- (void)sf_saveImageSynchronousInCameraAlbuma:(UIImage *)img complete:(SaveImageComplete)complete{
+    // PHAsset的标识, 利用这个标识可以找到对应的PHAsset对象(图片对象)
+    __block NSString *assetLocalIdentifier = nil;
+    // 如果想对"相册"进行修改(增删改), 那么修改代码必须放在[PHPhotoLibrary sharedPhotoLibrary]的performChanges方法的block中
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        // 1.保存图片A到"相机胶卷"中
+        // 创建图片的请求
+        assetLocalIdentifier = [PHAssetCreationRequest creationRequestForAssetFromImage:img].placeholderForCreatedAsset.localIdentifier;
+    } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        if (complete) {
+            complete(success, &error);
+        }
+    }];
+}
+
+- (void)sf_saveImageSynchronizationInCamareAlbum:(UIImage *)img complete:(SaveImageComplete)complete{
+    NSError *error = nil;
+    [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
+        // 默认就把相片保存到了相机胶卷
+        [PHAssetChangeRequest creationRequestForAssetFromImage:img];
+    } error:&error];
+    BOOL su = NO;
+    if (!error) {
+        su = YES;
+    }
+    if (complete) {
+        complete(su, &error);
+    }
+}
 #pragma mark - tool method
 - (void)getAllAlbumInfo{
     if (!_hasPhotoRight) {

@@ -12,6 +12,7 @@
 
 typedef void(^AskPhotoRightResult)(PHAuthorizationStatus stat);
 typedef void(^CreatePhotoAlbumComplete)(PHAssetCollection *album, NSError * __autoreleasing* error);
+typedef void(^SaveImageComplete)(BOOL isSuccess, NSError * __autoreleasing * err);
 
 @interface SFPhotoPickerTool : NSObject
 /**
@@ -92,4 +93,20 @@ typedef void(^CreatePhotoAlbumComplete)(PHAssetCollection *album, NSError * __au
                     !nil !nil 创建成功
  */
 - (void)sf_createAlbumWithTitle:(NSString *)albumTitle complete:(CreatePhotoAlbumComplete)complete;
+
+/**
+ 异步----保存照片到相机相册
+
+ @param img <#img description#>
+ @param complete <#complete description#>
+ */
+- (void)sf_saveImageSynchronousInCameraAlbuma:(UIImage *)img complete:(SaveImageComplete)complete;
+
+/**
+ 同步----保存图片到相机相册
+
+ @param img <#img description#>
+ @param complete <#complete description#>
+ */
+- (void)sf_saveImageSynchronizationInCamareAlbum:(UIImage *)img complete:(SaveImageComplete)complete;
 @end
