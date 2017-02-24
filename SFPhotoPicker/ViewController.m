@@ -19,10 +19,10 @@
     [super viewDidLoad];
     SFPhotoPickerTool *tool = [SFPhotoPickerTool sharedInstance];
     dispatch_async(dispatch_queue_create("img_download_queeu", DISPATCH_QUEUE_CONCURRENT), ^{
-        UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487925259679&di=667e004a38b3422b9f9346f93bbcaa4b&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fforum%2Fw%253D580%2Fsign%3D631f05f0013b5bb5bed720f606d2d523%2Fffc28e381f30e924f3b2986a4e086e061c95f7a6.jpg"]]];
+        UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487927504029&di=2d39f7b09eb4949ae6b4de16c72d0319&imgtype=0&src=http%3A%2F%2Fimg0.pconline.com.cn%2Fpconline%2Fbizi%2Fdesktop%2F1412%2FAXI5_1.jpg"]]];
         dispatch_sync(dispatch_get_main_queue(), ^{
             if(img){
-                [tool sf_saveImageSynchronizationInAlbumWithImage:img albumTitle:@"SFImage" complete:^(BOOL isSuccess, NSError *__autoreleasing *err, NSString *imgID) {
+                [tool sf_saveImageSynchronousInAlbumWithImage:img albumTitle:@"SFImg" complete:^(BOOL isSuccess, NSError *__autoreleasing *err, NSString *imgID) {
                     NSLog(@"");
                 }];
                 self.img.image = img;

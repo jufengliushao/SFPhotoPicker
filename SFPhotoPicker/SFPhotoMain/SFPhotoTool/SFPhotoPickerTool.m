@@ -196,7 +196,7 @@ static SFPhotoPickerTool *sf_ph = nil;
     }
 }
 
-- (void)sf_saveImageSynchronousInCameraAlbuma:(UIImage *)img complete:(SaveImageComplete)complete{
+- (void)sf_saveImageSynchronousInCameraAlbum:(UIImage *)img complete:(SaveImageComplete)complete{
     if (!_hasPhotoRight) {
         complete(NO, nil, nil);
         return;
@@ -250,6 +250,29 @@ static SFPhotoPickerTool *sf_ph = nil;
             }];
         }else{
             // 创建相册失败
+            if (complete) {
+                complete(NO, error, nil);
+            }
+        }
+    }];
+}
+
+- (void)sf_saveImageSynchronousInAlbumWithImage:(UIImage *)img albumTitle:(NSString *)albumTitle complete:(SaveImageComplete)complete{
+    if (!_hasPhotoRight) {
+        complete(NO, nil, nil);
+        return;
+    }
+    WS(ws);
+    [self saveImageChecketAlbumANDCreat:albumTitle complete:^(PHAssetCollection *album, NSError *__autoreleasing *error) {
+        if (album) {
+            // 创建成功
+            [ws saveImageSynchronousInAlbumWithImage:img albumTitle:albumTitle complete:^(BOOL isSuccess, NSError *__autoreleasing *err, NSString *imgID) {
+                if (complete) {
+                    complete(isSuccess, err, imgID);
+                }
+            }];
+        }else{
+            // 创建失败
             if (complete) {
                 complete(NO, error, nil);
             }
@@ -317,6 +340,34 @@ static SFPhotoPickerTool *sf_ph = nil;
                 complete(isSuccess, err, imgID);
             }
         }
+    }];
+}
+
+- (void)saveImageSynchronousInAlbumWithImage:(UIImage *)img albumTitle:(NSString *)albumTitle complete:(SaveImageComplete)complete{
+    PHAssetCollection *assetCollection = [self sf_returnAlbumWithTitle:albumTitle];
+    // PHAsset的标识, 利用这个标识可以找到对应的PHAsset对象(图片对象)
+    __block NSString *assetLocalIdentifier = nil;
+    // 如果想对"相册"进行修改(增删改), 那么修改代码必须放在[PHPhotoLibrary sharedPhotoLibrary]的performChanges方法的block中
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        // 1.保存图片A到"相机胶卷"中
+        // 创建图片的请求
+        assetLocalIdentifier = [PHAssetCreationRequest creationRequestForAssetFromImage:img].placeholderForCreatedAsset.localIdentifier;
+    } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        if (!success) {
+            if (complete) {
+                complete(success, &error, assetLocalIdentifier);
+            }
+            return ;
+        }
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            PHAsset *asset = [PHAsset fetchAssetsWithLocalIdentifiers:@[assetLocalIdentifier] options:nil].lastObject;
+            PHAssetCollectionChangeRequest *reuqest = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:assetCollection];
+            [reuqest addAssets:@[asset]];
+        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+            if (complete) {
+                complete(success, &error, assetLocalIdentifier);
+            }
+        }];
     }];
 }
 

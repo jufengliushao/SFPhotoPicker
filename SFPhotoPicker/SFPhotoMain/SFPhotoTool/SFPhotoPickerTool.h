@@ -100,7 +100,7 @@ typedef void(^SaveImageComplete)(BOOL isSuccess, NSError * __autoreleasing * err
  @param img <#img description#>
  @param complete <#complete description#>
  */
-- (void)sf_saveImageSynchronousInCameraAlbuma:(UIImage *)img complete:(SaveImageComplete)complete;
+- (void)sf_saveImageSynchronousInCameraAlbum:(UIImage *)img complete:(SaveImageComplete)complete;
 
 /**
  同步----保存图片到相机相册
@@ -111,11 +111,20 @@ typedef void(^SaveImageComplete)(BOOL isSuccess, NSError * __autoreleasing * err
 - (void)sf_saveImageSynchronizationInCamareAlbum:(UIImage *)img complete:(SaveImageComplete)complete;
 
 /**
- 将图片添加到自定义相册
+ 同步------将图片添加到自定义相册
 
  @param img 图片
  @param albumTitle 相册名称
  @param complete <#complete description#>
  */
 - (void)sf_saveImageSynchronizationInAlbumWithImage:(UIImage *)img albumTitle:(NSString *)albumTitle complete:(SaveImageComplete)complete;
+
+/**
+ 异步-------将图片添加到自定义相册
+
+ @param img <#img description#>
+ @param albumTitle <#albumTitle description#>
+ @param complete <#complete description#>
+ */
+- (void)sf_saveImageSynchronousInAlbumWithImage:(UIImage *)img albumTitle:(NSString *)albumTitle complete:(SaveImageComplete)complete;
 @end
