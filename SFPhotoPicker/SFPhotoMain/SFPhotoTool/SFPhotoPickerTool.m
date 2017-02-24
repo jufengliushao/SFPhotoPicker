@@ -10,6 +10,7 @@
 
 @interface SFPhotoPickerTool(){
     NSMutableArray *_ablumAllArray;
+    BOOL _hasPhotoRight;
 }
 
 @end
@@ -28,6 +29,54 @@ static SFPhotoPickerTool *sf_ph = nil;
     return sf_ph;
 }
 
+#pragma mark - system method
+- (PHAuthorizationStatus)sf_askPhotoRightStatus{
+    PHAuthorizationStatus photoAuthStatus = [PHPhotoLibrary authorizationStatus];
+    switch (photoAuthStatus) {
+        case PHAuthorizationStatusNotDetermined:{
+            NSLog(@"未询问用户是否授权");
+            _hasPhotoRight = NO;
+        }
+            break;
+            
+        case PHAuthorizationStatusRestricted:{
+            NSLog(@"未授权，例如家长控制");
+            _hasPhotoRight = NO;
+        }
+            break;
+            
+        case PHAuthorizationStatusDenied:{
+            NSLog(@"未授权，用户拒绝造成的");
+            _hasPhotoRight = NO;
+        }
+            break;
+            
+        case PHAuthorizationStatusAuthorized:{
+            NSLog(@"同意授权相册");
+            _hasPhotoRight = YES;
+        }
+            break;
+        default:
+            break;
+    }
+    return photoAuthStatus;
+}
+
+- (void)sf_askPhotoRight:(AskPhotoRightResult)complete{
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        if (status == PHAuthorizationStatusAuthorized) {
+            NSLog(@"用户同意授权相册");
+            _hasPhotoRight = YES;
+        }else {
+            NSLog(@"用户拒绝授权相册");
+            _hasPhotoRight = NO;
+        }
+        if (complete) {
+            complete(status);
+        }
+    }];
+}
+
 #pragma mark - user method
 - (PHFetchResult<PHAssetCollection *> *)sf_getAllUserAlbum{
     // 获得所有的自定义相簿
@@ -41,8 +90,27 @@ static SFPhotoPickerTool *sf_ph = nil;
     return cameraRoll;
 }
 
+- (NSArray *)sf_getAllThumbOfAlbum:(PHAssetCollection *)album{
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    // 同步获得图片, 只会返回1张图片
+    options.synchronous = YES;
+    
+    // 获得某个相簿中的所有PHAsset对象
+    PHFetchResult<PHAsset *> *assets = [PHAsset fetchAssetsInAssetCollection:album options:nil];
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+    for (PHAsset *asset in assets) {
+        CGSize size = CGSizeZero;
+        
+        // 从asset中获得图片
+        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+            [array addObject:result];
+        }];
+    }
+    return array;
+}
+
 #pragma mark - tool method
-- (void)getAllAlbumTitle{
+- (void)getAllAlbumInfo{
     _ablumAllArray = [NSMutableArray arrayWithCapacity:0];
     // 遍历所有的自定义相簿
     for (PHAssetCollection *assetCollection in [self sf_getAllUserAlbum]) {
@@ -58,8 +126,13 @@ static SFPhotoPickerTool *sf_ph = nil;
 #pragma mark - getter
 - (NSArray *)allAlbumInfoArr{
     if (!_ablumAllArray) {
-        [self getAllAlbumTitle];
+        [self getAllAlbumInfo];
     }
     return _ablumAllArray;
+}
+
+- (BOOL)hasPhotoAlbumRight{
+    [self sf_askPhotoRightStatus];
+    return _hasPhotoRight;
 }
 @end
