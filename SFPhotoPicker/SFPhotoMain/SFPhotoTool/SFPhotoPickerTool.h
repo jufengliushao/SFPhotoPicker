@@ -58,10 +58,18 @@ typedef void(^AskPhotoRightResult)(PHAuthorizationStatus stat);
 - (PHAssetCollection *)sf_getCarmerPhotoAlbum;
 
 /**
- 获取指定相册下的所有图片
+ 获取指定相册下的所有缩略图片
 
  @param album <#album description#>
  @return <#return value description#>
  */
 - (NSArray *)sf_getAllThumbOfAlbum:(PHAssetCollection *)album;
+
+/**
+ 获取指定相册下所有的原图
+
+ @param album <#album description#>
+ @return <#return value description#>
+ */
+- (NSArray *)sf_getAllOriginalPfAlbum:(PHAssetCollection *)album;
 @end

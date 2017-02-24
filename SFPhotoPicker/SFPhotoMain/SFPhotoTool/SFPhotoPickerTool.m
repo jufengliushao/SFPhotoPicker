@@ -79,18 +79,27 @@ static SFPhotoPickerTool *sf_ph = nil;
 
 #pragma mark - user method
 - (PHFetchResult<PHAssetCollection *> *)sf_getAllUserAlbum{
+    if (!_hasPhotoRight) {
+        return nil;
+    }
     // 获得所有的自定义相簿
     PHFetchResult<PHAssetCollection *> *assetCollections = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
     return assetCollections;
 }
 
 - (PHAssetCollection *)sf_getCarmerPhotoAlbum{
+    if (!_hasPhotoRight) {
+        return nil;
+    }
     // 获得相机胶卷
     PHAssetCollection *cameraRoll = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil].lastObject;
     return cameraRoll;
 }
 
 - (NSArray *)sf_getAllThumbOfAlbum:(PHAssetCollection *)album{
+    if (!_hasPhotoRight) {
+        return nil;
+    }
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     // 同步获得图片, 只会返回1张图片
     options.synchronous = YES;
@@ -109,8 +118,33 @@ static SFPhotoPickerTool *sf_ph = nil;
     return array;
 }
 
+- (NSArray *)sf_getAllOriginalPfAlbum:(PHAssetCollection *)album{
+    if (!_hasPhotoRight) {
+        return nil;
+    }
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    // 同步获得图片, 只会返回1张图片
+    options.synchronous = YES;
+    
+    // 获得某个相簿中的所有PHAsset对象
+    PHFetchResult<PHAsset *> *assets = [PHAsset fetchAssetsInAssetCollection:album options:nil];
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+    for (PHAsset *asset in assets) {
+        CGSize size = CGSizeMake(asset.pixelWidth, asset.pixelHeight);
+        
+        // 从asset中获得图片
+        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+            [array addObject:result];
+        }];
+    }
+    return array;
+}
+
 #pragma mark - tool method
 - (void)getAllAlbumInfo{
+    if (!_hasPhotoRight) {
+        return;
+    }
     _ablumAllArray = [NSMutableArray arrayWithCapacity:0];
     // 遍历所有的自定义相簿
     for (PHAssetCollection *assetCollection in [self sf_getAllUserAlbum]) {

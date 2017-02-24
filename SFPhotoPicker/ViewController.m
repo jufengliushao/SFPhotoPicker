@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "SFPhotoPickerTool.h"
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *img;
 
 @end
 
@@ -16,7 +17,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [SFPhotoPickerTool sharedInstance].allAlbumInfoArr;
+    SFPhotoPickerTool *tool = [SFPhotoPickerTool sharedInstance];
+    [[SFPhotoPickerTool sharedInstance] sf_askPhotoRight:^(PHAuthorizationStatus stat) {
+        NSLog(@"%@",[tool sf_getAllThumbOfAlbum:[tool sf_getAllUserAlbum][0]][5]);
+    }];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
