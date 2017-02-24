@@ -113,8 +113,8 @@ typedef void(^SaveImageComplete)(BOOL isSuccess, NSError * __autoreleasing * err
 /**
  将图片添加到自定义相册
 
- @param img <#img description#>
- @param albumTitle <#albumTitle description#>
+ @param img 图片
+ @param albumTitle 相册名称
  @param complete <#complete description#>
  */
 - (void)sf_saveImageSynchronizationInAlbumWithImage:(UIImage *)img albumTitle:(NSString *)albumTitle complete:(SaveImageComplete)complete;

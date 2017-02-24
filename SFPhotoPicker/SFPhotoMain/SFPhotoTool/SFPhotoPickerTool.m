@@ -151,6 +151,9 @@ static SFPhotoPickerTool *sf_ph = nil;
 
 - (PHAssetCollection *)sf_returnAlbumWithTitle:(NSString *)albumTitle{
     // 从已存在相簿中查找这个应用对应的相簿
+    if (!_hasPhotoRight) {
+        return nil;
+    }
     PHFetchResult<PHAssetCollection *> *assetCollections = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
     for (PHAssetCollection *assetCollection in assetCollections) {
         if ([assetCollection.localizedTitle isEqualToString:albumTitle]) {
@@ -161,6 +164,10 @@ static SFPhotoPickerTool *sf_ph = nil;
 }
 
 - (void)sf_createAlbumWithTitle:(NSString *)albumTitle complete:(CreatePhotoAlbumComplete)complete{
+    if (!_hasPhotoRight) {
+        complete(nil, nil);
+        return;
+    }
     NSError *err = nil;
     if ([self sf_returnAlbumWithTitle:albumTitle]) {
         // 相册已经存在
@@ -190,6 +197,10 @@ static SFPhotoPickerTool *sf_ph = nil;
 }
 
 - (void)sf_saveImageSynchronousInCameraAlbuma:(UIImage *)img complete:(SaveImageComplete)complete{
+    if (!_hasPhotoRight) {
+        complete(NO, nil, nil);
+        return;
+    }
     // PHAsset的标识, 利用这个标识可以找到对应的PHAsset对象(图片对象)
     __block NSString *assetLocalIdentifier = nil;
     // 如果想对"相册"进行修改(增删改), 那么修改代码必须放在[PHPhotoLibrary sharedPhotoLibrary]的performChanges方法的block中
@@ -205,6 +216,10 @@ static SFPhotoPickerTool *sf_ph = nil;
 }
 
 - (void)sf_saveImageSynchronizationInCamareAlbum:(UIImage *)img complete:(SaveImageComplete)complete{
+    if (!_hasPhotoRight) {
+        complete(NO, nil, nil);
+        return;
+    }
     NSError *error = nil;
     __block NSString *imgID = nil;
     [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
@@ -221,32 +236,27 @@ static SFPhotoPickerTool *sf_ph = nil;
 }
 
 - (void)sf_saveImageSynchronizationInAlbumWithImage:(UIImage *)img albumTitle:(NSString *)albumTitle complete:(SaveImageComplete)complete{
-    PHAssetCollection *assetCollection = [self sf_returnAlbumWithTitle:albumTitle];
-    WS(ws);
-    if (assetCollection == nil) {
-        // 创建相册
-        [self sf_createAlbumWithTitle:albumTitle complete:^(PHAssetCollection *album, NSError *__autoreleasing *error) {
-            if (album) {
-                [ws saveImageSynchronizationInAlbumWithImage:img albumTitle:albumTitle complete:^(BOOL isSuccess, NSError *__autoreleasing *err, NSString *imgID) {
-                    if (complete) {
-                        complete(isSuccess, err, imgID);
-                    }
-                }];
-            }else{
-                // 创建相册失败
-                if (complete) {
-                    complete(NO, error, nil);
-                }
-            }
-        }];
-    }else{
-        [self saveImageSynchronizationInAlbumWithImage:img albumTitle:albumTitle complete:^(BOOL isSuccess, NSError *__autoreleasing *err, NSString *imgID) {
-            if (complete) {
-                complete(isSuccess, err, imgID);
-            }
-        }];
+    if (!_hasPhotoRight) {
+        complete(NO, nil, nil);
+        return;
     }
+    WS(ws);
+    [self saveImageChecketAlbumANDCreat:albumTitle complete:^(PHAssetCollection *album, NSError *__autoreleasing *error) {
+        if (album) {
+            [ws saveImageSynchronizationInAlbumWithImage:img albumTitle:albumTitle complete:^(BOOL isSuccess, NSError *__autoreleasing *err, NSString *imgID) {
+                if (complete) {
+                    complete(isSuccess, err, imgID);
+                }
+            }];
+        }else{
+            // 创建相册失败
+            if (complete) {
+                complete(NO, error, nil);
+            }
+        }
+    }];
 }
+
 #pragma mark - tool method
 - (void)getAllAlbumInfo{
     if (!_hasPhotoRight) {
@@ -265,8 +275,24 @@ static SFPhotoPickerTool *sf_ph = nil;
     }
 }
 
+- (void)saveImageChecketAlbumANDCreat:(NSString *)albumTitle complete:(CreatePhotoAlbumComplete)complete{
+    PHAssetCollection *assetCollection = [self sf_returnAlbumWithTitle:albumTitle];
+    if (assetCollection) {
+        // 存在
+        if (complete) {
+            complete(assetCollection, nil);
+        }
+    }else{
+        // 创建
+        [self sf_createAlbumWithTitle:albumTitle complete:^(PHAssetCollection *album, NSError *__autoreleasing *error) {
+            if (complete) {
+                complete(album, error);
+            }
+        }];
+    }
+}
+
 - (void)saveImageSynchronizationInAlbumWithImage:(UIImage *)img albumTitle:(NSString *)albumTitle complete:(SaveImageComplete)complete{
-    WS(ws);
     PHAssetCollection *assetCollection = [self sf_returnAlbumWithTitle:albumTitle];
     [self sf_saveImageSynchronizationInCamareAlbum:img complete:^(BOOL isSuccess, NSError *__autoreleasing *err, NSString *imgID) {
         if (isSuccess) {
