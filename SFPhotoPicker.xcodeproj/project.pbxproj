@@ -28,6 +28,7 @@
 		E62886FA1E61D3C000F19D20 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886ED1E61D3C000F19D20 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		E62886FB1E61D3C000F19D20 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886EF1E61D3C000F19D20 /* View+MASAdditions.m */; };
 		E62886FC1E61D3C000F19D20 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886F21E61D3C000F19D20 /* ViewController+MASAdditions.m */; };
+		E62886FF1E61D60B00F19D20 /* SFThridMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886FE1E61D60B00F19D20 /* SFThridMethod.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,8 @@
 		E62886F01E61D3C000F19D20 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		E62886F11E61D3C000F19D20 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		E62886F21E61D3C000F19D20 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		E62886FD1E61D60B00F19D20 /* SFThridMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFThridMethod.h; sourceTree = "<group>"; };
+		E62886FE1E61D60B00F19D20 /* SFThridMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFThridMethod.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +245,8 @@
 			children = (
 				E62886D91E61D3C000F19D20 /* Masonry */,
 				E62886D21E61D32C00F19D20 /* MBProgressHUD */,
+				E62886FD1E61D60B00F19D20 /* SFThridMethod.h */,
+				E62886FE1E61D60B00F19D20 /* SFThridMethod.m */,
 			);
 			path = ThridTool;
 			sourceTree = "<group>";
@@ -435,6 +440,7 @@
 				E62886F61E61D3C000F19D20 /* MASLayoutConstraint.m in Sources */,
 				E62886891E5EC73B00F19D20 /* main.m in Sources */,
 				E62886C21E5EDD7D00F19D20 /* SFPhotoAlbumInfoModel.m in Sources */,
+				E62886FF1E61D60B00F19D20 /* SFThridMethod.m in Sources */,
 				E62886FC1E61D3C000F19D20 /* ViewController+MASAdditions.m in Sources */,
 				E62886D81E61D32C00F19D20 /* MBProgressHUD.m in Sources */,
 			);

@@ -10,7 +10,9 @@
 // main file
 #import "SFPhotoPickerTool.h"
 // thrid tool
-#import "MBProgressHUD.h"
+#import "SFThridMethod.h"
+
+#define WS(weakSelf) __weak __typeof(&*self)weakSelf = self;
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource>{
     NSArray *_titleArr;
     SFPhotoPickerTool *_tool;
@@ -74,6 +76,7 @@ static NSString *kHomeCellID = @"kHomeCellID";
             
         case 1:{
             // 获取手机相册权限
+            [self askPhotoRight];
         }
             break;
             
@@ -85,19 +88,43 @@ static NSString *kHomeCellID = @"kHomeCellID";
 #pragma mark - row selected action
 - (void)getPhotoRightStatus{
     PHAuthorizationStatus status = [_tool sf_askPhotoRightStatus];
-    NSString *message = @"未知错误";
-    switch (status) {
-        case PHAuthorizationStatusAuthorized:{
-            message = @"";
-        }
-            break;
-            
-        default:
-            break;
-    }
+    [self judgementStatus:status];
 }
 
 - (void)askPhotoRight{
-    
+    [_tool sf_askPhotoRight:^(PHAuthorizationStatus stat) {
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self judgementStatus:stat];
+         });
+    }];
+}
+
+#pragma mark - public method
+- (void)judgementStatus:(PHAuthorizationStatus)status{
+    NSString *message = @"未知错误";
+    switch (status) {
+        case PHAuthorizationStatusAuthorized:{
+            message = @"用户已授权同意~";
+        }
+            break;
+            
+        case PHAuthorizationStatusRestricted:{
+            message = @"当前用户无权授权，请联系家长~";
+        }
+            break;
+            
+        case PHAuthorizationStatusDenied:{
+            message = @"用户拒绝授权";
+        }
+            break;
+            
+        case PHAuthorizationStatusNotDetermined:{
+            message = @"未取得用户同意";
+        }
+            break;
+        default:
+            break;
+    }
+    [[SFThridMethod sharedInstance] showHUDWithText:message showTime:1.5 toview:self.view];
 }
 @end
