@@ -29,6 +29,7 @@
 		E62886FB1E61D3C000F19D20 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886EF1E61D3C000F19D20 /* View+MASAdditions.m */; };
 		E62886FC1E61D3C000F19D20 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886F21E61D3C000F19D20 /* ViewController+MASAdditions.m */; };
 		E62886FF1E61D60B00F19D20 /* SFThridMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886FE1E61D60B00F19D20 /* SFThridMethod.m */; };
+		E62887021E61DD6500F19D20 /* SFPhotoAlbumListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E62887011E61DD6500F19D20 /* SFPhotoAlbumListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,8 @@
 		E62886F21E61D3C000F19D20 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		E62886FD1E61D60B00F19D20 /* SFThridMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFThridMethod.h; sourceTree = "<group>"; };
 		E62886FE1E61D60B00F19D20 /* SFThridMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFThridMethod.m; sourceTree = "<group>"; };
+		E62887001E61DD6500F19D20 /* SFPhotoAlbumListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoAlbumListViewController.h; sourceTree = "<group>"; };
+		E62887011E61DD6500F19D20 /* SFPhotoAlbumListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoAlbumListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +232,8 @@
 		E62886C41E601E4500F19D20 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				E62887001E61DD6500F19D20 /* SFPhotoAlbumListViewController.h */,
+				E62887011E61DD6500F19D20 /* SFPhotoAlbumListViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -437,6 +442,7 @@
 				E62886FA1E61D3C000F19D20 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				E628868C1E5EC73B00F19D20 /* AppDelegate.m in Sources */,
 				E62886F31E61D3C000F19D20 /* MASCompositeConstraint.m in Sources */,
+				E62887021E61DD6500F19D20 /* SFPhotoAlbumListViewController.m in Sources */,
 				E62886F61E61D3C000F19D20 /* MASLayoutConstraint.m in Sources */,
 				E62886891E5EC73B00F19D20 /* main.m in Sources */,
 				E62886C21E5EDD7D00F19D20 /* SFPhotoAlbumInfoModel.m in Sources */,
