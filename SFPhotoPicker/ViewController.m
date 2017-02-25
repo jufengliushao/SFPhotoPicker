@@ -7,7 +7,10 @@
 //
 
 #import "ViewController.h"
+// main file
 #import "SFPhotoPickerTool.h"
+// thrid tool
+#import "MBProgressHUD.h"
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource>{
     NSArray *_titleArr;
     SFPhotoPickerTool *_tool;
@@ -81,6 +84,20 @@ static NSString *kHomeCellID = @"kHomeCellID";
 
 #pragma mark - row selected action
 - (void)getPhotoRightStatus{
-    [_tool sf_askPhotoRightStatus];
+    PHAuthorizationStatus status = [_tool sf_askPhotoRightStatus];
+    NSString *message = @"未知错误";
+    switch (status) {
+        case PHAuthorizationStatusAuthorized:{
+            message = @"";
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)askPhotoRight{
+    
 }
 @end
