@@ -306,14 +306,10 @@ static SFPhotoPickerTool *sf_ph = nil;
     _ablumAllArray = [NSMutableArray arrayWithCapacity:0];
     // 遍历所有的自定义相簿
     for (PHAssetCollection *assetCollection in [self sf_getAllUserAlbum]) {
-        SFPhotoAlbumInfoModel *model = [[SFPhotoAlbumInfoModel alloc] init];
-        model.albumTitle = assetCollection.localizedTitle;
-        model.photosSum = assetCollection.estimatedAssetCount;
-        model.startDate = assetCollection.startDate;
-        model.endDate = assetCollection.endDate;
-        NSLog(@"%@", model.albumTitle);
-        [_ablumAllArray addObject:model];
+        [_ablumAllArray addObject:[self returnModel:assetCollection]];
     }
+    [_ablumAllArray insertObject:[self returnModel:[self sf_getScreentShotAlbum]] atIndex:0];
+    [_ablumAllArray insertObject:[self returnModel:[self sf_getCarmerPhotoAlbum]] atIndex:0];
 }
 
 - (void)saveImageChecketAlbumANDCreat:(NSString *)albumTitle complete:(CreatePhotoAlbumComplete)complete{
@@ -387,6 +383,17 @@ static SFPhotoPickerTool *sf_ph = nil;
             }
         }];
     }];
+}
+
+- (SFPhotoAlbumInfoModel *)returnModel:(PHAssetCollection *)assetCollection{
+    SFPhotoAlbumInfoModel *model = [[SFPhotoAlbumInfoModel alloc] init];
+    model.albumTitle = assetCollection.localizedTitle;
+    model.photosSum = assetCollection.estimatedAssetCount;
+    model.startDate = assetCollection.startDate;
+    model.endDate = assetCollection.endDate;
+    model.thumbArr = [self sf_getAllThumbOfAlbum:assetCollection];
+    model.originalArr = [self sf_getAllOriginalPfAlbum:assetCollection];
+    return model;
 }
 
 #pragma mark - getter

@@ -8,34 +8,79 @@
 
 #import "ViewController.h"
 #import "SFPhotoPickerTool.h"
-@interface ViewController ()
-@property (weak, nonatomic) IBOutlet UIImageView *img;
+@interface ViewController ()<UITableViewDelegate, UITableViewDataSource>{
+    NSArray *_titleArr;
+    SFPhotoPickerTool *_tool;
+}
+@property (weak, nonatomic) IBOutlet UITableView *mainTableView;
 
 @end
 
-@implementation ViewController
+static NSString *kHomeCellID = @"kHomeCellID";
 
+@implementation ViewController
+#pragma mark - system method
 - (void)viewDidLoad {
     [super viewDidLoad];
-    SFPhotoPickerTool *tool = [SFPhotoPickerTool sharedInstance];
-    dispatch_async(dispatch_queue_create("img_download_queeu", DISPATCH_QUEUE_CONCURRENT), ^{
-        UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487927504029&di=2d39f7b09eb4949ae6b4de16c72d0319&imgtype=0&src=http%3A%2F%2Fimg0.pconline.com.cn%2Fpconline%2Fbizi%2Fdesktop%2F1412%2FAXI5_1.jpg"]]];
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            if(img){
-                [tool sf_saveImageSynchronousInAlbumWithImage:img albumTitle:@"SFImg" complete:^(BOOL isSuccess, NSError *__autoreleasing *err, NSString *imgID) {
-                    NSLog(@"");
-                }];
-                self.img.image = img;
-            }
-        });
-    });
+    [self setTableView];
+    // setData
+    _titleArr = @[@"当前手机相册权限状态", @"获取手机相册权限", @"", @""];
+    _tool = [SFPhotoPickerTool sharedInstance];
     // Do any additional setup after loading the view, typically from a nib.
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.title = @"SFPhotoPicker";
+}
+
+#pragma mark - method
+- (void)setTableView{
+    self.mainTableView.tableFooterView = [[UIView alloc] init];
+    [self.mainTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kHomeCellID];
+}
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return _titleArr.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kHomeCellID forIndexPath:indexPath];
+    cell.textLabel.text = _titleArr[indexPath.row];
+    return cell;
+}
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.row) {
+        case 0:{
+            // 获取手机相册权限当前状态
+            [self getPhotoRightStatus];
+        }
+            break;
+            
+        case 1:{
+            // 获取手机相册权限
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark - row selected action
+- (void)getPhotoRightStatus{
+    [_tool sf_askPhotoRightStatus];
+}
 @end

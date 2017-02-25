@@ -150,6 +150,7 @@
 		E62886BA1E5ED61E00F19D20 /* SFPhotoMain */ = {
 			isa = PBXGroup;
 			children = (
+				E62886C31E601E4500F19D20 /* SFPhotoPicker */,
 				E62886BF1E5EDD6800F19D20 /* SFPhotoModel */,
 				E62886BB1E5ED61E00F19D20 /* SFPhotoTool */,
 			);
@@ -172,6 +173,29 @@
 				E62886C11E5EDD7D00F19D20 /* SFPhotoAlbumInfoModel.m */,
 			);
 			path = SFPhotoModel;
+			sourceTree = "<group>";
+		};
+		E62886C31E601E4500F19D20 /* SFPhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				E62886C41E601E4500F19D20 /* controller */,
+				E62886C51E601E4500F19D20 /* view */,
+			);
+			path = SFPhotoPicker;
+			sourceTree = "<group>";
+		};
+		E62886C41E601E4500F19D20 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		E62886C51E601E4500F19D20 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
