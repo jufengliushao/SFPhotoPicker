@@ -29,7 +29,7 @@ static NSString *kHomeCellID = @"kHomeCellID";
     [super viewDidLoad];
     [self setTableView];
     // setData
-    _titleArr = @[@"当前手机相册权限状态", @"获取手机相册权限", @"", @""];
+    _titleArr = @[@"当前手机相册权限状态", @"获取手机相册权限", @"相册列表", @""];
     _tool = [SFPhotoPickerTool sharedInstance];
     // Do any additional setup after loading the view, typically from a nib.
 }
@@ -80,6 +80,14 @@ static NSString *kHomeCellID = @"kHomeCellID";
         }
             break;
             
+        case 2:{
+            // 相册列表
+            if([self canGoNextStep]){
+                [self showUserAlbum];
+            }
+        }
+            break;
+            
         default:
             break;
     }
@@ -99,6 +107,9 @@ static NSString *kHomeCellID = @"kHomeCellID";
     }];
 }
 
+- (void)showUserAlbum{
+    
+}
 #pragma mark - public method
 - (void)judgementStatus:(PHAuthorizationStatus)status{
     NSString *message = @"未知错误";
@@ -126,5 +137,13 @@ static NSString *kHomeCellID = @"kHomeCellID";
             break;
     }
     [[SFThridMethod sharedInstance] showHUDWithText:message showTime:1.5 toview:self.view];
+}
+
+- (BOOL)canGoNextStep{
+    if ([_tool sf_askPhotoRightStatus] != PHAuthorizationStatusAuthorized) {
+        [[SFThridMethod sharedInstance] showHUDWithText:@"请先获取相册使用权限，然后再试~" showTime:1.5 toview:self.view];
+        return NO;
+    }
+    return YES;
 }
 @end
