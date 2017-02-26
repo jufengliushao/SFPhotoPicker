@@ -101,6 +101,8 @@
 		E62886FE1E61D60B00F19D20 /* SFThridMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFThridMethod.m; sourceTree = "<group>"; };
 		E62887001E61DD6500F19D20 /* SFPhotoAlbumListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoAlbumListViewController.h; sourceTree = "<group>"; };
 		E62887011E61DD6500F19D20 /* SFPhotoAlbumListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoAlbumListViewController.m; sourceTree = "<group>"; };
+		E62887031E62578600F19D20 /* SFPhotoPickerHelper.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoPickerHelper.pch; sourceTree = "<group>"; };
+		E62887041E62582F00F19D20 /* SFPhotoPickerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoPickerHeader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,8 @@
 				E628868B1E5EC73B00F19D20 /* AppDelegate.m */,
 				E628868D1E5EC73B00F19D20 /* ViewController.h */,
 				E628868E1E5EC73B00F19D20 /* ViewController.m */,
+				E62887031E62578600F19D20 /* SFPhotoPickerHelper.pch */,
+				E62887041E62582F00F19D20 /* SFPhotoPickerHeader.h */,
 				E62886901E5EC73B00F19D20 /* Main.storyboard */,
 				E62886931E5EC73B00F19D20 /* Assets.xcassets */,
 				E62886951E5EC73B00F19D20 /* LaunchScreen.storyboard */,
@@ -598,6 +602,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = AR3398K2DD;
+				GCC_PREFIX_HEADER = SFPhotoPicker/SFPhotoPickerHelper.pch;
 				INFOPLIST_FILE = SFPhotoPicker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -611,6 +616,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = AR3398K2DD;
+				GCC_PREFIX_HEADER = SFPhotoPicker/SFPhotoPickerHelper.pch;
 				INFOPLIST_FILE = SFPhotoPicker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

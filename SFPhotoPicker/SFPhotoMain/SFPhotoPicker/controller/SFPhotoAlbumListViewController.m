@@ -9,13 +9,14 @@
 #import "SFPhotoAlbumListViewController.h"
 
 @interface SFPhotoAlbumListViewController ()
-
+@property (nonatomic, strong) UITableView *albumListTableView;
 @end
 
 @implementation SFPhotoAlbumListViewController
 #pragma mark - system method
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.view addSubview:self.albumListTableView];
     // Do any additional setup after loading the view.
 }
 
@@ -29,6 +30,14 @@
     self.title = @"Album List";
 }
 
+#pragma mark - init
+- (UITableView *)albumListTableView{
+    if (!_albumListTableView) {
+        _albumListTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:(UITableViewStylePlain)];
+        _albumListTableView.tableFooterView = [[UIView alloc] init];
+    }
+    return _albumListTableView;
+}
 /*
 #pragma mark - Navigation
 

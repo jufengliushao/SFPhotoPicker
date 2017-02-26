@@ -7,10 +7,8 @@
 //
 
 #import "ViewController.h"
-// main file
-#import "SFPhotoPickerTool.h"
-// thrid tool
-#import "SFThridMethod.h"
+// album list
+#import "SFPhotoAlbumListViewController.h"
 
 #define WS(weakSelf) __weak __typeof(&*self)weakSelf = self;
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource>{
@@ -108,7 +106,8 @@ static NSString *kHomeCellID = @"kHomeCellID";
 }
 
 - (void)showUserAlbum{
-    
+    SFPhotoAlbumListViewController *vc = [[SFPhotoAlbumListViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark - public method
 - (void)judgementStatus:(PHAuthorizationStatus)status{
