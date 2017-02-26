@@ -13,6 +13,7 @@
 typedef void(^AskPhotoRightResult)(PHAuthorizationStatus stat);
 typedef void(^CreatePhotoAlbumComplete)(PHAssetCollection *album, NSError * __autoreleasing* error);
 typedef void(^SaveImageComplete)(BOOL isSuccess, NSError * __autoreleasing * err, NSString *imgID);
+typedef void(^GetImageResult)(UIImage *result, NSDictionary *info);
 
 @interface SFPhotoPickerTool : NSObject
 /**
@@ -74,7 +75,7 @@ typedef void(^SaveImageComplete)(BOOL isSuccess, NSError * __autoreleasing * err
 - (PHAssetCollection *)sf_getRecentPhotoAlbum;
 
 /**
- 获取指定相册下的所有缩略图片
+ 获取指定相册下的所有缩略图片id
 
  @param album <#album description#>
  @return <#return value description#>
@@ -82,12 +83,22 @@ typedef void(^SaveImageComplete)(BOOL isSuccess, NSError * __autoreleasing * err
 - (NSArray *)sf_getAllThumbOfAlbum:(PHAssetCollection *)album;
 
 /**
- 获取指定相册下所有的原图
+ 获取指定相册下所有的原图id
 
  @param album <#album description#>
  @return <#return value description#>
  */
-- (NSArray *)sf_getAllOriginalPfAlbum:(PHAssetCollection *)album;
+- (NSArray *)sf_getAllOriginalOfAlbum:(PHAssetCollection *)album;
+
+/**
+ 根据图片的id获取图片
+
+ @param localIndetifier 图片的id
+ @param synchronous 是否同步获取
+ @param thumb 是否为缩略图
+ @param complete 完成回调
+ */
+- (void)sf_getImageWithLocalIdentifier:(NSString *)localIndetifier isSynchronous:(BOOL)synchronous isThumbImage:(BOOL)thumb complete:(GetImageResult)complete;
 
 /**
  返回指定相册名相册

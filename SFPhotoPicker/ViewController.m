@@ -10,7 +10,6 @@
 // album list
 #import "SFPhotoAlbumListViewController.h"
 
-#define WS(weakSelf) __weak __typeof(&*self)weakSelf = self;
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource>{
     NSArray *_titleArr;
     SFPhotoPickerTool *_tool;

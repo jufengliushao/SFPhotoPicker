@@ -30,6 +30,7 @@
 		E62886FC1E61D3C000F19D20 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886F21E61D3C000F19D20 /* ViewController+MASAdditions.m */; };
 		E62886FF1E61D60B00F19D20 /* SFThridMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886FE1E61D60B00F19D20 /* SFThridMethod.m */; };
 		E62887021E61DD6500F19D20 /* SFPhotoAlbumListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E62887011E61DD6500F19D20 /* SFPhotoAlbumListViewController.m */; };
+		E62887081E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E62887071E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,8 @@
 		E62887011E61DD6500F19D20 /* SFPhotoAlbumListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoAlbumListViewController.m; sourceTree = "<group>"; };
 		E62887031E62578600F19D20 /* SFPhotoPickerHelper.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoPickerHelper.pch; sourceTree = "<group>"; };
 		E62887041E62582F00F19D20 /* SFPhotoPickerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoPickerHeader.h; sourceTree = "<group>"; };
+		E62887061E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoPickerAlbumListTableViewCell.h; sourceTree = "<group>"; };
+		E62887071E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoPickerAlbumListTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +248,7 @@
 		E62886C51E601E4500F19D20 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				E62887051E6258EB00F19D20 /* albumListCell */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -299,6 +303,15 @@
 				E62886F21E61D3C000F19D20 /* ViewController+MASAdditions.m */,
 			);
 			path = Masonry;
+			sourceTree = "<group>";
+		};
+		E62887051E6258EB00F19D20 /* albumListCell */ = {
+			isa = PBXGroup;
+			children = (
+				E62887061E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.h */,
+				E62887071E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m */,
+			);
+			path = albumListCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -441,6 +454,7 @@
 				E62886FB1E61D3C000F19D20 /* View+MASAdditions.m in Sources */,
 				E628868F1E5EC73B00F19D20 /* ViewController.m in Sources */,
 				E62886F41E61D3C000F19D20 /* MASConstraint.m in Sources */,
+				E62887081E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m in Sources */,
 				E62886BE1E5ED64000F19D20 /* SFPhotoPickerTool.m in Sources */,
 				E62886F71E61D3C000F19D20 /* MASViewAttribute.m in Sources */,
 				E62886FA1E61D3C000F19D20 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,

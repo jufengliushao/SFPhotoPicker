@@ -129,23 +129,18 @@ static SFPhotoPickerTool *sf_ph = nil;
     }
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     // 同步获得图片, 只会返回1张图片
-    options.synchronous = YES;
+    options.synchronous = NO;
     
     // 获得某个相簿中的所有PHAsset对象
     PHFetchResult<PHAsset *> *assets = [PHAsset fetchAssetsInAssetCollection:album options:nil];
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
     for (PHAsset *asset in assets) {
-        CGSize size = CGSizeZero;
-        
-        // 从asset中获得图片
-        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-            [array addObject:result];
-        }];
+        [array addObject:asset.localIdentifier];
     }
     return array;
 }
 
-- (NSArray *)sf_getAllOriginalPfAlbum:(PHAssetCollection *)album{
+- (NSArray *)sf_getAllOriginalOfAlbum:(PHAssetCollection *)album{
     if (!_hasPhotoRight) {
         return nil;
     }
@@ -157,14 +152,25 @@ static SFPhotoPickerTool *sf_ph = nil;
     PHFetchResult<PHAsset *> *assets = [PHAsset fetchAssetsInAssetCollection:album options:nil];
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
     for (PHAsset *asset in assets) {
-        CGSize size = CGSizeMake(asset.pixelWidth, asset.pixelHeight);
-        
-        // 从asset中获得图片
-        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-            [array addObject:result];
-        }];
+        [array addObject:asset.localIdentifier];
     }
     return array;
+}
+
+- (void)sf_getImageWithLocalIdentifier:(NSString *)localIndetifier isSynchronous:(BOOL)synchronous isThumbImage:(BOOL)thumb complete:(GetImageResult)complete{
+     PHAsset *asset = [PHAsset fetchAssetsWithLocalIdentifiers:@[localIndetifier] options:nil].lastObject;
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    // 同步获得图片, 只会返回1张图片
+    options.synchronous = synchronous;
+    CGSize size = CGSizeZero;
+    if (!thumb) {
+        size = CGSizeMake(asset.pixelWidth, asset.pixelHeight);
+    }
+    [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        if (complete) {
+            complete(result, info);
+        }
+    }];
 }
 
 - (PHAssetCollection *)sf_returnAlbumWithTitle:(NSString *)albumTitle{
@@ -392,7 +398,7 @@ static SFPhotoPickerTool *sf_ph = nil;
     model.startDate = assetCollection.startDate;
     model.endDate = assetCollection.endDate;
     model.thumbArr = [self sf_getAllThumbOfAlbum:assetCollection];
-    model.originalArr = [self sf_getAllOriginalPfAlbum:assetCollection];
+    model.originalArr = [self sf_getAllOriginalOfAlbum:assetCollection];
     return model;
 }
 

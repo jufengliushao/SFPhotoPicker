@@ -7,8 +7,13 @@
 //
 
 #import "SFPhotoAlbumListViewController.h"
+// cell
+#import "SFPhotoPickerAlbumListTableViewCell.h"
 
-@interface SFPhotoAlbumListViewController ()
+NSString * const kAlbumListCellID =@"kAlbumListCellID";
+@interface SFPhotoAlbumListViewController ()<UITableViewDelegate, UITableViewDataSource>{
+    NSArray *_albumInfoArr;
+}
 @property (nonatomic, strong) UITableView *albumListTableView;
 @end
 
@@ -16,6 +21,8 @@
 #pragma mark - system method
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self getAlbumData];
     [self.view addSubview:self.albumListTableView];
     // Do any additional setup after loading the view.
 }
@@ -30,11 +37,47 @@
     self.title = @"Album List";
 }
 
+#pragma mark - method
+- (void)getAlbumData{
+    dispatch_async(dispatch_queue_create("get_album_info", DISPATCH_QUEUE_CONCURRENT), ^{
+        _albumInfoArr = [SFPhotoPickerTool sharedInstance].allAlbumInfoArr;
+        if (_albumListTableView) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.albumListTableView reloadData];
+            });
+        }
+    });
+}
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return _albumInfoArr.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    SFPhotoPickerAlbumListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAlbumListCellID forIndexPath:indexPath];
+    [cell configureModel:_albumInfoArr[indexPath.row]];
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 120;
+}
+
+
 #pragma mark - init
 - (UITableView *)albumListTableView{
     if (!_albumListTableView) {
         _albumListTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:(UITableViewStylePlain)];
         _albumListTableView.tableFooterView = [[UIView alloc] init];
+        _albumListTableView.delegate = self;
+        _albumListTableView.dataSource = self;
+        [_albumListTableView registerClass:[SFPhotoPickerAlbumListTableViewCell class] forCellReuseIdentifier:kAlbumListCellID];
     }
     return _albumListTableView;
 }
