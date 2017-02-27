@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
 #import "SFPhotoAlbumInfoModel.h"
+#import "SFPhotoAssetInfoModel.h"
 
 typedef void(^AskPhotoRightResult)(PHAuthorizationStatus stat);
 typedef void(^CreatePhotoAlbumComplete)(PHAssetCollection *album, NSError * __autoreleasing* error);

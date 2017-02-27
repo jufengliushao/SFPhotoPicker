@@ -45,8 +45,8 @@
 
 #pragma mark - set data
 - (void)configureModel:(SFPhotoAlbumInfoModel *)configure{
-    NSString *imgID = configure.thumbArr.count > 0 ? configure.thumbArr[0] : nil;
-    [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:imgID isSynchronous:YES isThumbImage:YES complete:^(UIImage *result, NSDictionary *info) {
+    NSString *imgID = configure.thumbArr.count > 0 ? ((SFPhotoAssetInfoModel *)configure.thumbArr[0]).localeIndefiner : nil;
+    [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:imgID isSynchronous:YES isThumbImage:NO complete:^(UIImage *result, NSDictionary *info) {
         self.iconImageView.image = result;
     }];
     self.titleLabel.text = configure.albumTitle;

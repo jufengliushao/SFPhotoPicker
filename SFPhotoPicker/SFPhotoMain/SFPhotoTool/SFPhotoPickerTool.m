@@ -135,7 +135,9 @@ static SFPhotoPickerTool *sf_ph = nil;
     PHFetchResult<PHAsset *> *assets = [PHAsset fetchAssetsInAssetCollection:album options:nil];
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
     for (PHAsset *asset in assets) {
-        [array addObject:asset.localIdentifier];
+        SFPhotoAssetInfoModel *model = [[SFPhotoAssetInfoModel alloc] init];
+        model.localeIndefiner = asset.localIdentifier;
+        [array addObject:model];
     }
     return array;
 }
@@ -152,7 +154,9 @@ static SFPhotoPickerTool *sf_ph = nil;
     PHFetchResult<PHAsset *> *assets = [PHAsset fetchAssetsInAssetCollection:album options:nil];
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
     for (PHAsset *asset in assets) {
-        [array addObject:asset.localIdentifier];
+        SFPhotoAssetInfoModel *model = [[SFPhotoAssetInfoModel alloc] init];
+        model.localeIndefiner = asset.localIdentifier;
+        [array addObject:model];
     }
     return array;
 }

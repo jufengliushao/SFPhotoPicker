@@ -31,6 +31,8 @@
 		E62886FF1E61D60B00F19D20 /* SFThridMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = E62886FE1E61D60B00F19D20 /* SFThridMethod.m */; };
 		E62887021E61DD6500F19D20 /* SFPhotoAlbumListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E62887011E61DD6500F19D20 /* SFPhotoAlbumListViewController.m */; };
 		E62887081E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E62887071E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m */; };
+		E6CB2F8E1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2F8D1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m */; };
+		E6CB2F911E640226001368C2 /* SFPhotoAssetInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2F901E640226001368C2 /* SFPhotoAssetInfoModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +108,10 @@
 		E62887041E62582F00F19D20 /* SFPhotoPickerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoPickerHeader.h; sourceTree = "<group>"; };
 		E62887061E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoPickerAlbumListTableViewCell.h; sourceTree = "<group>"; };
 		E62887071E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoPickerAlbumListTableViewCell.m; sourceTree = "<group>"; };
+		E6CB2F8C1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoPickerImageSmallCollectionViewCell.h; sourceTree = "<group>"; };
+		E6CB2F8D1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoPickerImageSmallCollectionViewCell.m; sourceTree = "<group>"; };
+		E6CB2F8F1E640226001368C2 /* SFPhotoAssetInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoAssetInfoModel.h; sourceTree = "<group>"; };
+		E6CB2F901E640226001368C2 /* SFPhotoAssetInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoAssetInfoModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +229,8 @@
 			children = (
 				E62886C01E5EDD7D00F19D20 /* SFPhotoAlbumInfoModel.h */,
 				E62886C11E5EDD7D00F19D20 /* SFPhotoAlbumInfoModel.m */,
+				E6CB2F8F1E640226001368C2 /* SFPhotoAssetInfoModel.h */,
+				E6CB2F901E640226001368C2 /* SFPhotoAssetInfoModel.m */,
 			);
 			path = SFPhotoModel;
 			sourceTree = "<group>";
@@ -248,6 +256,7 @@
 		E62886C51E601E4500F19D20 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				E6CB2F8B1E63FFD9001368C2 /* albumImageCell */,
 				E62887051E6258EB00F19D20 /* albumListCell */,
 			);
 			path = view;
@@ -312,6 +321,15 @@
 				E62887071E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m */,
 			);
 			path = albumListCell;
+			sourceTree = "<group>";
+		};
+		E6CB2F8B1E63FFD9001368C2 /* albumImageCell */ = {
+			isa = PBXGroup;
+			children = (
+				E6CB2F8C1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.h */,
+				E6CB2F8D1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m */,
+			);
+			path = albumImageCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -452,8 +470,10 @@
 				E62886F81E61D3C000F19D20 /* MASViewConstraint.m in Sources */,
 				E62886F51E61D3C000F19D20 /* MASConstraintMaker.m in Sources */,
 				E62886FB1E61D3C000F19D20 /* View+MASAdditions.m in Sources */,
+				E6CB2F911E640226001368C2 /* SFPhotoAssetInfoModel.m in Sources */,
 				E628868F1E5EC73B00F19D20 /* ViewController.m in Sources */,
 				E62886F41E61D3C000F19D20 /* MASConstraint.m in Sources */,
+				E6CB2F8E1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m in Sources */,
 				E62887081E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m in Sources */,
 				E62886BE1E5ED64000F19D20 /* SFPhotoPickerTool.m in Sources */,
 				E62886F71E61D3C000F19D20 /* MASViewAttribute.m in Sources */,
