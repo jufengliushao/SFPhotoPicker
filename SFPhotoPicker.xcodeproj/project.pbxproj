@@ -33,6 +33,7 @@
 		E62887081E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E62887071E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m */; };
 		E6CB2F8E1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2F8D1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m */; };
 		E6CB2F911E640226001368C2 /* SFPhotoAssetInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2F901E640226001368C2 /* SFPhotoAssetInfoModel.m */; };
+		E6CB2F941E64064B001368C2 /* SFPhotoAlbumThumbListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2F931E64064B001368C2 /* SFPhotoAlbumThumbListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,8 @@
 		E6CB2F8D1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoPickerImageSmallCollectionViewCell.m; sourceTree = "<group>"; };
 		E6CB2F8F1E640226001368C2 /* SFPhotoAssetInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoAssetInfoModel.h; sourceTree = "<group>"; };
 		E6CB2F901E640226001368C2 /* SFPhotoAssetInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoAssetInfoModel.m; sourceTree = "<group>"; };
+		E6CB2F921E64064B001368C2 /* SFPhotoAlbumThumbListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoAlbumThumbListViewController.h; sourceTree = "<group>"; };
+		E6CB2F931E64064B001368C2 /* SFPhotoAlbumThumbListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoAlbumThumbListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +252,8 @@
 			children = (
 				E62887001E61DD6500F19D20 /* SFPhotoAlbumListViewController.h */,
 				E62887011E61DD6500F19D20 /* SFPhotoAlbumListViewController.m */,
+				E6CB2F921E64064B001368C2 /* SFPhotoAlbumThumbListViewController.h */,
+				E6CB2F931E64064B001368C2 /* SFPhotoAlbumThumbListViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -485,6 +490,7 @@
 				E62886891E5EC73B00F19D20 /* main.m in Sources */,
 				E62886C21E5EDD7D00F19D20 /* SFPhotoAlbumInfoModel.m in Sources */,
 				E62886FF1E61D60B00F19D20 /* SFThridMethod.m in Sources */,
+				E6CB2F941E64064B001368C2 /* SFPhotoAlbumThumbListViewController.m in Sources */,
 				E62886FC1E61D3C000F19D20 /* ViewController+MASAdditions.m in Sources */,
 				E62886D81E61D32C00F19D20 /* MBProgressHUD.m in Sources */,
 			);

@@ -14,7 +14,7 @@
 @property (nonatomic, assign) NSInteger photosSum; /* 照片总数 */
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *endDate;
-@property (nonatomic, strong) NSArray *thumbArr; /* 缩略图数组 */
-@property (nonatomic, strong) NSArray *originalArr; /* 原图数组 */
+@property (nonatomic, strong) NSArray *imgModelArr; /* 图片数组 */
+@property (nonatomic, strong) NSArray *assetArr;
 
 @end

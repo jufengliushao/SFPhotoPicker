@@ -9,6 +9,7 @@
 #import "SFPhotoAlbumListViewController.h"
 // cell
 #import "SFPhotoPickerAlbumListTableViewCell.h"
+#import "SFPhotoAlbumThumbListViewController.h"
 
 NSString * const kAlbumListCellID =@"kAlbumListCellID";
 @interface SFPhotoAlbumListViewController ()<UITableViewDelegate, UITableViewDataSource>{
@@ -69,6 +70,11 @@ NSString * const kAlbumListCellID =@"kAlbumListCellID";
     return 120;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    SFPhotoAlbumThumbListViewController *vc = [[SFPhotoAlbumThumbListViewController alloc] initWithAlbumModel:_albumInfoArr[indexPath.row]];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 #pragma mark - init
 - (UITableView *)albumListTableView{

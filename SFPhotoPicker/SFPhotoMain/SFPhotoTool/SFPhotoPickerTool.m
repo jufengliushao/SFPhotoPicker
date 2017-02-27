@@ -127,38 +127,16 @@ static SFPhotoPickerTool *sf_ph = nil;
     if (!_hasPhotoRight) {
         return nil;
     }
-    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-    // 同步获得图片, 只会返回1张图片
-    options.synchronous = NO;
-    
-    // 获得某个相簿中的所有PHAsset对象
-    PHFetchResult<PHAsset *> *assets = [PHAsset fetchAssetsInAssetCollection:album options:nil];
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
-    for (PHAsset *asset in assets) {
-        SFPhotoAssetInfoModel *model = [[SFPhotoAssetInfoModel alloc] init];
-        model.localeIndefiner = asset.localIdentifier;
-        [array addObject:model];
-    }
-    return array;
+    NSArray *assetArr = [self returnAlbumAsset:album];
+    return [self returnPhotoInfoModelWithAssets:assetArr];
 }
 
 - (NSArray *)sf_getAllOriginalOfAlbum:(PHAssetCollection *)album{
     if (!_hasPhotoRight) {
         return nil;
     }
-    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-    // 同步获得图片, 只会返回1张图片
-    options.synchronous = YES;
-    
-    // 获得某个相簿中的所有PHAsset对象
-    PHFetchResult<PHAsset *> *assets = [PHAsset fetchAssetsInAssetCollection:album options:nil];
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
-    for (PHAsset *asset in assets) {
-        SFPhotoAssetInfoModel *model = [[SFPhotoAssetInfoModel alloc] init];
-        model.localeIndefiner = asset.localIdentifier;
-        [array addObject:model];
-    }
-    return array;
+    NSArray *assetArr = [self returnAlbumAsset:album];
+    return [self returnPhotoInfoModelWithAssets:assetArr];
 }
 
 - (void)sf_getImageWithLocalIdentifier:(NSString *)localIndetifier isSynchronous:(BOOL)synchronous isThumbImage:(BOOL)thumb complete:(GetImageResult)complete{
@@ -175,6 +153,16 @@ static SFPhotoPickerTool *sf_ph = nil;
             complete(result, info);
         }
     }];
+}
+
+- (void)sf_cachingImageWithAlbumTitle:(NSString *)albumTitle targetSize:(CGSize)targetSize{
+    PHAssetCollection *album = [self sf_returnAlbumWithTitle:albumTitle];
+    if(album){
+        // 获取成功
+         PHFetchResult<PHAsset *> *assets = [PHAsset fetchAssetsInAssetCollection:album options:nil];
+        PHCachingImageManager *cachingManager = [[PHCachingImageManager alloc] init];
+        [cachingManager startCachingImagesForAssets:assets targetSize:targetSize contentMode:(PHImageContentModeAspectFill) options:nil];
+    }
 }
 
 - (PHAssetCollection *)sf_returnAlbumWithTitle:(NSString *)albumTitle{
@@ -395,14 +383,34 @@ static SFPhotoPickerTool *sf_ph = nil;
     }];
 }
 
+- (NSArray *)returnAlbumAsset:(PHAssetCollection *)album{
+    // 获得某个相簿中的所有PHAsset对象
+    PHFetchResult<PHAsset *> *assets = [PHAsset fetchAssetsInAssetCollection:album options:nil];
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+    for (PHAsset *asset in assets) {
+        [array addObject:asset];
+    }
+    return array;
+}
+
+- (NSArray *)returnPhotoInfoModelWithAssets:(NSArray *)assets{
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+    for (PHAsset *asset in assets) {
+        SFPhotoAssetInfoModel *model = [[SFPhotoAssetInfoModel alloc] init];
+        model.localeIndefiner = asset.localIdentifier;
+        [array addObject:model];
+    }
+    return array;
+}
+
 - (SFPhotoAlbumInfoModel *)returnModel:(PHAssetCollection *)assetCollection{
     SFPhotoAlbumInfoModel *model = [[SFPhotoAlbumInfoModel alloc] init];
     model.albumTitle = assetCollection.localizedTitle;
     model.photosSum = assetCollection.estimatedAssetCount;
     model.startDate = assetCollection.startDate;
     model.endDate = assetCollection.endDate;
-    model.thumbArr = [self sf_getAllThumbOfAlbum:assetCollection];
-    model.originalArr = [self sf_getAllOriginalOfAlbum:assetCollection];
+    model.assetArr = [self returnAlbumAsset:assetCollection];
+    model.imgModelArr = [self returnPhotoInfoModelWithAssets:model.assetArr];
     return model;
 }
 

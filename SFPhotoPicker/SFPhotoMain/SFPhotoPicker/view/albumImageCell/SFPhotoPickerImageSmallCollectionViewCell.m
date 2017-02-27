@@ -18,6 +18,13 @@
     [super drawRect:rect];
 }
 
+#pragma mark - set data
+- (void)configureModel:(SFPhotoAssetInfoModel *)model{
+    [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:model.localeIndefiner isSynchronous:NO isThumbImage:NO complete:^(UIImage *result, NSDictionary *info) {
+        self.thumbImageView.image = result;
+    }];
+}
+
 #pragma mark - init
 - (UIImageView *)thumbImageView{
     if (!_thumbImageView) {
