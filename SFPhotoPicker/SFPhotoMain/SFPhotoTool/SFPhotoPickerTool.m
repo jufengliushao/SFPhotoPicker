@@ -139,15 +139,16 @@ static SFPhotoPickerTool *sf_ph = nil;
     return [self returnPhotoInfoModelWithAssets:assetArr];
 }
 
-- (void)sf_getImageWithLocalIdentifier:(NSString *)localIndetifier isSynchronous:(BOOL)synchronous isThumbImage:(BOOL)thumb complete:(GetImageResult)complete{
+- (void)sf_getImageWithLocalIdentifier:(NSString *)localIndetifier size:(CGSize)size isSynchronous:(BOOL)synchronous isThumbImage:(BOOL)thumb complete:(GetImageResult)complete{
      PHAsset *asset = [PHAsset fetchAssetsWithLocalIdentifiers:@[localIndetifier] options:nil].lastObject;
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     // 同步获得图片, 只会返回1张图片
+    options.resizeMode = PHImageRequestOptionsResizeModeFast;
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
     options.synchronous = synchronous;
-    CGSize size = CGSizeZero;
-    if (!thumb) {
-        size = CGSizeMake(asset.pixelWidth, asset.pixelHeight);
-    }
+//    if (!thumb) {
+//        size = CGSizeMake(asset.pixelWidth, asset.pixelHeight);
+//    }
     [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         if (complete) {
             complete(result, info);
@@ -155,14 +156,14 @@ static SFPhotoPickerTool *sf_ph = nil;
     }];
 }
 
-- (void)sf_cachingImageWithAlbumTitle:(NSString *)albumTitle targetSize:(CGSize)targetSize{
-    PHAssetCollection *album = [self sf_returnAlbumWithTitle:albumTitle];
-    if(album){
-        // 获取成功
-         PHFetchResult<PHAsset *> *assets = [PHAsset fetchAssetsInAssetCollection:album options:nil];
-        PHCachingImageManager *cachingManager = [[PHCachingImageManager alloc] init];
-        [cachingManager startCachingImagesForAssets:assets targetSize:targetSize contentMode:(PHImageContentModeAspectFill) options:nil];
-    }
+- (void)sf_cachingImageWithAssets:(NSArray *)assets targetSize:(CGSize)targetSize{
+    // 获取成功
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    options.resizeMode = PHImageRequestOptionsResizeModeFast;
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
+    options.synchronous = YES;
+    PHCachingImageManager *cachingManager = [[PHCachingImageManager alloc] init];
+    [cachingManager startCachingImagesForAssets:assets targetSize:targetSize contentMode:(PHImageContentModeAspectFill) options:options];
 }
 
 - (PHAssetCollection *)sf_returnAlbumWithTitle:(NSString *)albumTitle{

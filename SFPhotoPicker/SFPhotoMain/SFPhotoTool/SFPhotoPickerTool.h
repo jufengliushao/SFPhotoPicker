@@ -62,6 +62,14 @@ typedef void(^GetImageResult)(UIImage *result, NSDictionary *info);
 - (PHAssetCollection *)sf_getCarmerPhotoAlbum;
 
 /**
+ 缓存指定相册的图片------size需要与展示的size一致，否则不会走缓存
+
+ @param assets albumModel -> assetsArr
+ @param targetSize <#targetSize description#>
+ */
+- (void)sf_cachingImageWithAssets:(NSArray *)assets targetSize:(CGSize)targetSize;
+
+/**
  返回用户手机截图相册
 
  @return <#return value description#>
@@ -99,7 +107,7 @@ typedef void(^GetImageResult)(UIImage *result, NSDictionary *info);
  @param thumb 是否为缩略图
  @param complete 完成回调
  */
-- (void)sf_getImageWithLocalIdentifier:(NSString *)localIndetifier isSynchronous:(BOOL)synchronous isThumbImage:(BOOL)thumb complete:(GetImageResult)complete;
+- (void)sf_getImageWithLocalIdentifier:(NSString *)localIndetifier size:(CGSize)size isSynchronous:(BOOL)synchronous isThumbImage:(BOOL)thumb complete:(GetImageResult)complete;
 
 /**
  返回指定相册名相册

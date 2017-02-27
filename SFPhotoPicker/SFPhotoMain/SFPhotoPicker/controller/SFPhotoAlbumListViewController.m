@@ -25,6 +25,7 @@ NSString * const kAlbumListCellID =@"kAlbumListCellID";
     self.view.backgroundColor = [UIColor whiteColor];
     [self getAlbumData];
     [self.view addSubview:self.albumListTableView];
+     [[SFPhotoPickerTool sharedInstance] sf_cachingImageWithAssets:[_albumInfoArr[0] assetArr] targetSize:CGSizeMake(150, 150)];
     // Do any additional setup after loading the view.
 }
 
@@ -72,7 +73,8 @@ NSString * const kAlbumListCellID =@"kAlbumListCellID";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    SFPhotoAlbumThumbListViewController *vc = [[SFPhotoAlbumThumbListViewController alloc] initWithAlbumModel:_albumInfoArr[indexPath.row]];
+    SFPhotoAlbumInfoModel *model = _albumInfoArr[indexPath.row];
+    SFPhotoAlbumThumbListViewController *vc = [[SFPhotoAlbumThumbListViewController alloc] initWithAlbumModel:model];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

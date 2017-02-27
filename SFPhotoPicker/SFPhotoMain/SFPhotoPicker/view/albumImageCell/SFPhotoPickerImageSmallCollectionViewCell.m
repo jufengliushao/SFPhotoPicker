@@ -20,9 +20,13 @@
 
 #pragma mark - set data
 - (void)configureModel:(SFPhotoAssetInfoModel *)model{
-    [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:model.localeIndefiner isSynchronous:NO isThumbImage:NO complete:^(UIImage *result, NSDictionary *info) {
-        self.thumbImageView.image = result;
-    }];
+    dispatch_async(dispatch_queue_create("load_img_queue", DISPATCH_QUEUE_CONCURRENT), ^{
+        [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:model.localeIndefiner size:CGSizeMake(150, 150) isSynchronous:YES isThumbImage:YES complete:^(UIImage *result, NSDictionary *info) {
+            dispatch_barrier_sync(dispatch_get_main_queue(), ^{
+                 self.thumbImageView.image = result;
+            });
+        }];
+    });
 }
 
 #pragma mark - init
