@@ -139,16 +139,13 @@ static SFPhotoPickerTool *sf_ph = nil;
     return [self returnPhotoInfoModelWithAssets:assetArr];
 }
 
-- (void)sf_getImageWithLocalIdentifier:(NSString *)localIndetifier size:(CGSize)size isSynchronous:(BOOL)synchronous isThumbImage:(BOOL)thumb complete:(GetImageResult)complete{
+- (void)sf_getImageWithLocalIdentifier:(NSString *)localIndetifier size:(CGSize)size isSynchronous:(BOOL)synchronous complete:(GetImageResult)complete{
      PHAsset *asset = [PHAsset fetchAssetsWithLocalIdentifiers:@[localIndetifier] options:nil].lastObject;
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     // 同步获得图片, 只会返回1张图片
     options.resizeMode = PHImageRequestOptionsResizeModeFast;
     options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
     options.synchronous = synchronous;
-//    if (!thumb) {
-//        size = CGSizeMake(asset.pixelWidth, asset.pixelHeight);
-//    }
     [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         if (complete) {
             complete(result, info);

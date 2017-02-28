@@ -25,7 +25,7 @@ NSString * const kAlbumListCellID =@"kAlbumListCellID";
     self.view.backgroundColor = [UIColor whiteColor];
     [self getAlbumData];
     [self.view addSubview:self.albumListTableView];
-     [[SFPhotoPickerTool sharedInstance] sf_cachingImageWithAssets:[_albumInfoArr[0] assetArr] targetSize:CGSizeMake(150, 150)];
+     [[SFPhotoPickerTool sharedInstance] sf_cachingImageWithAssets:[_albumInfoArr[0] assetArr] targetSize:CGSizeMake(300, 300)];
     // Do any additional setup after loading the view.
 }
 

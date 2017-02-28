@@ -9,6 +9,12 @@
 #import "SFPhotoPickerImageSmallCollectionViewCell.h"
 #import "Masonry.h"
 
+@interface SFPhotoPickerImageSmallCollectionViewCell(){
+    SFPhotoAssetInfoModel *_dataModel;
+}
+
+@end
+
 @implementation SFPhotoPickerImageSmallCollectionViewCell
 #pragma mark - system method
 - (void)drawRect:(CGRect)rect{
@@ -20,10 +26,13 @@
 
 #pragma mark - set data
 - (void)configureModel:(SFPhotoAssetInfoModel *)model{
+    _dataModel = model;
     dispatch_async(dispatch_queue_create("load_img_queue", DISPATCH_QUEUE_CONCURRENT), ^{
-        [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:model.localeIndefiner size:CGSizeMake(150, 150) isSynchronous:YES isThumbImage:YES complete:^(UIImage *result, NSDictionary *info) {
+        [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:model.localeIndefiner size:CGSizeMake(300, 300) isSynchronous:YES complete:^(UIImage *result, NSDictionary *info) {
             dispatch_barrier_sync(dispatch_get_main_queue(), ^{
-                 self.thumbImageView.image = result;
+                if (_dataModel.localeIndefiner == model.localeIndefiner) {
+                    self.thumbImageView.image = result;
+                }
             });
         }];
     });
@@ -33,6 +42,7 @@
 - (UIImageView *)thumbImageView{
     if (!_thumbImageView) {
         _thumbImageView = [[UIImageView alloc] init];
+        _thumbImageView.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:_thumbImageView];
     }
     return _thumbImageView;
