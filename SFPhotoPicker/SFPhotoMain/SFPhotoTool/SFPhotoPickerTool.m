@@ -140,7 +140,13 @@ static SFPhotoPickerTool *sf_ph = nil;
 }
 
 - (void)sf_getImageWithLocalIdentifier:(NSString *)localIndetifier size:(CGSize)size isSynchronous:(BOOL)synchronous complete:(GetImageResult)complete{
-     PHAsset *asset = [PHAsset fetchAssetsWithLocalIdentifiers:@[localIndetifier] options:nil].lastObject;
+    if (!localIndetifier) {
+        return;
+    }
+    PHAsset *asset = [PHAsset fetchAssetsWithLocalIdentifiers:@[localIndetifier] options:nil].count > 0 ? [PHAsset fetchAssetsWithLocalIdentifiers:@[localIndetifier] options:nil].lastObject : nil;
+    if (!asset) {
+        return;
+    }
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     // 同步获得图片, 只会返回1张图片
     options.resizeMode = PHImageRequestOptionsResizeModeFast;
