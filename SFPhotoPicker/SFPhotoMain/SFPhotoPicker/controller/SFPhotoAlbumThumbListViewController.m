@@ -10,7 +10,7 @@
 #import "SFPhotoPickerImageSmallCollectionViewCell.h"
 
 NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
-@interface SFPhotoAlbumThumbListViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>{
+@interface SFPhotoAlbumThumbListViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching>{
     SFPhotoAlbumInfoModel *_dataModel;
 }
 
@@ -61,7 +61,23 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"########");
+    
+}
+
+#pragma mark - UICollectionViewDataSourcePrefetching
+- (void)collectionView:(UICollectionView *)collectionView prefetchItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths NS_AVAILABLE_IOS(10_0){
+    dispatch_async(dispatch_queue_create("prefeth_cell_queue", DISPATCH_QUEUE_CONCURRENT), ^{
+        for(NSIndexPath *index in indexPaths){
+            SFPhotoPickerImageSmallCollectionViewCell *item = (SFPhotoPickerImageSmallCollectionViewCell *)[collectionView cellForItemAtIndexPath:index];
+            [item configureModel:_dataModel.imgModelArr[index.row]];
+        }
+        NSLog(@"---------------");
+    });
+}
+
+#pragma mark - 
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+    
 }
 
 #pragma mark - init
@@ -75,6 +91,7 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
         _thumbCollectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
         _thumbCollectionView.delegate = self;
         _thumbCollectionView.dataSource = self;
+        _thumbCollectionView.prefetchDataSource = self;
         _thumbCollectionView.backgroundColor = [UIColor whiteColor];
         [_thumbCollectionView registerClass:[SFPhotoPickerImageSmallCollectionViewCell class] forCellWithReuseIdentifier:kThumbSmallItemID];
     }

@@ -29,7 +29,7 @@
     _dataModel = model;
     dispatch_async(dispatch_queue_create("load_img_queue", DISPATCH_QUEUE_CONCURRENT), ^{
         [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:model.localeIndefiner size:CGSizeMake(300, 300) isSynchronous:YES complete:^(UIImage *result, NSDictionary *info) {
-            dispatch_barrier_sync(dispatch_get_main_queue(), ^{
+            dispatch_sync(dispatch_get_main_queue(), ^{
                 if (_dataModel.localeIndefiner == model.localeIndefiner) {
                     self.thumbImageView.image = result;
                 }
