@@ -25,6 +25,7 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
         _dataModel = model;
         self.view.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:self.thumbCollectionView];
+        [self.thumbCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_dataModel.imgModelArr.count - 1 inSection:0] atScrollPosition:(UICollectionViewScrollPositionBottom) animated:NO];
     }
     return self;
 }
@@ -71,7 +72,6 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
             SFPhotoPickerImageSmallCollectionViewCell *item = (SFPhotoPickerImageSmallCollectionViewCell *)[collectionView cellForItemAtIndexPath:index];
             [item configureModel:_dataModel.imgModelArr[index.row]];
         }
-        NSLog(@"---------------");
     });
 }
 
@@ -92,6 +92,11 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
         _thumbCollectionView.delegate = self;
         _thumbCollectionView.dataSource = self;
         _thumbCollectionView.prefetchDataSource = self;
+        if (IS_IOS_10) {
+            _thumbCollectionView.prefetchingEnabled = YES;
+        }else{
+            _thumbCollectionView.prefetchingEnabled = NO;
+        }
         _thumbCollectionView.backgroundColor = [UIColor whiteColor];
         [_thumbCollectionView registerClass:[SFPhotoPickerImageSmallCollectionViewCell class] forCellWithReuseIdentifier:kThumbSmallItemID];
     }

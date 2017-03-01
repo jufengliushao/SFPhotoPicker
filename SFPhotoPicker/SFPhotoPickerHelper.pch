@@ -17,6 +17,9 @@
 
 #define WS(weakSelf) __weak __typeof(&*self)weakSelf = self;
 
+// version
+#define IS_IOS_10 floorf([[UIDevice currentDevice].systemVersion floatValue]) >=10.0 ? 1 : 0
+
 #import "SFPhotoPickerHeader.h"
 
 #endif /* SFPhotoPickerHelper_pch */
