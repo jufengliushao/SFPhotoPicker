@@ -27,15 +27,20 @@
 #pragma mark - set data
 - (void)configureModel:(SFPhotoAssetInfoModel *)model{
     _dataModel = model;
-    dispatch_async(dispatch_queue_create("load_img_queue", DISPATCH_QUEUE_CONCURRENT), ^{
-        [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:model.localeIndefiner size:CGSizeMake(300, 300) isSynchronous:YES complete:^(UIImage *result, NSDictionary *info) {
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                if (_dataModel.localeIndefiner == model.localeIndefiner) {
-                    self.thumbImageView.image = result;
-                }
-            });
-        }];
-    });
+    if (_dataModel.thumbImg) {
+        self.thumbImageView.image = _dataModel.thumbImg;
+    }else{
+        dispatch_async(dispatch_queue_create("load_img_queue", DISPATCH_QUEUE_CONCURRENT), ^{
+            [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:model.localeIndefiner size:CGSizeMake(300, 300) isSynchronous:YES complete:^(UIImage *result, NSDictionary *info) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (_dataModel.localeIndefiner == model.localeIndefiner) {
+                        self.thumbImageView.image = result;
+                        _dataModel.thumbImg = result;
+                    }
+                });
+            }];
+        });
+    }
 }
 
 #pragma mark - init

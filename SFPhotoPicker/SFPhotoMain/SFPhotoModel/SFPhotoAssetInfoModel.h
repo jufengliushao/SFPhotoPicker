@@ -13,5 +13,6 @@
 @property (nonatomic, copy) NSString *localeIndefiner;
 @property (nonatomic, assign) BOOL isSelected;
 @property (nonatomic, assign) NSInteger index;
+@property (nonatomic, strong) UIImage *thumbImg;
 
 @end
