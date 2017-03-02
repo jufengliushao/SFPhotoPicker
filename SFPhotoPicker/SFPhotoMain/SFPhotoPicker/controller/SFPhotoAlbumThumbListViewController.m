@@ -8,6 +8,7 @@
 
 #import "SFPhotoAlbumThumbListViewController.h"
 #import "SFPhotoPickerImageSmallCollectionViewCell.h"
+#import "SFPhotoDetailShowViewController.h"
 
 NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
 @interface SFPhotoAlbumThumbListViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching>{
@@ -62,7 +63,8 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+    SFPhotoDetailShowViewController *vc = [[SFPhotoDetailShowViewController alloc] initWithModel:_dataModel showIndex:indexPath.item];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UICollectionViewDataSourcePrefetching
@@ -73,11 +75,6 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
             [item configureModel:_dataModel.imgModelArr[index.row]];
         }
     });
-}
-
-#pragma mark - 
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    
 }
 
 #pragma mark - init

@@ -11,6 +11,7 @@
 @interface SFPhotoPickerImageSmallCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImageView *thumbImageView;
+@property (nonatomic, strong) UIButton *indexBtn;
 
 - (void)configureModel:(SFPhotoAssetInfoModel *)model;
 @end

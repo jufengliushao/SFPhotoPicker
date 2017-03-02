@@ -34,6 +34,7 @@
 		E6CB2F8E1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2F8D1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m */; };
 		E6CB2F911E640226001368C2 /* SFPhotoAssetInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2F901E640226001368C2 /* SFPhotoAssetInfoModel.m */; };
 		E6CB2F941E64064B001368C2 /* SFPhotoAlbumThumbListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2F931E64064B001368C2 /* SFPhotoAlbumThumbListViewController.m */; };
+		E6CB2FE81E66C6A5001368C2 /* SFPhotoDetailShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2FE71E66C6A5001368C2 /* SFPhotoDetailShowViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,8 @@
 		E6CB2F901E640226001368C2 /* SFPhotoAssetInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoAssetInfoModel.m; sourceTree = "<group>"; };
 		E6CB2F921E64064B001368C2 /* SFPhotoAlbumThumbListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoAlbumThumbListViewController.h; sourceTree = "<group>"; };
 		E6CB2F931E64064B001368C2 /* SFPhotoAlbumThumbListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoAlbumThumbListViewController.m; sourceTree = "<group>"; };
+		E6CB2FE61E66C6A5001368C2 /* SFPhotoDetailShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoDetailShowViewController.h; sourceTree = "<group>"; };
+		E6CB2FE71E66C6A5001368C2 /* SFPhotoDetailShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoDetailShowViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +257,8 @@
 				E62887011E61DD6500F19D20 /* SFPhotoAlbumListViewController.m */,
 				E6CB2F921E64064B001368C2 /* SFPhotoAlbumThumbListViewController.h */,
 				E6CB2F931E64064B001368C2 /* SFPhotoAlbumThumbListViewController.m */,
+				E6CB2FE61E66C6A5001368C2 /* SFPhotoDetailShowViewController.h */,
+				E6CB2FE71E66C6A5001368C2 /* SFPhotoDetailShowViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -471,6 +476,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6CB2FE81E66C6A5001368C2 /* SFPhotoDetailShowViewController.m in Sources */,
 				E62886F91E61D3C000F19D20 /* NSArray+MASAdditions.m in Sources */,
 				E62886F81E61D3C000F19D20 /* MASViewConstraint.m in Sources */,
 				E62886F51E61D3C000F19D20 /* MASConstraintMaker.m in Sources */,

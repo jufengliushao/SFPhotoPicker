@@ -21,6 +21,11 @@
     [self.thumbImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_offset(UIEdgeInsetsMake(0, 0, 0, 0));
     }];
+    [self.indexBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.trailing.mas_equalTo(-8);
+        make.top.mas_equalTo(8);
+        make.width.height.mas_equalTo(20);
+    }];
     [super drawRect:rect];
 }
 
@@ -43,6 +48,8 @@
     }
 }
 
+#pragma mark - block action
+
 #pragma mark - init
 - (UIImageView *)thumbImageView{
     if (!_thumbImageView) {
@@ -51,5 +58,16 @@
         [self.contentView addSubview:_thumbImageView];
     }
     return _thumbImageView;
+}
+
+- (UIButton *)indexBtn{
+    if(!_indexBtn){
+        _indexBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        [_indexBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        _indexBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        [_indexBtn setBackgroundColor:[UIColor clearColor]];
+        [self.thumbImageView addSubview:_indexBtn];
+    }
+    return _indexBtn;
 }
 @end
