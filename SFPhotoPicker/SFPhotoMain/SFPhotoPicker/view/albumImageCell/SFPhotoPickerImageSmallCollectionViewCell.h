@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) UIImageView *thumbImageView;
 @property (nonatomic, strong) UIButton *indexBtn;
+@property (nonatomic, strong) UIImageView *radioImageView;
+@property (nonatomic, strong) UILabel *indexLabel;
 
 - (void)configureModel:(SFPhotoAssetInfoModel *)model;
 @end

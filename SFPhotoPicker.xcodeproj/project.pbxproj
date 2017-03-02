@@ -35,6 +35,7 @@
 		E6CB2F911E640226001368C2 /* SFPhotoAssetInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2F901E640226001368C2 /* SFPhotoAssetInfoModel.m */; };
 		E6CB2F941E64064B001368C2 /* SFPhotoAlbumThumbListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2F931E64064B001368C2 /* SFPhotoAlbumThumbListViewController.m */; };
 		E6CB2FE81E66C6A5001368C2 /* SFPhotoDetailShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2FE71E66C6A5001368C2 /* SFPhotoDetailShowViewController.m */; };
+		E6CB302B1E685629001368C2 /* UIButton+SFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB302A1E685629001368C2 /* UIButton+SFButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,8 @@
 		E6CB2F931E64064B001368C2 /* SFPhotoAlbumThumbListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoAlbumThumbListViewController.m; sourceTree = "<group>"; };
 		E6CB2FE61E66C6A5001368C2 /* SFPhotoDetailShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoDetailShowViewController.h; sourceTree = "<group>"; };
 		E6CB2FE71E66C6A5001368C2 /* SFPhotoDetailShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoDetailShowViewController.m; sourceTree = "<group>"; };
+		E6CB30291E685629001368C2 /* UIButton+SFButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+SFButton.h"; sourceTree = "<group>"; };
+		E6CB302A1E685629001368C2 /* UIButton+SFButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+SFButton.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +278,7 @@
 		E62886D11E61D32C00F19D20 /* ThridTool */ = {
 			isa = PBXGroup;
 			children = (
+				E6CB30281E685629001368C2 /* SFHelper */,
 				E62886D91E61D3C000F19D20 /* Masonry */,
 				E62886D21E61D32C00F19D20 /* MBProgressHUD */,
 				E62886FD1E61D60B00F19D20 /* SFThridMethod.h */,
@@ -340,6 +344,15 @@
 				E6CB2F8D1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m */,
 			);
 			path = albumImageCell;
+			sourceTree = "<group>";
+		};
+		E6CB30281E685629001368C2 /* SFHelper */ = {
+			isa = PBXGroup;
+			children = (
+				E6CB30291E685629001368C2 /* UIButton+SFButton.h */,
+				E6CB302A1E685629001368C2 /* UIButton+SFButton.m */,
+			);
+			path = SFHelper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -492,6 +505,7 @@
 				E628868C1E5EC73B00F19D20 /* AppDelegate.m in Sources */,
 				E62886F31E61D3C000F19D20 /* MASCompositeConstraint.m in Sources */,
 				E62887021E61DD6500F19D20 /* SFPhotoAlbumListViewController.m in Sources */,
+				E6CB302B1E685629001368C2 /* UIButton+SFButton.m in Sources */,
 				E62886F61E61D3C000F19D20 /* MASLayoutConstraint.m in Sources */,
 				E62886891E5EC73B00F19D20 /* main.m in Sources */,
 				E62886C21E5EDD7D00F19D20 /* SFPhotoAlbumInfoModel.m in Sources */,
