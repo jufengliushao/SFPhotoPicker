@@ -59,10 +59,15 @@ static SFIndexCalculateTool *sf_index = nil;
 - (void)sf_removeModel:(SFPhotoAssetInfoModel *)model index:(NSIndexPath *)indexPath complete:(ChangeSelectedComplete)complete{
     if (model && indexPath && ![self isIndexExtise:indexPath]) {
         [self deleteObjectIndex:model];
-        [_selectedIndexArr removeObject:indexPath];
-        if (complete) {
-            complete(_selectedIndexArr, YES);
-        }
+        dispatch_queue_t concurrentQueue = dispatch_queue_create("barrier_concurrent_queue", DISPATCH_QUEUE_CONCURRENT);
+        dispatch_sync(concurrentQueue, ^{
+            if (complete) {
+                complete(_selectedIndexArr, YES);
+            }
+        });
+        dispatch_barrier_sync(concurrentQueue, ^{
+            [_selectedIndexArr removeObject:indexPath];
+        });
     }else{
         if (complete) {
             complete(_selectedIndexArr, NO);
@@ -86,10 +91,11 @@ static SFIndexCalculateTool *sf_index = nil;
 - (void)deleteObjectIndex:(SFPhotoAssetInfoModel *)model{
     NSInteger ind = model.index;
     for (NSInteger i = ind - 1; i < _selectedImgArr.count; i ++) {
-        SFPhotoAssetInfoModel *model = _selectedImgArr[i];
-        model.index --;
+        SFPhotoAssetInfoModel *model1 = _selectedImgArr[i];
+        model1.index --;
     }
-    [_selectedIndexArr removeObject:model];
+    model.index = 0;
+    [_selectedImgArr removeObject:model];
     -- _currIndex;
 }
 
