@@ -75,6 +75,11 @@ static SFIndexCalculateTool *sf_index = nil;
     }
 }
 
+- (void)sf_clearAllCalculateCache{
+    [self setZeroIndexForModel];
+    [_selectedImgArr removeAllObjects];
+    [_selectedIndexArr removeAllObjects];
+}
 #pragma mark - method
 - (BOOL)isIndexExtise:(NSIndexPath *)index{
     if ([_selectedIndexArr containsObject:index]) {
@@ -99,12 +104,19 @@ static SFIndexCalculateTool *sf_index = nil;
     -- _currIndex;
 }
 
+- (void)setZeroIndexForModel{
+    for (SFPhotoAssetInfoModel *model in _selectedImgArr) {
+        model.index = 0;
+    }
+    _currIndex = 1;
+}
+
 #pragma mark - getter
 - (NSInteger)currentIndex{
     return _currIndex;
 }
 
-- (NSArray *)selectedIndexImgArr{
+- (NSArray<SFPhotoAssetInfoModel *> *)selectedIndexImgArr{
     return _selectedImgArr;
 }
 @end

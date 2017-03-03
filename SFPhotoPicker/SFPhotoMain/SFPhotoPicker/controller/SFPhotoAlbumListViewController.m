@@ -37,6 +37,7 @@ NSString * const kAlbumListCellID =@"kAlbumListCellID";
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.title = @"Album List";
+    [[SFIndexCalculateTool shareInstance] sf_clearAllCalculateCache];
 }
 
 #pragma mark - method
