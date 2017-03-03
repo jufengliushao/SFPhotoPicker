@@ -11,6 +11,7 @@
 
 // main file
 #import "SFPhotoPickerTool.h"
+#import "SFIndexCalculateTool.h"
 // thrid tool
 #import "SFThridMethod.h"
 

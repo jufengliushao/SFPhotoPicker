@@ -11,7 +11,7 @@
 @interface SFPhotoAssetInfoModel : NSObject
 
 @property (nonatomic, copy) NSString *localeIndefiner;
-@property (nonatomic, assign) BOOL isSelected;
+@property (nonatomic, assign, readonly) BOOL isSelected;
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, strong) UIImage *thumbImg;
 

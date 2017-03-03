@@ -13,6 +13,7 @@
 NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
 @interface SFPhotoAlbumThumbListViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching>{
     SFPhotoAlbumInfoModel *_dataModel;
+    __block NSMutableArray *_arrayin;
 }
 
 @property (nonatomic, strong) UICollectionView *thumbCollectionView;
@@ -27,6 +28,7 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
         self.view.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:self.thumbCollectionView];
         [self.thumbCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_dataModel.imgModelArr.count - 1 inSection:0] atScrollPosition:(UICollectionViewScrollPositionBottom) animated:NO];
+        _arrayin = [NSMutableArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]];
     }
     return self;
 }
@@ -58,6 +60,19 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     SFPhotoPickerImageSmallCollectionViewCell *item = [collectionView dequeueReusableCellWithReuseIdentifier:kThumbSmallItemID forIndexPath:indexPath];
     [item configureModel:_dataModel.imgModelArr[indexPath.row]];
+    __block SFPhotoAssetInfoModel *model = _dataModel.imgModelArr[indexPath.row];
+    WS(ws);
+    [item.indexBtn addTargetAction:^(UIButton *sender) {
+        if (model.isSelected) {
+            [[SFIndexCalculateTool shareInstance] sf_removeModel:model index:indexPath complete:^(NSArray<NSIndexPath *> *indexPaths, BOOL isSuccess) {
+                [ws.thumbCollectionView reloadItemsAtIndexPaths:indexPaths];
+            }];
+        }else{
+            [[SFIndexCalculateTool shareInstance] sf_addImageModel:model index:indexPath complete:^(NSArray<NSIndexPath *> *indexPaths, BOOL isSuccess) {
+                [ws.thumbCollectionView reloadItemsAtIndexPaths:indexPaths];
+            }];
+        }
+    }];
     return item;
 }
 

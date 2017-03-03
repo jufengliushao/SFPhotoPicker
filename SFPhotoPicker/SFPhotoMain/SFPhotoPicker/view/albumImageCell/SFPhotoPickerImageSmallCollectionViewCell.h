@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SFPhotoAssetInfoModel.h"
+#import "UIButton+SFButton.h"
 @interface SFPhotoPickerImageSmallCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImageView *thumbImageView;

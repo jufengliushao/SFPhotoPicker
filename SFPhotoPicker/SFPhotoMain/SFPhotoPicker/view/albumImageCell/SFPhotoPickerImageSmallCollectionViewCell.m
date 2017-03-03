@@ -8,7 +8,7 @@
 
 #import "SFPhotoPickerImageSmallCollectionViewCell.h"
 #import "Masonry.h"
-#import "UIButton+SFButton.h"
+
 
 NSString * const defaultImg = @"radio.png";
 NSString * const selectedImg = @"color-radio";
@@ -60,6 +60,14 @@ NSString * const selectedImg = @"color-radio";
             }];
         });
     }
+    
+    if (model.isSelected) {
+        self.radioImageView.image = [UIImage imageNamed:selectedImg];
+        self.indexLabel.text = [NSString stringWithFormat:@"%ld", model.index];
+    }else{
+        self.radioImageView.image = [UIImage imageNamed:defaultImg];
+        self.indexLabel.text = @"";
+    }
 }
 
 #pragma mark - block action
@@ -84,10 +92,7 @@ NSString * const selectedImg = @"color-radio";
 - (UIButton *)indexBtn{
     if(!_indexBtn){
         _indexBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        [_indexBtn setBackgroundColor:[UIColor orangeColor]];
-        [_indexBtn addTargetAction:^(UIButton *sender) {
-            NSLog(@"**********");
-        }];
+        [_indexBtn setBackgroundColor:[UIColor clearColor]];
         [self.thumbImageView addSubview:_indexBtn];
     }
     return _indexBtn;
