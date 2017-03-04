@@ -11,6 +11,7 @@
 @interface SFPhotoDetailShowViewController (){
     SFPhotoAlbumInfoModel *_dataModel;
 }
+@property (nonatomic, strong) UICollectionView *photoCollectionView;
 
 @end
 

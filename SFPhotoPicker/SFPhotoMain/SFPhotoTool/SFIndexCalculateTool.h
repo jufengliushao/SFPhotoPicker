@@ -16,7 +16,7 @@ typedef void(^ChangeSelectedComplete)(NSArray <NSIndexPath *>*indexPaths, BOOL i
 /**
  选中image的数组
  */
-@property (nonatomic, strong, readonly) NSArray <SFPhotoAssetInfoModel *>*selectedIndexImgArr;
+@property (nonatomic, strong, readonly) __kindof NSArray <SFPhotoAssetInfoModel *>*selectedIndexImgArr;
 
 /**
  当前已经几张照片了 从1开始计数
