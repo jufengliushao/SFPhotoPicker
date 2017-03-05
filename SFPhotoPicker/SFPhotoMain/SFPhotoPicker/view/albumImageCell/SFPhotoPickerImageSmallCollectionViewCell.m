@@ -21,6 +21,13 @@ NSString * const selectedImg = @"color-radio";
 
 @implementation SFPhotoPickerImageSmallCollectionViewCell
 #pragma mark - system method
+- (instancetype)initWithFrame:(CGRect)frame{
+    if (self= [super initWithFrame:frame]) {
+        
+    }
+    return self;
+}
+
 - (void)drawRect:(CGRect)rect{
     WS(ws);
     [self.thumbImageView mas_makeConstraints:^(MASConstraintMaker *make) {

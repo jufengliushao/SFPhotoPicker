@@ -7,12 +7,14 @@
 //
 
 #import "SFPhotoDetailShowViewController.h"
+#import "SFPhotoDetailCollectionViewCell.h"
 
-@interface SFPhotoDetailShowViewController (){
+NSString *const photoDeatilCellID = @"photoDeatilCellID";
+
+@interface SFPhotoDetailShowViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>{
     SFPhotoAlbumInfoModel *_dataModel;
 }
 @property (nonatomic, strong) UICollectionView *photoCollectionView;
-
 @end
 
 @implementation SFPhotoDetailShowViewController
@@ -20,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.photoCollectionView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,7 +37,36 @@
     return self;
 }
 
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return 0;
+}
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    SFPhotoDetailCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:photoDeatilCellID forIndexPath:indexPath];
+    return cell;
+}
+#pragma mark - UICollectionViewDelegate
+
 #pragma mark - init
+- (UICollectionView *)photoCollectionView{
+    if (!_photoCollectionView) {
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        flowLayout.itemSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
+        flowLayout.minimumLineSpacing = 0;
+        flowLayout.minimumInteritemSpacing = 0;
+        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        _photoCollectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
+        _photoCollectionView.delegate = self;
+        _photoCollectionView.dataSource = self;
+        [_photoCollectionView registerClass:[SFPhotoDetailCollectionViewCell class] forCellWithReuseIdentifier:photoDeatilCellID];
+    }
+    return _photoCollectionView;
+}
 /*
 #pragma mark - Navigation
 

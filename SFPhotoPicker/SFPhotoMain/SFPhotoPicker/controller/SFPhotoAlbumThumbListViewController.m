@@ -92,6 +92,8 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
     });
 }
 
+#pragma mark -
+
 #pragma mark - init
 - (UICollectionView *)thumbCollectionView{
     if (!_thumbCollectionView) {

@@ -37,6 +37,7 @@
 		E6CB2FE81E66C6A5001368C2 /* SFPhotoDetailShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2FE71E66C6A5001368C2 /* SFPhotoDetailShowViewController.m */; };
 		E6CB302B1E685629001368C2 /* UIButton+SFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB302A1E685629001368C2 /* UIButton+SFButton.m */; };
 		E6CB302E1E6858FC001368C2 /* SFIndexCalculateTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB302D1E6858FC001368C2 /* SFIndexCalculateTool.m */; };
+		E6CB30AC1E6C5F3B001368C2 /* SFPhotoDetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB30AB1E6C5F3B001368C2 /* SFPhotoDetailCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +125,8 @@
 		E6CB302A1E685629001368C2 /* UIButton+SFButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+SFButton.m"; sourceTree = "<group>"; };
 		E6CB302C1E6858FC001368C2 /* SFIndexCalculateTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFIndexCalculateTool.h; sourceTree = "<group>"; };
 		E6CB302D1E6858FC001368C2 /* SFIndexCalculateTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFIndexCalculateTool.m; sourceTree = "<group>"; };
+		E6CB30AA1E6C5F3B001368C2 /* SFPhotoDetailCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoDetailCollectionViewCell.h; sourceTree = "<group>"; };
+		E6CB30AB1E6C5F3B001368C2 /* SFPhotoDetailCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoDetailCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -347,6 +350,8 @@
 			children = (
 				E6CB2F8C1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.h */,
 				E6CB2F8D1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m */,
+				E6CB30AA1E6C5F3B001368C2 /* SFPhotoDetailCollectionViewCell.h */,
+				E6CB30AB1E6C5F3B001368C2 /* SFPhotoDetailCollectionViewCell.m */,
 			);
 			path = albumImageCell;
 			sourceTree = "<group>";
@@ -497,6 +502,7 @@
 				E6CB2FE81E66C6A5001368C2 /* SFPhotoDetailShowViewController.m in Sources */,
 				E62886F91E61D3C000F19D20 /* NSArray+MASAdditions.m in Sources */,
 				E62886F81E61D3C000F19D20 /* MASViewConstraint.m in Sources */,
+				E6CB30AC1E6C5F3B001368C2 /* SFPhotoDetailCollectionViewCell.m in Sources */,
 				E62886F51E61D3C000F19D20 /* MASConstraintMaker.m in Sources */,
 				E62886FB1E61D3C000F19D20 /* View+MASAdditions.m in Sources */,
 				E6CB2F911E640226001368C2 /* SFPhotoAssetInfoModel.m in Sources */,
