@@ -402,6 +402,8 @@ static SFPhotoPickerTool *sf_ph = nil;
     for (PHAsset *asset in assets) {
         SFPhotoAssetInfoModel *model = [[SFPhotoAssetInfoModel alloc] init];
         model.localeIndefiner = asset.localIdentifier;
+        model.pixWith = asset.pixelWidth;
+        model.pixHeight = asset.pixelHeight;
         [array addObject:model];
     }
     return array;
