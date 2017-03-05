@@ -68,13 +68,8 @@ NSString * const selectedImg = @"color-radio";
         });
     }
     
-    if (model.isSelected) {
-        self.radioImageView.image = [UIImage imageNamed:selectedImg];
-        self.indexLabel.text = [NSString stringWithFormat:@"%ld", model.index];
-    }else{
-        self.radioImageView.image = [UIImage imageNamed:defaultImg];
-        self.indexLabel.text = @"";
-    }
+    self.radioImageView.image = model.isSelected ? [UIImage imageNamed:selectedImg] : [UIImage imageNamed:defaultImg];
+    self.indexLabel.text = model.isSelected ? [NSString stringWithFormat:@"%ld", model.index] : @"";
 }
 
 #pragma mark - block action

@@ -43,11 +43,12 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 0;
+    return _dataModel.imgModelArr.count;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     SFPhotoDetailCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:photoDeatilCellID forIndexPath:indexPath];
+    [cell configureModel:_dataModel.imgModelArr[indexPath.row]];
     return cell;
 }
 #pragma mark - UICollectionViewDelegate
