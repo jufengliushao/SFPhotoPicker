@@ -11,8 +11,9 @@
 
 NSString *const photoDeatilCellID = @"photoDeatilCellID";
 
-@interface SFPhotoDetailShowViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>{
+@interface SFPhotoDetailShowViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching>{
     SFPhotoAlbumInfoModel *_dataModel;
+    NSInteger _index;
 }
 @property (nonatomic, strong) UICollectionView *photoCollectionView;
 @end
@@ -23,6 +24,8 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.photoCollectionView];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.photoCollectionView.contentOffset = CGPointMake(kSCREEN_WIDTH * _index, 0);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,6 +36,9 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
 - (instancetype)initWithModel:(SFPhotoAlbumInfoModel *)model showIndex:(NSInteger)index{
     if (self = [super init]) {
         _dataModel = model;
+        _index = index;
+        SFPhotoAssetInfoModel *model1 = model.imgModelArr[index];
+        [[SFPhotoPickerTool sharedInstance] sf_cachingImageWitlLocalIndentifier:model1.localeIndefiner targetSize:CGSizeMake(model1.pixWith, model1.pixHeight)];
     }
     return self;
 }
@@ -53,17 +59,34 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
 }
 #pragma mark - UICollectionViewDelegate
 
+#pragma mark - UICollectionViewDataSourcePrefetching
+- (void)collectionView:(UICollectionView *)collectionView prefetchItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths NS_AVAILABLE_IOS(10_0){
+    for(NSIndexPath *idnex in indexPaths){
+        SFPhotoAssetInfoModel *model = _dataModel.imgModelArr[idnex.row];
+        dispatch_async(dispatch_queue_create("queue_origial_img_queue", DISPATCH_QUEUE_CONCURRENT), ^{
+            [[SFPhotoPickerTool sharedInstance] sf_cachingImageWitlLocalIndentifier:model.localeIndefiner targetSize:CGSizeMake(model.pixWith, model.pixHeight)];
+        });
+    }
+}
+
 #pragma mark - init
 - (UICollectionView *)photoCollectionView{
     if (!_photoCollectionView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.itemSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
         flowLayout.minimumLineSpacing = 0;
         flowLayout.minimumInteritemSpacing = 0;
         flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        _photoCollectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
+        _photoCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 49, kSCREEN_WIDTH, kSCREEN_HEIGHT - 49) collectionViewLayout:flowLayout];
+        flowLayout.itemSize = CGSizeMake(_photoCollectionView.bounds.size.width, _photoCollectionView.bounds.size.height);
         _photoCollectionView.delegate = self;
         _photoCollectionView.dataSource = self;
+        _photoCollectionView.pagingEnabled = YES;
+        if (IS_IOS_10) {
+            _photoCollectionView.prefetchDataSource = self;
+            _photoCollectionView.prefetchingEnabled = YES;
+        }else{
+            _photoCollectionView.prefetchingEnabled = NO;
+        }
         [_photoCollectionView registerClass:[SFPhotoDetailCollectionViewCell class] forCellWithReuseIdentifier:photoDeatilCellID];
     }
     return _photoCollectionView;

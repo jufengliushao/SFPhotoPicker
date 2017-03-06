@@ -57,7 +57,7 @@ NSString * const selectedImg = @"color-radio";
         self.thumbImageView.image = _dataModel.thumbImg;
     }else{
         dispatch_async(dispatch_queue_create("load_img_queue", DISPATCH_QUEUE_CONCURRENT), ^{
-            [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:model.localeIndefiner size:CGSizeMake(300, 300) isSynchronous:YES complete:^(UIImage *result, NSDictionary *info) {
+            [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:model.localeIndefiner size:CGSizeMake(300, 300) isSynchronous:YES thum:YES complete:^(UIImage *result, NSDictionary *info) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (_dataModel.localeIndefiner == model.localeIndefiner) {
                         self.thumbImageView.image = result;

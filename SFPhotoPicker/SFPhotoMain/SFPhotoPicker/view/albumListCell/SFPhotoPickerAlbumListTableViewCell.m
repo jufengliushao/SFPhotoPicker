@@ -47,7 +47,7 @@
 - (void)configureModel:(SFPhotoAlbumInfoModel *)configure{
     NSString *imgID = configure.imgModelArr.count > 0 ? ((SFPhotoAssetInfoModel *)configure.imgModelArr[0]).localeIndefiner : nil;
     dispatch_async(dispatch_queue_create("load_img_queue", DISPATCH_QUEUE_CONCURRENT), ^{
-        [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:imgID size:self.contentView.bounds.size isSynchronous:YES complete:^(UIImage *result, NSDictionary *info) {
+        [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:imgID size:self.contentView.bounds.size isSynchronous:YES thum:YES complete:^(UIImage *result, NSDictionary *info) {
             dispatch_sync(dispatch_get_main_queue(), ^{
                 self.iconImageView.image = result;
             });

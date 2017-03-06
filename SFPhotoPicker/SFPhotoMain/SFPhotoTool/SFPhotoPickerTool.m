@@ -139,7 +139,7 @@ static SFPhotoPickerTool *sf_ph = nil;
     return [self returnPhotoInfoModelWithAssets:assetArr];
 }
 
-- (void)sf_getImageWithLocalIdentifier:(NSString *)localIndetifier size:(CGSize)size isSynchronous:(BOOL)synchronous complete:(GetImageResult)complete{
+- (void)sf_getImageWithLocalIdentifier:(NSString *)localIndetifier size:(CGSize)size isSynchronous:(BOOL)synchronous thum:(BOOL)thumb complete:(GetImageResult)complete{
     if (!localIndetifier) {
         return;
     }
@@ -151,6 +151,9 @@ static SFPhotoPickerTool *sf_ph = nil;
     // 同步获得图片, 只会返回1张图片
     options.resizeMode = PHImageRequestOptionsResizeModeFast;
     options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
+    if (!thumb) {
+        options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    }
     options.synchronous = synchronous;
     [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         if (complete) {
@@ -169,7 +172,7 @@ static SFPhotoPickerTool *sf_ph = nil;
     [cachingManager startCachingImagesForAssets:assets targetSize:targetSize contentMode:(PHImageContentModeAspectFill) options:options];
 }
 
-- (void)sf_cachingImageWitlLocalIndentifier:(NSString *)localIndentifier targetSize:(CGSize)targetSize{
+- (void)sf_cachingImageWitlLocalIndentifier:(NSString *_Nonnull)localIndentifier targetSize:(CGSize)targetSize{
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     options.resizeMode = PHImageRequestOptionsResizeModeExact;
     options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;

@@ -115,7 +115,7 @@ typedef void(^GetImageResult)(UIImage *result, NSDictionary *info);
  @param thumb 是否为缩略图
  @param complete 完成回调
  */
-- (void)sf_getImageWithLocalIdentifier:(NSString *)localIndetifier size:(CGSize)size isSynchronous:(BOOL)synchronous complete:(GetImageResult)complete;
+- (void)sf_getImageWithLocalIdentifier:(NSString *)localIndetifier size:(CGSize)size isSynchronous:(BOOL)synchronous thum:(BOOL)thumb complete:(GetImageResult)complete;
 
 /**
  返回指定相册名相册

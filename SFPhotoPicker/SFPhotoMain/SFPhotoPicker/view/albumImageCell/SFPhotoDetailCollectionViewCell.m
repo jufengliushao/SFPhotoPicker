@@ -29,10 +29,12 @@ NSString * const selectedImg_big = @"color-radio";
 
 - (void)drawRect:(CGRect)rect{
     WS(ws);
+    CGFloat hStander = _dataModel.pixHeight / (CGFloat)_dataModel.pixWith * self.contentView.bounds.size.width;
+    CGFloat h = hStander > self.contentView.bounds.size.height ? self.contentView.bounds.size.height : hStander;
     [self.photoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.mas_equalTo(0);
-        make.width.mas_equalTo(_dataModel.pixWith);
-        make.height.mas_equalTo(_dataModel.pixHeight);
+        make.center.mas_equalTo(ws.contentView);
+        make.width.mas_equalTo(self.contentView.bounds.size.width);
+        make.height.mas_equalTo(h);
     }];
     [self.indexImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(30);
@@ -53,17 +55,17 @@ NSString * const selectedImg_big = @"color-radio";
 #pragma mark - set data
 - (void)configureModel:(SFPhotoAssetInfoModel *)model{
     _dataModel = model;
+    self.indexImageView.image = model.isSelected ? [UIImage imageNamed:selectedImg_big] : [UIImage imageNamed:defaultImg_big];
     self.indexLabel.text = model.isSelected ? [NSString stringWithFormat:@"%ld", model.index] : @"";
-    self.indexImageView.image = model.isSelected ? [UIImage imageNamed:selectedImg_big] : [UIImage imageNamed:selectedImg_big];
     if(model.originalImg){
         self.photoImageView.image = model.originalImg;
     }else{
         dispatch_async(dispatch_queue_create("load_img_queue", DISPATCH_QUEUE_CONCURRENT), ^{
-            [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:model.localeIndefiner size:CGSizeMake(model.pixWith, model.pixHeight) isSynchronous:NO complete:^(UIImage *result, NSDictionary *info) {
+            [[SFPhotoPickerTool sharedInstance] sf_getImageWithLocalIdentifier:model.localeIndefiner size:CGSizeMake(model.pixWith, model.pixHeight) isSynchronous:NO thum:NO complete:^(UIImage *result, NSDictionary *info) {
                 if (model.localeIndefiner == _dataModel.localeIndefiner) {
-                    model.originalImg = result;
-                    dispatch_sync(dispatch_get_main_queue(), ^{
+                    dispatch_async(dispatch_get_main_queue(), ^{
                         self.photoImageView.image = result;
+                        model.originalImg = result;
                     });
                 }
             }];
