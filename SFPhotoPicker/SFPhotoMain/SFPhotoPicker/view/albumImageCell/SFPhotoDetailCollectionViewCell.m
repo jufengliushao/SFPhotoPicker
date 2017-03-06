@@ -15,9 +15,6 @@
 
 @end
 
-NSString * const defaultImg_big = @"radio.png";
-NSString * const selectedImg_big = @"color-radio";
-
 @implementation SFPhotoDetailCollectionViewCell
 #pragma mark - system method
 - (instancetype)init{

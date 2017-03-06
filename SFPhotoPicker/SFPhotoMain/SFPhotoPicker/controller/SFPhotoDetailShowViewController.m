@@ -8,6 +8,7 @@
 
 #import "SFPhotoDetailShowViewController.h"
 #import "SFPhotoDetailCollectionViewCell.h"
+#import "SFPhotoDetailHeaderView.h"
 
 NSString *const photoDeatilCellID = @"photoDeatilCellID";
 
@@ -16,6 +17,7 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
     NSInteger _index;
 }
 @property (nonatomic, strong) UICollectionView *photoCollectionView;
+@property (nonatomic, strong) SFPhotoDetailHeaderView *headerView;
 @end
 
 @implementation SFPhotoDetailShowViewController
@@ -41,6 +43,16 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
         [[SFPhotoPickerTool sharedInstance] sf_cachingImageWitlLocalIndentifier:model1.localeIndefiner targetSize:CGSizeMake(model1.pixWith, model1.pixHeight)];
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = true;
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = false;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -76,7 +88,7 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
         flowLayout.minimumLineSpacing = 0;
         flowLayout.minimumInteritemSpacing = 0;
         flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        _photoCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 49, kSCREEN_WIDTH, kSCREEN_HEIGHT - 49) collectionViewLayout:flowLayout];
+        _photoCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.headerView.bounds.size.height, kSCREEN_WIDTH, kSCREEN_HEIGHT - self.headerView.bounds.size.height) collectionViewLayout:flowLayout];
         flowLayout.itemSize = CGSizeMake(_photoCollectionView.bounds.size.width, _photoCollectionView.bounds.size.height);
         _photoCollectionView.delegate = self;
         _photoCollectionView.dataSource = self;
@@ -90,6 +102,15 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
         [_photoCollectionView registerClass:[SFPhotoDetailCollectionViewCell class] forCellWithReuseIdentifier:photoDeatilCellID];
     }
     return _photoCollectionView;
+}
+
+- (SFPhotoDetailHeaderView *)headerView{
+    if (!_headerView) {
+        _headerView = [[SFPhotoDetailHeaderView alloc] init];
+        _headerView.frame = CGRectMake(0, 0, kSCREEN_WIDTH, 70);
+        [self.view addSubview:_headerView];
+    }
+    return _headerView;
 }
 /*
 #pragma mark - Navigation
