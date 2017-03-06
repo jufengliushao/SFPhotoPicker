@@ -169,6 +169,15 @@ static SFPhotoPickerTool *sf_ph = nil;
     [cachingManager startCachingImagesForAssets:assets targetSize:targetSize contentMode:(PHImageContentModeAspectFill) options:options];
 }
 
+- (void)sf_cachingImageWitlLocalIndentifier:(NSString *)localIndentifier targetSize:(CGSize)targetSize{
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    options.resizeMode = PHImageRequestOptionsResizeModeExact;
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
+    options.synchronous = YES;
+    PHCachingImageManager *cachingManager = [[PHCachingImageManager alloc] init];
+    [cachingManager startCachingImagesForAssets:[self returnAssetArrayLocalIndentifiers:@[localIndentifier]] targetSize:targetSize contentMode:PHImageContentModeAspectFill options:options];
+}
+
 - (PHAssetCollection *)sf_returnAlbumWithTitle:(NSString *)albumTitle{
     // 从已存在相簿中查找这个应用对应的相簿
     if (!_hasPhotoRight) {
@@ -395,6 +404,11 @@ static SFPhotoPickerTool *sf_ph = nil;
         [array addObject:asset];
     }
     return array;
+}
+
+- (NSArray <PHAsset *>*)returnAssetArrayLocalIndentifiers:(NSArray <NSString *>*)localIndentifiers{
+    PHFetchResult <PHAsset *>*assets = [PHAsset fetchAssetsWithLocalIdentifiers:localIndentifiers options:nil];
+    return [assets objectsAtIndexes:[[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0, localIndentifiers.count)]];
 }
 
 - (NSArray *)returnPhotoInfoModelWithAssets:(NSArray *)assets{

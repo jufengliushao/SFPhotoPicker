@@ -70,6 +70,14 @@ typedef void(^GetImageResult)(UIImage *result, NSDictionary *info);
 - (void)sf_cachingImageWithAssets:(NSArray *)assets targetSize:(CGSize)targetSize;
 
 /**
+ 缓存指定图片
+
+ @param localIndentifier <#localIndentifier description#>
+ @param targetSize <#targetSize description#>
+ */
+- (void)sf_cachingImageWitlLocalIndentifier:(NSString *)localIndentifier targetSize:(CGSize)targetSize;
+
+/**
  返回用户手机截图相册
 
  @return <#return value description#>
