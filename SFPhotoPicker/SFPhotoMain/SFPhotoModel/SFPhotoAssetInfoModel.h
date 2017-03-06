@@ -14,7 +14,7 @@
 @property (nonatomic, assign, readonly) BOOL isSelected;
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, strong) UIImage *thumbImg;
-@property (nonatomic, strong) UIImage *original;
+@property (nonatomic, strong) UIImage *originalImg;
 @property (nonatomic, assign) NSUInteger pixWith;
 @property (nonatomic, assign) NSUInteger pixHeight;
 
