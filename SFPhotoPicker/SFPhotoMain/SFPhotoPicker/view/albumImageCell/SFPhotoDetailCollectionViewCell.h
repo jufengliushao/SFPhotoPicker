@@ -12,9 +12,6 @@
 @interface SFPhotoDetailCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImageView *photoImageView;
-@property (nonatomic, strong) UIImageView *indexImageView;
-@property (nonatomic, strong) UIButton *indexBtn;
-@property (nonatomic, strong) UILabel *indexLabel;
 
 - (void)configureModel:(SFPhotoAssetInfoModel *)model;
 @end

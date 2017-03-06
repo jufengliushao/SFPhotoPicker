@@ -28,35 +28,24 @@ NSString * const selectedImg_big = @"color-radio";
 }
 
 - (void)drawRect:(CGRect)rect{
+    [super drawRect:rect];
+}
+
+- (void)layoutSubviews{
     WS(ws);
     CGFloat hStander = _dataModel.pixHeight / (CGFloat)_dataModel.pixWith * self.contentView.bounds.size.width;
     CGFloat h = hStander > self.contentView.bounds.size.height ? self.contentView.bounds.size.height : hStander;
-    [self.photoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.photoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.center.mas_equalTo(ws.contentView);
         make.width.mas_equalTo(self.contentView.bounds.size.width);
         make.height.mas_equalTo(h);
     }];
-    [self.indexImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(30);
-        make.trailing.mas_equalTo(-15);
-        make.top.mas_equalTo(15);
-    }];
-    [self.indexLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.mas_equalTo(ws.indexImageView);
-    }];
-    [self.indexBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(ws.indexImageView).mas_offset(-10);
-        make.trailing.mas_equalTo(ws.indexImageView).mas_equalTo(10);
-        make.leading.bottom.mas_equalTo(ws.indexImageView).mas_equalTo(20);
-    }];
-    [super drawRect:rect];
 }
 
 #pragma mark - set data
 - (void)configureModel:(SFPhotoAssetInfoModel *)model{
     _dataModel = model;
-    self.indexImageView.image = model.isSelected ? [UIImage imageNamed:selectedImg_big] : [UIImage imageNamed:defaultImg_big];
-    self.indexLabel.text = model.isSelected ? [NSString stringWithFormat:@"%ld", model.index] : @"";
+    [self setNeedsLayout];
     if(model.originalImg){
         self.photoImageView.image = model.originalImg;
     }else{
@@ -80,34 +69,5 @@ NSString * const selectedImg_big = @"color-radio";
         [self.contentView addSubview:_photoImageView];
     }
     return _photoImageView;
-}
-
-- (UIImageView *)indexImageView{
-    if (!_indexImageView) {
-        _indexImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:defaultImg_big]];
-        _indexImageView.backgroundColor = [UIColor blackColor];
-        [self.contentView addSubview:_indexImageView];
-    }
-    return _indexImageView;
-}
-
-- (UIButton *)indexBtn{
-    if (!_indexBtn) {
-        _indexBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        [_indexBtn setBackgroundColor:[UIColor clearColor]];
-        [self.contentView addSubview:_indexBtn];
-    }
-    return _indexBtn;
-}
-
-- (UILabel *)indexLabel{
-    if (!_indexLabel) {
-        _indexLabel = [[UILabel alloc] init];
-        _indexLabel.textColor = [UIColor whiteColor];
-        _indexLabel.font = [UIFont systemFontOfSize:14];
-        _indexLabel.textAlignment = NSTextAlignmentCenter;
-        [self.contentView addSubview:_indexLabel];
-    }
-    return _indexLabel;
 }
 @end
