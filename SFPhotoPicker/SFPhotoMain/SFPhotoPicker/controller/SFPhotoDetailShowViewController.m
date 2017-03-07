@@ -120,6 +120,10 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
     if (!_headerView) {
         _headerView = [[SFPhotoDetailHeaderView alloc] init];
         _headerView.frame = CGRectMake(0, 0, kSCREEN_WIDTH, 70);
+        WS(ws);
+        [_headerView.backButton addTargetAction:^(UIButton *sender) {
+            [ws.navigationController popViewControllerAnimated:YES];
+        }];
         [self.view addSubview:_headerView];
     }
     return _headerView;
