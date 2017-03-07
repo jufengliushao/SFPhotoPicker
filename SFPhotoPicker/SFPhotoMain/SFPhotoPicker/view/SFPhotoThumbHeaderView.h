@@ -10,4 +10,7 @@
 
 @interface SFPhotoThumbHeaderView : UIView
 
+@property (nonatomic, strong) UIButton *cancelBtn;
+@property (nonatomic, strong) UILabel *titleLabel;
+
 @end
