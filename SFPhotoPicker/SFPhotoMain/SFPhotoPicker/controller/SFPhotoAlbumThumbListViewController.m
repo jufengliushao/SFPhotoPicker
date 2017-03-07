@@ -130,6 +130,7 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
     if (!_headerView) {
         _headerView = [[SFPhotoThumbHeaderView alloc] init];
         _headerView.frame = CGRectMake(0, 0, kSCREEN_WIDTH, 70);
+        [_headerView.cancelBtn setTitle:@"返回" forState:(UIControlStateNormal)];
         WS(ws);
         [_headerView.cancelBtn addTargetAction:^(UIButton *sender) {
             [ws.navigationController popViewControllerAnimated:YES];

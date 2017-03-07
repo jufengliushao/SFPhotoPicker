@@ -14,5 +14,6 @@
 #import "SFIndexCalculateTool.h"
 // thrid tool
 #import "SFThridMethod.h"
+#import "UIButton+SFButton.h"
 
 #endif /* SFPhotoPickerHeader_h */

@@ -20,12 +20,13 @@
 - (void)drawRect:(CGRect)rect{
     WS(ws);
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(ws);
+        make.centerY.mas_equalTo(ws).mas_offset(10);
         make.trailing.mas_equalTo(-10);
     }];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.mas_equalTo(ws);
+        make.centerY.mas_equalTo(ws).mas_offset(10);
+        make.centerX.mas_equalTo(ws);
     }];
     [super drawRect:rect];
 }

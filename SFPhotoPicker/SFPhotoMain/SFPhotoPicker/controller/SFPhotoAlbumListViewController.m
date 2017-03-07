@@ -10,12 +10,14 @@
 // cell
 #import "SFPhotoPickerAlbumListTableViewCell.h"
 #import "SFPhotoAlbumThumbListViewController.h"
+#import "SFPhotoThumbHeaderView.h"
 
 NSString * const kAlbumListCellID =@"kAlbumListCellID";
 @interface SFPhotoAlbumListViewController ()<UITableViewDelegate, UITableViewDataSource>{
     NSArray *_albumInfoArr;
 }
 @property (nonatomic, strong) UITableView *albumListTableView;
+@property (nonatomic, strong) SFPhotoThumbHeaderView *headerView;
 @end
 
 @implementation SFPhotoAlbumListViewController
@@ -37,7 +39,12 @@ NSString * const kAlbumListCellID =@"kAlbumListCellID";
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.title = @"Album List";
-    [[SFIndexCalculateTool shareInstance] sf_clearAllCalculateCache];
+    self.navigationController.navigationBarHidden = true;
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = false;
 }
 
 #pragma mark - method
@@ -82,13 +89,27 @@ NSString * const kAlbumListCellID =@"kAlbumListCellID";
 #pragma mark - init
 - (UITableView *)albumListTableView{
     if (!_albumListTableView) {
-        _albumListTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:(UITableViewStylePlain)];
+        _albumListTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.headerView.bounds.size.height, kSCREEN_HEIGHT, kSCREEN_HEIGHT - self.headerView.bounds.size.height) style:(UITableViewStylePlain)];
         _albumListTableView.tableFooterView = [[UIView alloc] init];
         _albumListTableView.delegate = self;
         _albumListTableView.dataSource = self;
         [_albumListTableView registerClass:[SFPhotoPickerAlbumListTableViewCell class] forCellReuseIdentifier:kAlbumListCellID];
     }
     return _albumListTableView;
+}
+
+- (SFPhotoThumbHeaderView *)headerView{
+    if (!_headerView) {
+        _headerView = [[SFPhotoThumbHeaderView alloc] init];
+        _headerView.frame = CGRectMake(0, 0, kSCREEN_WIDTH, 70);
+        WS(ws);
+        [_headerView.cancelBtn addTargetAction:^(UIButton *sender) {
+            [ws.navigationController popViewControllerAnimated:YES];
+            [[SFIndexCalculateTool shareInstance] sf_clearAllCalculateCache];
+        }];
+        [self.view addSubview:_headerView];
+    }
+    return _headerView;
 }
 /*
 #pragma mark - Navigation
