@@ -46,6 +46,13 @@ NSString * const selectedImg_big = @"color-radio";
     [super drawRect:rect];
 }
 
+#pragma mark - set data
+- (void)configureInde:(NSInteger)index totalIndex:(NSInteger)totalIndex currentIndex:(NSInteger)currentIndex{
+    self.totalLabel.text = [NSString stringWithFormat:@"%ld/%ld", currentIndex, totalIndex];
+    self.indexImageView.image = index ? [UIImage imageNamed:selectedImg_big] : [UIImage imageNamed:defaultImg_big];
+    self.indexLabel.text = index ? [NSString stringWithFormat:@"%ld", index] : @"";
+}
+
 #pragma mark - init
 - (UIButton *)backButton{
     if (!_backButton) {
@@ -60,7 +67,7 @@ NSString * const selectedImg_big = @"color-radio";
 - (UILabel *)totalLabel{
     if (!_totalLabel) {
         _totalLabel = [[UILabel alloc] init];
-        _totalLabel.text = @"155/111";
+        _totalLabel.text = @"";
         _totalLabel.font = [UIFont systemFontOfSize:15];
         _totalLabel.textColor = [UIColor whiteColor];
         [self addSubview:_totalLabel];
@@ -79,7 +86,7 @@ NSString * const selectedImg_big = @"color-radio";
 - (UILabel *)indexLabel{
     if (!_indexLabel) {
         _indexLabel = [[UILabel alloc] init];
-        _indexLabel.text = @"1";
+        _indexLabel.text = @"";
         _indexLabel.font = [UIFont systemFontOfSize:14];
         _indexLabel.textAlignment = NSTextAlignmentCenter;
         _indexLabel.textColor = [UIColor whiteColor];

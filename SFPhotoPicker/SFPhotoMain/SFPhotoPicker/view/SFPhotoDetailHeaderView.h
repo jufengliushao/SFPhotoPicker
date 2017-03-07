@@ -16,4 +16,5 @@
 @property (nonatomic, strong) UILabel *indexLabel;
 @property (nonatomic, strong) UIButton *indexBtn;
 
+- (void)configureInde:(NSInteger)index totalIndex:(NSInteger)totalIndex currentIndex:(NSInteger)currentIndex;
 @end

@@ -12,7 +12,7 @@
 
 NSString *const photoDeatilCellID = @"photoDeatilCellID";
 
-@interface SFPhotoDetailShowViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching>{
+@interface SFPhotoDetailShowViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching, UIScrollViewDelegate>{
     SFPhotoAlbumInfoModel *_dataModel;
     NSInteger _index;
 }
@@ -28,6 +28,8 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
     [self.view addSubview:self.photoCollectionView];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.photoCollectionView.contentOffset = CGPointMake(kSCREEN_WIDTH * _index, 0);
+    SFPhotoAssetInfoModel *model = _dataModel.imgModelArr[_index];
+    [self.headerView configureInde:model.index totalIndex:_dataModel.imgModelArr.count currentIndex:_index + 1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,6 +72,16 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
     return cell;
 }
 #pragma mark - UICollectionViewDelegate
+ - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset NS_AVAILABLE_IOS(5_0){
+    NSInteger index = targetContentOffset->x / kSCREEN_WIDTH;
+    SFPhotoAssetInfoModel *model = _dataModel.imgModelArr[index];
+    [self.headerView configureInde:model.index totalIndex:_dataModel.imgModelArr.count currentIndex:index + 1];
+}
 
 #pragma mark - UICollectionViewDataSourcePrefetching
 - (void)collectionView:(UICollectionView *)collectionView prefetchItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths NS_AVAILABLE_IOS(10_0){
