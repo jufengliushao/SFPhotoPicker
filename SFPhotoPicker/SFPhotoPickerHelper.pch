@@ -16,6 +16,7 @@
 #define kSCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 
 #define WS(weakSelf) __weak __typeof(&*self)weakSelf = self;
+#define BS(blockSelf) __block __typeof(&*self)blockSelf = self;
 
 // version
 #define IS_IOS_10 floorf([[UIDevice currentDevice].systemVersion floatValue]) >=10.0 ? 1 : 0

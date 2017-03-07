@@ -46,6 +46,9 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.title = _dataModel.albumTitle;
+    if (self.thumbCollectionView) {
+        [self.thumbCollectionView reloadData];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource

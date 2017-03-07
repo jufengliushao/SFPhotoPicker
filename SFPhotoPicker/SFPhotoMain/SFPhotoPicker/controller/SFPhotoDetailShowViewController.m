@@ -15,6 +15,7 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
 @interface SFPhotoDetailShowViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching, UIScrollViewDelegate>{
     SFPhotoAlbumInfoModel *_dataModel;
     NSInteger _index;
+    NSInteger _currIndex;
 }
 @property (nonatomic, strong) UICollectionView *photoCollectionView;
 @property (nonatomic, strong) SFPhotoDetailHeaderView *headerView;
@@ -30,6 +31,8 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
     self.photoCollectionView.contentOffset = CGPointMake(kSCREEN_WIDTH * _index, 0);
     SFPhotoAssetInfoModel *model = _dataModel.imgModelArr[_index];
     [self.headerView configureInde:model.index totalIndex:_dataModel.imgModelArr.count currentIndex:_index + 1];
+    _currIndex = _index;
+    [self indexBtnAction];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,15 +75,13 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
     return cell;
 }
 #pragma mark - UICollectionViewDelegate
- - (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-}
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset NS_AVAILABLE_IOS(5_0){
     NSInteger index = targetContentOffset->x / kSCREEN_WIDTH;
     SFPhotoAssetInfoModel *model = _dataModel.imgModelArr[index];
     [self.headerView configureInde:model.index totalIndex:_dataModel.imgModelArr.count currentIndex:index + 1];
+    _currIndex = index;
 }
 
 #pragma mark - UICollectionViewDataSourcePrefetching
@@ -91,6 +92,25 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
             [[SFPhotoPickerTool sharedInstance] sf_cachingImageWitlLocalIndentifier:model.localeIndefiner targetSize:CGSizeMake(model.pixWith, model.pixHeight)];
         });
     }
+}
+
+#pragma mark - action method 
+- (void)indexBtnAction{
+    WS(ws);
+    BS(bs);
+    [self.headerView.indexBtn addTargetAction:^(UIButton *sender) {
+        NSInteger index = bs->_currIndex;
+        __block SFPhotoAssetInfoModel *model = bs->_dataModel.imgModelArr[index];
+        if (model.isSelected) {
+            [[SFIndexCalculateTool shareInstance] sf_removeModel:model index:[NSIndexPath indexPathForRow:bs->_currIndex inSection:0] complete:^(NSArray<NSIndexPath *> *indexPaths, BOOL isSuccess) {
+                [ws.headerView configureInde:model.index totalIndex:bs->_dataModel.imgModelArr.count currentIndex:index + 1];
+            }];
+        }else{
+            [[SFIndexCalculateTool shareInstance] sf_addImageModel:model index:[NSIndexPath indexPathForRow:bs->_currIndex inSection:0] complete:^(NSArray<NSIndexPath *> *indexPaths, BOOL isSuccess) {
+                [ws.headerView configureInde:model.index totalIndex:bs->_dataModel.imgModelArr.count currentIndex:index + 1];
+            }];
+        }
+    }];
 }
 
 #pragma mark - init
