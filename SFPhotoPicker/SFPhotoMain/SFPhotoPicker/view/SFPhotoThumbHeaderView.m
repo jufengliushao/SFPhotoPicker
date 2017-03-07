@@ -29,6 +29,7 @@
     }];
     [super drawRect:rect];
 }
+
 #pragma mark - init
 - (UIButton *)cancelBtn{
     if (!_cancelBtn) {

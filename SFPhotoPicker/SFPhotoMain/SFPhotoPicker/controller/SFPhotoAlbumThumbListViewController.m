@@ -9,6 +9,7 @@
 #import "SFPhotoAlbumThumbListViewController.h"
 #import "SFPhotoPickerImageSmallCollectionViewCell.h"
 #import "SFPhotoDetailShowViewController.h"
+#import "SFPhotoThumbHeaderView.h"
 
 NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
 @interface SFPhotoAlbumThumbListViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching>{
@@ -17,6 +18,7 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
 }
 
 @property (nonatomic, strong) UICollectionView *thumbCollectionView;
+@property (nonatomic, strong) SFPhotoThumbHeaderView *headerView;
 
 @end
 
@@ -49,6 +51,12 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
     if (self.thumbCollectionView) {
         [self.thumbCollectionView reloadData];
     }
+    self.navigationController.navigationBarHidden = true;
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = false;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -95,8 +103,6 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
     });
 }
 
-#pragma mark -
-
 #pragma mark - init
 - (UICollectionView *)thumbCollectionView{
     if (!_thumbCollectionView) {
@@ -105,7 +111,7 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
         layout.minimumInteritemSpacing = 3;
         CGFloat width = (self.view.bounds.size.width - 3 * 5) / 4.0;
         layout.itemSize = CGSizeMake(width, width);
-        _thumbCollectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+        _thumbCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.headerView.bounds.size.height, kSCREEN_WIDTH, kSCREEN_HEIGHT - self.headerView.bounds.size.height) collectionViewLayout:layout];
         _thumbCollectionView.delegate = self;
         _thumbCollectionView.dataSource = self;
         _thumbCollectionView.prefetchDataSource = self;
@@ -118,6 +124,19 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
         [_thumbCollectionView registerClass:[SFPhotoPickerImageSmallCollectionViewCell class] forCellWithReuseIdentifier:kThumbSmallItemID];
     }
     return _thumbCollectionView;
+}
+
+- (SFPhotoThumbHeaderView *)headerView{
+    if (!_headerView) {
+        _headerView = [[SFPhotoThumbHeaderView alloc] init];
+        _headerView.frame = CGRectMake(0, 0, kSCREEN_WIDTH, 70);
+        WS(ws);
+        [_headerView.cancelBtn addTargetAction:^(UIButton *sender) {
+            [ws.navigationController popViewControllerAnimated:YES];
+        }];
+        [self.view addSubview:_headerView];
+    }
+    return _headerView;
 }
 
 /*
