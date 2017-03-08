@@ -10,6 +10,11 @@
 
 @interface SFCameraTool (){
     BOOL _hasCameraRight;
+    AVCaptureSession *_captureSession; /* AVCaptureSession对象来执行输入设备和输出设备之间的数据传递 */
+    AVCaptureDevice *_captureDevice;
+    AVCaptureDeviceInput *_captureDeviceInput;/* 输入设备 */
+    AVCaptureStillImageOutput *_stillImageOutput;/* 照片输出流 */
+    AVCaptureVideoPreviewLayer *_videoPreviewLayer;/* 预览图层 */
 }
 
 @end
@@ -53,4 +58,31 @@ SFCameraTool *camera = nil;
         }
     }];
 }
+
+- (AVCaptureVideoPreviewLayer *)sf_returnCameraLayer{
+    _captureSession = [[AVCaptureSession alloc] init];
+    NSError *error;
+    _captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
+    [_captureDevice lockForConfiguration:nil];
+    //设置闪光灯为自动
+    [_captureDevice setFlashMode:AVCaptureFlashModeAuto];
+    [_captureDevice unlockForConfiguration];
+    
+    _captureDeviceInput= [[AVCaptureDeviceInput alloc] initWithDevice:_captureDevice error:&error];
+    if ([_captureSession canAddInput:_captureDeviceInput]) {
+        [_captureSession addInput:_captureDeviceInput];
+    }
+    _stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG, AVVideoCodecKey, nil];
+    _stillImageOutput.outputSettings = dic;
+    if ([_captureSession canAddOutput:_stillImageOutput]) {
+        [_captureSession addOutput:_stillImageOutput];
+    }
+    
+    _videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
+    [_videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+    return _videoPreviewLayer;
+}
+
+#pragma mark - method
 @end

@@ -36,4 +36,6 @@ typedef void(^RequestCameraRightComplete)(AVAuthorizationStatus status);
  @param complete <#complete description#>
  */
 - (void)sf_askCameraRight:(RequestCameraRightComplete)complete;
+
+- (AVCaptureVideoPreviewLayer *)sf_returnCameraLayer;
 @end
