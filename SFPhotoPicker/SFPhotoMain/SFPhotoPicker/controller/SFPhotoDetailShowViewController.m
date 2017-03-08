@@ -9,6 +9,7 @@
 #import "SFPhotoDetailShowViewController.h"
 #import "SFPhotoDetailCollectionViewCell.h"
 #import "SFPhotoDetailHeaderView.h"
+#import "SFPhotoBottomView.h"
 
 NSString *const photoDeatilCellID = @"photoDeatilCellID";
 
@@ -19,6 +20,7 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
 }
 @property (nonatomic, strong) UICollectionView *photoCollectionView;
 @property (nonatomic, strong) SFPhotoDetailHeaderView *headerView;
+@property (nonatomic, strong) SFPhotoBottomView *bottomView;
 @end
 
 @implementation SFPhotoDetailShowViewController
@@ -53,11 +55,21 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = true;
+    [self setBottomData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.navigationController.navigationBarHidden = false;
+}
+
+#pragma mark - method
+- (void)setBottomData{
+    [self.bottomView configureData];
+}
+
+- (void)setAction{
+    
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -104,10 +116,12 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
         if (model.isSelected) {
             [[SFIndexCalculateTool shareInstance] sf_removeModel:model index:[NSIndexPath indexPathForRow:bs->_currIndex inSection:0] complete:^(NSArray<NSIndexPath *> *indexPaths, BOOL isSuccess) {
                 [ws.headerView configureInde:model.index totalIndex:bs->_dataModel.imgModelArr.count currentIndex:index + 1];
+                [ws setBottomData];
             }];
         }else{
             [[SFIndexCalculateTool shareInstance] sf_addImageModel:model index:[NSIndexPath indexPathForRow:bs->_currIndex inSection:0] complete:^(NSArray<NSIndexPath *> *indexPaths, BOOL isSuccess) {
                 [ws.headerView configureInde:model.index totalIndex:bs->_dataModel.imgModelArr.count currentIndex:index + 1];
+                [ws setBottomData];
             }];
         }
     }];
@@ -120,7 +134,7 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
         flowLayout.minimumLineSpacing = 0;
         flowLayout.minimumInteritemSpacing = 0;
         flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        _photoCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.headerView.bounds.size.height, kSCREEN_WIDTH, kSCREEN_HEIGHT - self.headerView.bounds.size.height) collectionViewLayout:flowLayout];
+        _photoCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.headerView.bounds.size.height, kSCREEN_WIDTH, kSCREEN_HEIGHT - self.headerView.bounds.size.height - self.bottomView.bounds.size.height) collectionViewLayout:flowLayout];
         flowLayout.itemSize = CGSizeMake(_photoCollectionView.bounds.size.width, _photoCollectionView.bounds.size.height);
         _photoCollectionView.delegate = self;
         _photoCollectionView.dataSource = self;
@@ -147,6 +161,15 @@ NSString *const photoDeatilCellID = @"photoDeatilCellID";
         [self.view addSubview:_headerView];
     }
     return _headerView;
+}
+
+- (SFPhotoBottomView *)bottomView{
+    if (!_bottomView) {
+        _bottomView = [[SFPhotoBottomView alloc] init];
+        _bottomView.frame = CGRectMake(0, kSCREEN_HEIGHT - 50, kSCREEN_WIDTH, 50);
+        [self.view addSubview:_bottomView];
+    }
+    return _bottomView;
 }
 /*
 #pragma mark - Navigation

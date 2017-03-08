@@ -54,6 +54,7 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
         [self.thumbCollectionView reloadData];
     }
     self.navigationController.navigationBarHidden = true;
+    [self setBottomData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
