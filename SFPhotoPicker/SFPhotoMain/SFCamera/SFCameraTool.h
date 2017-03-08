@@ -17,4 +17,14 @@
  */
 + (SFCameraTool *)sharedInstance;
 
+/**
+ 查询当前应用对相机的权限
+ *AVAuthorizationStatusNotDetermined  未询问用户是否授权
+ *AVAuthorizationStatusRestricted 未授权，例如家长控制
+ *AVAuthorizationStatusDenied    未授权，用户拒绝造成的
+ *AVAuthorizationStatusAuthorized   同意授权相册
+ 
+ @return <#return value description#>
+ */
+- (AVAuthorizationStatus)sf_askCameraRightStuts;
 @end

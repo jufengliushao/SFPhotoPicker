@@ -8,6 +8,12 @@
 
 #import "SFCameraTool.h"
 
+@interface SFCameraTool (){
+    BOOL _hasCameraRight;
+}
+
+@end
+
 SFCameraTool *camera = nil;
 
 @implementation SFCameraTool
@@ -19,5 +25,23 @@ SFCameraTool *camera = nil;
         }
     });
     return camera;
+}
+
+- (instancetype)init{
+    if (self = [super init]) {
+        _hasCameraRight = NO;
+    }
+    return self;
+}
+
+#pragma mark - public method
+- (AVAuthorizationStatus)sf_askCameraRightStuts{
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (status == AVAuthorizationStatusAuthorized) {
+        _hasCameraRight = YES;
+    }else{
+        _hasCameraRight = NO;
+    }
+    return status;
 }
 @end
