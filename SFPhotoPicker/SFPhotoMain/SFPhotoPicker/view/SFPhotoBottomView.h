@@ -14,4 +14,5 @@
 @property (nonatomic, strong) UIButton *origalBtn;
 @property (nonatomic, strong) UIButton *sendBtn;
 
+- (void)configureData;
 @end

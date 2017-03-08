@@ -34,11 +34,22 @@
     [super drawRect:rect];
 }
 
+#pragma mark - set data
+- (void)configureData{
+    self.editBtn.enabled = [SFIndexCalculateTool shareInstance].selectedIndexImgArr.count == 1 ? YES : NO;
+    self.sendBtn.enabled = [SFIndexCalculateTool shareInstance].selectedIndexImgArr.count ? YES : NO;
+    if (self.sendBtn.isEnabled) {
+        [self.sendBtn setTitle:[NSString stringWithFormat:@"发送 %ld", [SFIndexCalculateTool shareInstance].selectedIndexImgArr.count] forState:(UIControlStateNormal)];
+    }else{
+        [_sendBtn setTitle:@"发送" forState:(UIControlStateNormal & UIControlStateDisabled)];
+    }
+}
+
 #pragma mark - init
 - (UIButton *)editBtn{
     if (!_editBtn) {
         _editBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        [_editBtn setTitle:@"编辑" forState:(UIControlStateNormal | UIControlStateDisabled)];
+        [_editBtn setTitle:@"编辑" forState:(UIControlStateNormal & UIControlStateDisabled)];
         [_editBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
         [_editBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateDisabled)];
         _editBtn.enabled = NO;
@@ -50,7 +61,7 @@
 - (UIButton *)origalBtn{
     if (!_origalBtn) {
         _origalBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        [_origalBtn setTitle:@"原图" forState:(UIControlStateNormal | UIControlStateSelected)];
+        [_origalBtn setTitle:@"原图" forState:(UIControlStateNormal & UIControlStateSelected)];
         [_origalBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
         [_origalBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateSelected)];
         _origalBtn.selected = NO;
@@ -62,7 +73,7 @@
 - (UIButton *)sendBtn{
     if (!_sendBtn) {
         _sendBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        [_sendBtn setTitle:@"发送" forState:(UIControlStateNormal | UIControlStateDisabled)];
+        [_sendBtn setTitle:@"发送" forState:(UIControlStateNormal & UIControlStateDisabled)];
         [_sendBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateDisabled)];
         [_sendBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
         _sendBtn.enabled = NO;

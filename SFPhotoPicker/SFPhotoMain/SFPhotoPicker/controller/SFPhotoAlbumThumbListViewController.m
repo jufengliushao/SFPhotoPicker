@@ -79,10 +79,12 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
         if (model.isSelected) {
             [[SFIndexCalculateTool shareInstance] sf_removeModel:model index:indexPath complete:^(NSArray<NSIndexPath *> *indexPaths, BOOL isSuccess) {
                 [ws.thumbCollectionView reloadItemsAtIndexPaths:indexPaths];
+                [ws setBottomData];
             }];
         }else{
             [[SFIndexCalculateTool shareInstance] sf_addImageModel:model index:indexPath complete:^(NSArray<NSIndexPath *> *indexPaths, BOOL isSuccess) {
                 [ws.thumbCollectionView reloadItemsAtIndexPaths:indexPaths];
+                [ws setBottomData];
             }];
         }
     }];
@@ -103,6 +105,15 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
             [item configureModel:_dataModel.imgModelArr[index.row]];
         }
     });
+}
+
+#pragma mark - method
+- (void)setBottomData{
+    [self.bottomView configureData];
+}
+
+- (void)setAction{
+    
 }
 
 #pragma mark - init
