@@ -41,6 +41,8 @@
 		E6CB30AF1E6D4E69001368C2 /* SFPhotoDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB30AE1E6D4E69001368C2 /* SFPhotoDetailHeaderView.m */; };
 		E6CB30B21E6E56C4001368C2 /* SFPhotoThumbHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB30B11E6E56C4001368C2 /* SFPhotoThumbHeaderView.m */; };
 		E6CB30B81E6F93C8001368C2 /* SFPhotoBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB30B71E6F93C8001368C2 /* SFPhotoBottomView.m */; };
+		E6CB31401E6FFB8C001368C2 /* SFCameraTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB313F1E6FFB8C001368C2 /* SFCameraTool.m */; };
+		E6CB31431E6FFB9B001368C2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB31421E6FFB9B001368C2 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +138,9 @@
 		E6CB30B11E6E56C4001368C2 /* SFPhotoThumbHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoThumbHeaderView.m; sourceTree = "<group>"; };
 		E6CB30B61E6F93C8001368C2 /* SFPhotoBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoBottomView.h; sourceTree = "<group>"; };
 		E6CB30B71E6F93C8001368C2 /* SFPhotoBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoBottomView.m; sourceTree = "<group>"; };
+		E6CB313E1E6FFB8C001368C2 /* SFCameraTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCameraTool.h; sourceTree = "<group>"; };
+		E6CB313F1E6FFB8C001368C2 /* SFCameraTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCameraTool.m; sourceTree = "<group>"; };
+		E6CB31421E6FFB9B001368C2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6CB31431E6FFB9B001368C2 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,6 +176,7 @@
 				E62886A01E5EC73B00F19D20 /* SFPhotoPickerTests */,
 				E62886AB1E5EC73B00F19D20 /* SFPhotoPickerUITests */,
 				E62886851E5EC73B00F19D20 /* Products */,
+				E6CB31411E6FFB9B001368C2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -234,6 +241,7 @@
 			children = (
 				E62886C31E601E4500F19D20 /* SFPhotoPicker */,
 				E62886BF1E5EDD6800F19D20 /* SFPhotoModel */,
+				E6CB313D1E6FFB6B001368C2 /* SFCamera */,
 				E62886BB1E5ED61E00F19D20 /* SFPhotoTool */,
 			);
 			path = SFPhotoMain;
@@ -378,6 +386,23 @@
 				E6CB302A1E685629001368C2 /* UIButton+SFButton.m */,
 			);
 			path = SFHelper;
+			sourceTree = "<group>";
+		};
+		E6CB313D1E6FFB6B001368C2 /* SFCamera */ = {
+			isa = PBXGroup;
+			children = (
+				E6CB313E1E6FFB8C001368C2 /* SFCameraTool.h */,
+				E6CB313F1E6FFB8C001368C2 /* SFCameraTool.m */,
+			);
+			path = SFCamera;
+			sourceTree = "<group>";
+		};
+		E6CB31411E6FFB9B001368C2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E6CB31421E6FFB9B001368C2 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -525,6 +550,7 @@
 				E628868F1E5EC73B00F19D20 /* ViewController.m in Sources */,
 				E62886F41E61D3C000F19D20 /* MASConstraint.m in Sources */,
 				E6CB2F8E1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m in Sources */,
+				E6CB31401E6FFB8C001368C2 /* SFCameraTool.m in Sources */,
 				E6CB30AF1E6D4E69001368C2 /* SFPhotoDetailHeaderView.m in Sources */,
 				E62887081E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m in Sources */,
 				E6CB302E1E6858FC001368C2 /* SFIndexCalculateTool.m in Sources */,

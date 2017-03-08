@@ -12,6 +12,7 @@
 // main file
 #import "SFPhotoPickerTool.h"
 #import "SFIndexCalculateTool.h"
+#import "SFCameraTool.h"
 // thrid tool
 #import "SFThridMethod.h"
 #import "UIButton+SFButton.h"
