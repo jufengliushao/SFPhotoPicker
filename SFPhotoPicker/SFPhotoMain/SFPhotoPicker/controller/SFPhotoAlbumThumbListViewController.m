@@ -10,6 +10,7 @@
 #import "SFPhotoPickerImageSmallCollectionViewCell.h"
 #import "SFPhotoDetailShowViewController.h"
 #import "SFPhotoThumbHeaderView.h"
+#import "SFPhotoBottomView.h"
 
 NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
 @interface SFPhotoAlbumThumbListViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching>{
@@ -19,6 +20,7 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
 
 @property (nonatomic, strong) UICollectionView *thumbCollectionView;
 @property (nonatomic, strong) SFPhotoThumbHeaderView *headerView;
+@property (nonatomic, strong) SFPhotoBottomView *bottomView;
 
 @end
 
@@ -111,7 +113,7 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
         layout.minimumInteritemSpacing = 3;
         CGFloat width = (self.view.bounds.size.width - 3 * 5) / 4.0;
         layout.itemSize = CGSizeMake(width, width);
-        _thumbCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.headerView.bounds.size.height, kSCREEN_WIDTH, kSCREEN_HEIGHT - self.headerView.bounds.size.height) collectionViewLayout:layout];
+        _thumbCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.headerView.bounds.size.height, kSCREEN_WIDTH, kSCREEN_HEIGHT - self.headerView.bounds.size.height - self.bottomView.bounds.size.height) collectionViewLayout:layout];
         _thumbCollectionView.delegate = self;
         _thumbCollectionView.dataSource = self;
         _thumbCollectionView.prefetchDataSource = self;
@@ -138,6 +140,15 @@ NSString *const kThumbSmallItemID = @"kThumbSmallItemID";
         [self.view addSubview:_headerView];
     }
     return _headerView;
+}
+
+- (SFPhotoBottomView *)bottomView{
+    if (!_bottomView) {
+        _bottomView = [[SFPhotoBottomView alloc] init];
+        _bottomView.frame = CGRectMake(0, kSCREEN_HEIGHT - 50, kSCREEN_WIDTH, 50);
+        [self.view addSubview:_bottomView];
+    }
+    return _bottomView;
 }
 
 /*

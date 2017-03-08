@@ -7,7 +7,7 @@
 //
 
 #import "SFPhotoBottomView.h"
-
+#import "Masonry.h"
 @implementation SFPhotoBottomView
 #pragma mark - system method
 - (instancetype)init{
@@ -18,6 +18,19 @@
 }
 
 - (void)drawRect:(CGRect)rect{
+    WS(ws);
+    [self.editBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(ws);
+        make.leading.mas_equalTo(10);
+    }];
+    [self.origalBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(ws);
+        make.leading.mas_equalTo(ws.editBtn.mas_trailing).mas_offset(10);
+    }];
+    [self.sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(ws);
+        make.trailing.mas_equalTo(-10);
+    }];
     [super drawRect:rect];
 }
 
