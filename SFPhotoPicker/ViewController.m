@@ -13,6 +13,7 @@
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource>{
     NSArray *_titleArr;
     SFPhotoPickerTool *_tool;
+    SFCameraTool *_cameraTool;
 }
 @property (weak, nonatomic) IBOutlet UITableView *mainTableView;
 
@@ -26,8 +27,9 @@ static NSString *kHomeCellID = @"kHomeCellID";
     [super viewDidLoad];
     [self setTableView];
     // setData
-    _titleArr = @[@"当前手机相册权限状态", @"获取手机相册权限", @"相册列表", @""];
+    _titleArr = @[@"当前手机相册权限状态", @"获取手机相册权限", @"相册列表", @"获取手机摄像头权限状态", @"获取手机摄像头权限"];
     _tool = [SFPhotoPickerTool sharedInstance];
+    _cameraTool = [SFCameraTool sharedInstance];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -85,6 +87,18 @@ static NSString *kHomeCellID = @"kHomeCellID";
         }
             break;
             
+        case 3:{
+            // 获取手机摄像头权限状态
+            [self getCamreaRightStatus];
+        }
+            break;
+            
+        case 4:{
+            // 获取手机摄像头权限
+            [self askCameraRight];
+        }
+            break;
+            
         default:
             break;
     }
@@ -108,6 +122,19 @@ static NSString *kHomeCellID = @"kHomeCellID";
     SFPhotoAlbumListViewController *vc = [[SFPhotoAlbumListViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+- (void)getCamreaRightStatus{
+    AVAuthorizationStatus status = [_cameraTool sf_askCameraRightStuts];
+    [self judgementCameraRightStatus:status];
+}
+
+- (void)askCameraRight{
+    [_cameraTool sf_askCameraRight:^(AVAuthorizationStatus status) {
+       dispatch_async(dispatch_get_main_queue(), ^{
+           [self judgementCameraRightStatus:status];
+       });
+    }];
+}
 #pragma mark - public method
 - (void)judgementStatus:(PHAuthorizationStatus)status{
     NSString *message = @"未知错误";
@@ -128,9 +155,38 @@ static NSString *kHomeCellID = @"kHomeCellID";
             break;
             
         case PHAuthorizationStatusNotDetermined:{
-            message = @"未取得用户同意";
+            message = @"未取询问用户";
         }
             break;
+        default:
+            break;
+    }
+    [[SFThridMethod sharedInstance] showHUDWithText:message showTime:1.5 toview:self.view];
+}
+
+- (void)judgementCameraRightStatus:(AVAuthorizationStatus)status{
+    NSString *message = @"未知错误";
+    switch (status) {
+        case AVAuthorizationStatusAuthorized:{
+            message = @"用户已授权同意~";
+        }
+            break;
+            
+        case AVAuthorizationStatusDenied:{
+            message = @"用户拒绝授权";
+        }
+            break;
+            
+        case AVAuthorizationStatusRestricted:{
+            message = @"当前用户无权授权，请联系家长~";
+        }
+            break;
+            
+        case AVAuthorizationStatusNotDetermined:{
+            message = @"未取询问用户";
+        }
+            break;
+            
         default:
             break;
     }

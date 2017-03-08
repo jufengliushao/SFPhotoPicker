@@ -44,4 +44,13 @@ SFCameraTool *camera = nil;
     }
     return status;
 }
+
+- (void)sf_askCameraRight:(RequestCameraRightComplete)complete{
+    WS(ws);
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+        if (complete) {
+            complete([ws sf_askCameraRightStuts]);
+        }
+    }];
+}
 @end

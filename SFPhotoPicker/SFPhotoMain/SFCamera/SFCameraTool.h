@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^RequestCameraRightComplete)(AVAuthorizationStatus status);
+
 @interface SFCameraTool : NSObject
 
 /**
@@ -27,4 +29,11 @@
  @return <#return value description#>
  */
 - (AVAuthorizationStatus)sf_askCameraRightStuts;
+
+/**
+ 请求对相机的使用权限
+
+ @param complete <#complete description#>
+ */
+- (void)sf_askCameraRight:(RequestCameraRightComplete)complete;
 @end
