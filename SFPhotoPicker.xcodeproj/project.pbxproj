@@ -40,6 +40,7 @@
 		E6CB30AC1E6C5F3B001368C2 /* SFPhotoDetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB30AB1E6C5F3B001368C2 /* SFPhotoDetailCollectionViewCell.m */; };
 		E6CB30AF1E6D4E69001368C2 /* SFPhotoDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB30AE1E6D4E69001368C2 /* SFPhotoDetailHeaderView.m */; };
 		E6CB30B21E6E56C4001368C2 /* SFPhotoThumbHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB30B11E6E56C4001368C2 /* SFPhotoThumbHeaderView.m */; };
+		E6CB30B81E6F93C8001368C2 /* SFPhotoBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB30B71E6F93C8001368C2 /* SFPhotoBottomView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,8 @@
 		E6CB30AE1E6D4E69001368C2 /* SFPhotoDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoDetailHeaderView.m; sourceTree = "<group>"; };
 		E6CB30B01E6E56C4001368C2 /* SFPhotoThumbHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoThumbHeaderView.h; sourceTree = "<group>"; };
 		E6CB30B11E6E56C4001368C2 /* SFPhotoThumbHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoThumbHeaderView.m; sourceTree = "<group>"; };
+		E6CB30B61E6F93C8001368C2 /* SFPhotoBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoBottomView.h; sourceTree = "<group>"; };
+		E6CB30B71E6F93C8001368C2 /* SFPhotoBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoBottomView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,6 +292,8 @@
 				E6CB30AE1E6D4E69001368C2 /* SFPhotoDetailHeaderView.m */,
 				E6CB30B01E6E56C4001368C2 /* SFPhotoThumbHeaderView.h */,
 				E6CB30B11E6E56C4001368C2 /* SFPhotoThumbHeaderView.m */,
+				E6CB30B61E6F93C8001368C2 /* SFPhotoBottomView.h */,
+				E6CB30B71E6F93C8001368C2 /* SFPhotoBottomView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -535,6 +540,7 @@
 				E62886C21E5EDD7D00F19D20 /* SFPhotoAlbumInfoModel.m in Sources */,
 				E62886FF1E61D60B00F19D20 /* SFThridMethod.m in Sources */,
 				E6CB2F941E64064B001368C2 /* SFPhotoAlbumThumbListViewController.m in Sources */,
+				E6CB30B81E6F93C8001368C2 /* SFPhotoBottomView.m in Sources */,
 				E62886FC1E61D3C000F19D20 /* ViewController+MASAdditions.m in Sources */,
 				E62886D81E61D32C00F19D20 /* MBProgressHUD.m in Sources */,
 			);
