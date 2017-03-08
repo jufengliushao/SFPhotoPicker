@@ -9,6 +9,8 @@
 #import "ViewController.h"
 // album list
 #import "SFPhotoAlbumListViewController.h"
+// camera
+#import "SFCameraPhotoViewController.h"
 
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource>{
     NSArray *_titleArr;
@@ -27,7 +29,7 @@ static NSString *kHomeCellID = @"kHomeCellID";
     [super viewDidLoad];
     [self setTableView];
     // setData
-    _titleArr = @[@"当前手机相册权限状态", @"获取手机相册权限", @"相册列表", @"获取手机摄像头权限状态", @"获取手机摄像头权限"];
+    _titleArr = @[@"当前手机相册权限状态", @"获取手机相册权限", @"相册列表", @"获取手机摄像头权限状态", @"获取手机摄像头权限", @"拍照"];
     _tool = [SFPhotoPickerTool sharedInstance];
     _cameraTool = [SFCameraTool sharedInstance];
     // Do any additional setup after loading the view, typically from a nib.
@@ -99,6 +101,14 @@ static NSString *kHomeCellID = @"kHomeCellID";
         }
             break;
             
+        case 5:{
+            // 拍照
+            if ([self canGoCameraStep]) {
+                [self showCameraPhoto];
+            }
+        }
+            break;
+            
         default:
             break;
     }
@@ -133,6 +143,13 @@ static NSString *kHomeCellID = @"kHomeCellID";
        dispatch_async(dispatch_get_main_queue(), ^{
            [self judgementCameraRightStatus:status];
        });
+    }];
+}
+
+- (void)showCameraPhoto{
+    SFCameraPhotoViewController *vc = [[SFCameraPhotoViewController alloc] init];
+    [self presentViewController:vc animated:YES completion:^{
+        
     }];
 }
 #pragma mark - public method
@@ -200,4 +217,13 @@ static NSString *kHomeCellID = @"kHomeCellID";
     }
     return YES;
 }
+
+- (BOOL)canGoCameraStep{
+    if ([_cameraTool sf_askCameraRightStuts] != AVAuthorizationStatusAuthorized) {
+        [[SFThridMethod sharedInstance] showHUDWithText:@"请先获取相机使用权限，然后再试~" showTime:1.5 toview:self.view];
+        return NO;
+    }
+    return YES;
+}
 @end
+
