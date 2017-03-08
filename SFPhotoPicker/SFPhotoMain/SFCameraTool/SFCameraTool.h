@@ -37,5 +37,13 @@ typedef void(^RequestCameraRightComplete)(AVAuthorizationStatus status);
  */
 - (void)sf_askCameraRight:(RequestCameraRightComplete)complete;
 
+/**
+ 返回摄像头获取资源的layer
+
+ @return <#return value description#>
+ */
 - (AVCaptureVideoPreviewLayer *)sf_returnCameraLayer;
+
+- (void)sf_cameraStartRunning;
+- (void)sf_cameraStopRunning;
 @end

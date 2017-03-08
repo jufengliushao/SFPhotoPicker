@@ -62,19 +62,22 @@ SFCameraTool *camera = nil;
 - (AVCaptureVideoPreviewLayer *)sf_returnCameraLayer{
     _captureSession = [[AVCaptureSession alloc] init];
     NSError *error;
-    _captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
+    _captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     [_captureDevice lockForConfiguration:nil];
     //设置闪光灯为自动
-    [_captureDevice setFlashMode:AVCaptureFlashModeAuto];
+    [_captureDevice setFlashMode:AVCaptureFlashModeOff];
     [_captureDevice unlockForConfiguration];
     
     _captureDeviceInput= [[AVCaptureDeviceInput alloc] initWithDevice:_captureDevice error:&error];
+    if (error) {
+        NSLog(@"%@", error);
+    }
     if ([_captureSession canAddInput:_captureDeviceInput]) {
         [_captureSession addInput:_captureDeviceInput];
     }
     _stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
-    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG, AVVideoCodecKey, nil];
-    _stillImageOutput.outputSettings = dic;
+    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey, nil];
+    [_stillImageOutput setOutputSettings:dic];
     if ([_captureSession canAddOutput:_stillImageOutput]) {
         [_captureSession addOutput:_stillImageOutput];
     }
@@ -84,5 +87,16 @@ SFCameraTool *camera = nil;
     return _videoPreviewLayer;
 }
 
+- (void)sf_cameraStartRunning{
+    if (_captureSession) {
+        [_captureSession startRunning];
+    }
+}
+
+- (void)sf_cameraStopRunning{
+    if(_captureSession){
+        [_captureSession stopRunning];
+    }
+}
 #pragma mark - method
 @end

@@ -18,6 +18,7 @@
 - (instancetype)init{
     if (self = [super init]) {
         _videoLayer = [[SFCameraTool sharedInstance] sf_returnCameraLayer];
+        self.layer.masksToBounds = YES;
         [self.layer addSublayer: _videoLayer];
     }
     return self;
