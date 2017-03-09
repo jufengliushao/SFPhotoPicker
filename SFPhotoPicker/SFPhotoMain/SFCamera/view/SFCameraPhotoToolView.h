@@ -11,5 +11,7 @@
 @interface SFCameraPhotoToolView : UIView
 
 @property (nonatomic, strong) UIButton *backBtn;
+@property (nonatomic, strong) UIButton *flahBtn;
+@property (nonatomic, strong) UIButton *flashForbidBtn;
 
 @end

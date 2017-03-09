@@ -51,6 +51,31 @@
             
         }];
     }];
+    
+    [self.cameraToolView.flahBtn addTargetAction:^(UIButton *sender) {
+        if (ws.cameraToolView.flashForbidBtn.isSelected) {
+            [[SFThridMethod sharedInstance] showHUDWithText:@"请打开左边闪光灯" showTime:1.0 toview:ws.view];
+            return ;
+        }
+        if (sender.isSelected) {
+            sender.selected = NO;
+            [[SFCameraTool sharedInstance] sf_setDeviceFlashAuto];
+        }else{
+            sender.selected = YES;
+            [[SFCameraTool sharedInstance] sf_openDeviceFlash];
+        }
+    }];
+    
+    [self.cameraToolView.flashForbidBtn addTargetAction:^(UIButton *sender) {
+        if(sender.isSelected){
+            sender.selected = NO;
+            [[SFCameraTool sharedInstance] sf_setDeviceFlashAuto];
+        }else{
+            sender.selected = YES;
+            [[SFCameraTool sharedInstance] sf_closeDeviceFlash];
+            ws.cameraToolView.flahBtn.selected = NO;
+        }
+    }];
 }
 
 #pragma mark - init

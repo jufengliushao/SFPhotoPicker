@@ -65,7 +65,7 @@ SFCameraTool *camera = nil;
     NSError *error;
     [_captureDevice lockForConfiguration:nil];
     //设置闪光灯为自动
-    [_captureDevice setFlashMode:AVCaptureFlashModeOff];
+    [_captureDevice setFlashMode:AVCaptureFlashModeAuto];
     [_captureDevice unlockForConfiguration];
     
     _captureDeviceInput= [[AVCaptureDeviceInput alloc] initWithDevice:_captureDevice error:&error];
@@ -104,22 +104,24 @@ SFCameraTool *camera = nil;
 }
 
 - (void)sf_openDeviceFlash{
-    [self setDeviceFlashModel:AVCaptureFlashModeOn];
+    [self setDeviceFlashModel:AVCaptureFlashModeOn torchMode:(AVCaptureTorchModeOn)];
 }
 
 - (void)sf_closeDeviceFlash{
-    [self setDeviceFlashModel:AVCaptureFlashModeOff];
+    [self setDeviceFlashModel:AVCaptureFlashModeOff torchMode:(AVCaptureTorchModeOff)];
 }
 
 - (void)sf_setDeviceFlashAuto{
-    [self setDeviceFlashModel:AVCaptureFlashModeAuto];
+    [self setDeviceFlashModel:AVCaptureFlashModeAuto torchMode:(AVCaptureTorchModeAuto)];
 }
 #pragma mark - method
-- (void)setDeviceFlashModel:(AVCaptureFlashMode)flashMode{
+- (void)setDeviceFlashModel:(AVCaptureFlashMode)flashMode torchMode:(AVCaptureTorchMode)trochMode{
     if ([self sf_deviceHasFlash]) {
-        [_captureDevice lockForConfiguration:nil];
-        _captureDevice.flashMode = flashMode;
-        [_captureDevice unlockForConfiguration];
+        if ([_captureDevice lockForConfiguration:nil]) {
+            _captureDevice.flashMode = flashMode;
+            [_captureDevice setTorchMode:(trochMode)];
+            [_captureDevice unlockForConfiguration];
+        }
     }
 }
 @end
