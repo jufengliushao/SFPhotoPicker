@@ -8,9 +8,11 @@
 
 #import "SFCameraPhotoViewController.h"
 #import "SFCameraVideoPevView.h"
+#import "SFCameraPhotoToolView.h"
 @interface SFCameraPhotoViewController ()
 
 @property (nonatomic, strong) SFCameraVideoPevView *cameraPreview;
+@property (nonatomic, strong) SFCameraPhotoToolView *cameraToolView;
 
 @end
 
@@ -20,6 +22,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     NSLog(@"%@", self.cameraPreview);
+    NSLog(@"%@", self.cameraToolView);
     // Do any additional setup after loading the view.
 }
 
@@ -41,6 +44,15 @@
         [self.view addSubview:_cameraPreview];
     }
     return _cameraPreview;
+}
+
+- (SFCameraPhotoToolView *)cameraToolView{
+    if (!_cameraToolView) {
+        _cameraToolView = [[SFCameraPhotoToolView alloc] init];
+        _cameraToolView.frame = self.view.bounds;
+        [self.view addSubview:_cameraToolView];
+    }
+    return _cameraToolView;
 }
 
 /*

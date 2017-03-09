@@ -45,6 +45,7 @@
 		E6CB314B1E70450D001368C2 /* SFCameraTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB314A1E70450D001368C2 /* SFCameraTool.m */; };
 		E6CB31521E704576001368C2 /* SFCameraPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB31511E704576001368C2 /* SFCameraPhotoViewController.m */; };
 		E6CB31551E704930001368C2 /* SFCameraVideoPevView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB31541E704930001368C2 /* SFCameraVideoPevView.m */; };
+		E6CB31581E70E4D1001368C2 /* SFCameraPhotoToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB31571E70E4D1001368C2 /* SFCameraPhotoToolView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,8 @@
 		E6CB31511E704576001368C2 /* SFCameraPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCameraPhotoViewController.m; sourceTree = "<group>"; };
 		E6CB31531E704930001368C2 /* SFCameraVideoPevView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCameraVideoPevView.h; sourceTree = "<group>"; };
 		E6CB31541E704930001368C2 /* SFCameraVideoPevView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCameraVideoPevView.m; sourceTree = "<group>"; };
+		E6CB31561E70E4D1001368C2 /* SFCameraPhotoToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCameraPhotoToolView.h; sourceTree = "<group>"; };
+		E6CB31571E70E4D1001368C2 /* SFCameraPhotoToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCameraPhotoToolView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,6 +437,8 @@
 			isa = PBXGroup;
 			children = (
 				E6CB314F1E704554001368C2 /* layerView */,
+				E6CB31561E70E4D1001368C2 /* SFCameraPhotoToolView.h */,
+				E6CB31571E70E4D1001368C2 /* SFCameraPhotoToolView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -594,6 +599,7 @@
 				E62886F41E61D3C000F19D20 /* MASConstraint.m in Sources */,
 				E6CB2F8E1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m in Sources */,
 				E6CB314B1E70450D001368C2 /* SFCameraTool.m in Sources */,
+				E6CB31581E70E4D1001368C2 /* SFCameraPhotoToolView.m in Sources */,
 				E6CB30AF1E6D4E69001368C2 /* SFPhotoDetailHeaderView.m in Sources */,
 				E62887081E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m in Sources */,
 				E6CB302E1E6858FC001368C2 /* SFIndexCalculateTool.m in Sources */,
