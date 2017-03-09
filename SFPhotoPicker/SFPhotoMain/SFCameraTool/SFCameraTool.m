@@ -140,6 +140,15 @@ SFCameraTool *camera = nil;
     }
 }
 
+- (void)sf_setCameraFocusPoint:(CGPoint)point{
+    if([_captureDevice lockForConfiguration:nil]){
+        if ([_captureDevice isFocusPointOfInterestSupported]) {
+            [_captureDevice setFocusPointOfInterest:point];
+            _captureDevice.focusMode = AVCaptureFocusModeAutoFocus;
+        }
+        [_captureDevice unlockForConfiguration];
+    }
+}
 #pragma mark - method
 - (void)setDeviceFlashModel:(AVCaptureFlashMode)flashMode torchMode:(AVCaptureTorchMode)trochMode{
     if ([self sf_deviceHasFlash]) {

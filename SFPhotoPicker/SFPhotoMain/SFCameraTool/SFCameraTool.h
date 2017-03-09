@@ -82,7 +82,14 @@ typedef void(^RequestCameraRightComplete)(AVAuthorizationStatus status);
 - (void)sf_switchCameraposition;
 
 /**
- 设置聚焦
+ 放大缩小
  */
 - (void)sf_changeCameraEffectiveScale:(CGFloat)scale;
+
+/**
+ 设置聚焦
+
+ @param point <#point description#>
+ */
+- (void)sf_setCameraFocusPoint:(CGPoint)point;
 @end

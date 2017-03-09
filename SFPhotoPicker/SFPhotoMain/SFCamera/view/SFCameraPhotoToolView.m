@@ -22,6 +22,10 @@
         self.backgroundColor = [UIColor clearColor];
         UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
         [self addGestureRecognizer:pinch];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+        tap.numberOfTapsRequired = 1;
+        tap.numberOfTouchesRequired = 1;
+        [self addGestureRecognizer:tap];
     }
     return self;
 }
@@ -64,8 +68,16 @@
     CGFloat change = distance - _lastDistance;
     change = change / CGRectGetWidth(self.bounds);
     _lastDistance = distance;
-    NSLog(@"%f---------%f", change, pinch.scale);
     [[SFCameraTool sharedInstance] sf_changeCameraEffectiveScale:change];
+}
+
+- (void)handleTapGesture:(UITapGestureRecognizer *)tap{
+    if (tap.numberOfTouches != 1) {
+        return;
+    }
+    CGPoint point = [tap locationOfTouch:0 inView:self];
+    NSLog(@"%f---%f", point.x, point.y);
+    [[SFCameraTool sharedInstance] sf_setCameraFocusPoint:point];
 }
 
 #pragma mark - init
