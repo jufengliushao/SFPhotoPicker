@@ -104,13 +104,22 @@ SFCameraTool *camera = nil;
 }
 
 - (void)sf_openDeviceFlash{
+    [self setDeviceFlashModel:AVCaptureFlashModeOn];
+}
+
+- (void)sf_closeDeviceFlash{
+    [self setDeviceFlashModel:AVCaptureFlashModeOff];
+}
+
+- (void)sf_setDeviceFlashAuto{
+    [self setDeviceFlashModel:AVCaptureFlashModeAuto];
+}
+#pragma mark - method
+- (void)setDeviceFlashModel:(AVCaptureFlashMode)flashMode{
     if ([self sf_deviceHasFlash]) {
         [_captureDevice lockForConfiguration:nil];
-        _captureDevice.flashMode = AVCaptureFlashModeOn;
+        _captureDevice.flashMode = flashMode;
         [_captureDevice unlockForConfiguration];
     }
 }
-
-
-#pragma mark - method
 @end

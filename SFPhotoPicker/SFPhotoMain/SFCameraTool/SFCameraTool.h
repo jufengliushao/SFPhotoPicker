@@ -62,7 +62,17 @@ typedef void(^RequestCameraRightComplete)(AVAuthorizationStatus status);
 - (void)sf_cameraStopRunning;
 
 /**
- 打开闪光灯
+ 强制打开闪光灯
  */
 - (void)sf_openDeviceFlash;
+
+/**
+ 强制关闭闪光灯
+ */
+- (void)sf_closeDeviceFlash;
+
+/**
+ 设置闪光灯自动开启  根据需要
+ */
+- (void)sf_setDeviceFlashAuto;
 @end
