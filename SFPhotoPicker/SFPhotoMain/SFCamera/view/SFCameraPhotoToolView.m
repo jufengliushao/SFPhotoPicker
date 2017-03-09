@@ -48,6 +48,7 @@
     }];
     [self.switchCameraBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.trailing.mas_equalTo(-20);
+        make.width.height.mas_equalTo(40);
     }];
     [super drawRect:rect];
 }
@@ -76,7 +77,6 @@
         return;
     }
     CGPoint point = [tap locationOfTouch:0 inView:self];
-    NSLog(@"%f---%f", point.x, point.y);
     [[SFCameraTool sharedInstance] sf_setCameraFocusPoint:point];
 }
 
@@ -119,8 +119,7 @@
     if (!_switchCameraBtn) {
         _switchCameraBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
         _switchCameraBtn.backgroundColor = [UIColor clearColor];
-        [_switchCameraBtn setTitle:@"change" forState:(UIControlStateNormal)];
-        [_switchCameraBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+        [_switchCameraBtn setImage:[UIImage imageNamed:@"camera-change"] forState:(UIControlStateNormal)];
         [self addSubview:_switchCameraBtn];
     }
     return _switchCameraBtn;
