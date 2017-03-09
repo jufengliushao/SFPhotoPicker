@@ -33,6 +33,9 @@
         make.top.mas_equalTo(20);
         make.width.height.mas_equalTo(35);
     }];
+    [self.switchCameraBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.trailing.mas_equalTo(-20);
+    }];
     [super drawRect:rect];
 }
 
@@ -69,5 +72,16 @@
         [self addSubview:_flashForbidBtn];
     }
     return _flashForbidBtn;
+}
+
+- (UIButton *)switchCameraBtn{
+    if (!_switchCameraBtn) {
+        _switchCameraBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        _switchCameraBtn.backgroundColor = [UIColor clearColor];
+        [_switchCameraBtn setTitle:@"change" forState:(UIControlStateNormal)];
+        [_switchCameraBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+        [self addSubview:_switchCameraBtn];
+    }
+    return _switchCameraBtn;
 }
 @end

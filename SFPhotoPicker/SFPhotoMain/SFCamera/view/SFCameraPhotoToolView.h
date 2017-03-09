@@ -13,5 +13,6 @@
 @property (nonatomic, strong) UIButton *backBtn;
 @property (nonatomic, strong) UIButton *flahBtn;
 @property (nonatomic, strong) UIButton *flashForbidBtn;
+@property (nonatomic, strong) UIButton *switchCameraBtn;
 
 @end

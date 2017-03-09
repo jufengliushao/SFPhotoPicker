@@ -76,6 +76,9 @@
             ws.cameraToolView.flahBtn.selected = NO;
         }
     }];
+    [self.cameraToolView.switchCameraBtn addTargetAction:^(UIButton *sender) {
+        [[SFCameraTool sharedInstance] sf_switchCameraposition];
+    }];
 }
 
 #pragma mark - init

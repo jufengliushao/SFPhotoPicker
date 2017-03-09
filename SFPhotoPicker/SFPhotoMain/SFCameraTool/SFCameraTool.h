@@ -75,4 +75,9 @@ typedef void(^RequestCameraRightComplete)(AVAuthorizationStatus status);
  设置闪光灯自动开启  根据需要
  */
 - (void)sf_setDeviceFlashAuto;
+
+/**
+ 切换摄像头
+ */
+- (void)sf_switchCameraposition;
 @end
