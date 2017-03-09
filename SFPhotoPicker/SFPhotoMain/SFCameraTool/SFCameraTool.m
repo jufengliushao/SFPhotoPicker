@@ -16,6 +16,8 @@
     AVCaptureStillImageOutput *_stillImageOutput;/* 照片输出流 */
     AVCaptureVideoPreviewLayer *_videoPreviewLayer;/* 预览图层 */
     AVCaptureDevicePosition _desiredPosition; /* 摄像头方向 */
+    CGFloat _beginScale;
+    CGFloat _effectiveScale;
 }
 
 @end
@@ -39,6 +41,8 @@ SFCameraTool *camera = nil;
         _captureSession = [[AVCaptureSession alloc] init];
         _captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
         _desiredPosition = AVCaptureDevicePositionBack;
+        _effectiveScale = 1.0;
+        _beginScale = 1.0;
     }
     return self;
 }
@@ -122,6 +126,20 @@ SFCameraTool *camera = nil;
     [self resetDeviceWithPosition];
     [self resetDeviceInput];
 }
+
+- (void)sf_changeCameraEffectiveScale:(CGFloat)scale{
+    if (_desiredPosition == AVCaptureDevicePositionFront) {
+        return;
+    }
+    if ([_captureDevice lockForConfiguration:nil]) {
+        CGFloat currentFactor = _captureDevice.videoZoomFactor;
+        CGFloat maxFactor = _captureDevice.activeFormat.videoMaxZoomFactor;
+        currentFactor = MIN(MIN(maxFactor, 3.0), MAX(scale + currentFactor, 1.0));
+        _captureDevice.videoZoomFactor = currentFactor;
+        [_captureDevice unlockForConfiguration];
+    }
+}
+
 #pragma mark - method
 - (void)setDeviceFlashModel:(AVCaptureFlashMode)flashMode torchMode:(AVCaptureTorchMode)trochMode{
     if ([self sf_deviceHasFlash]) {

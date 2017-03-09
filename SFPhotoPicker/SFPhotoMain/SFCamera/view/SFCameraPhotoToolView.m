@@ -8,11 +8,20 @@
 
 #import "SFCameraPhotoToolView.h"
 #import "Masonry.h"
+
+@interface SFCameraPhotoToolView()<UIGestureRecognizerDelegate>{
+    CGFloat _lastDistance;
+}
+
+@end
+
 @implementation SFCameraPhotoToolView
 #pragma mark - system method
 - (instancetype)init{
     if (self = [super init]) {
         self.backgroundColor = [UIColor clearColor];
+        UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+        [self addGestureRecognizer:pinch];
     }
     return self;
 }
@@ -37,6 +46,26 @@
         make.bottom.trailing.mas_equalTo(-20);
     }];
     [super drawRect:rect];
+}
+
+#pragma mark - pinch gesture
+- (void)handlePinchGesture:(UIPinchGestureRecognizer *)pinch{
+    if (pinch.numberOfTouches != 2) {
+        return;
+    }
+    CGPoint point1 = [pinch locationOfTouch:0 inView:self];
+    CGPoint point2 = [pinch locationOfTouch:1 inView:self];
+    CGFloat distanceX = point2.x - point1.x;
+    CGFloat distanceY = point2.y - point1.y;
+    CGFloat distance = sqrtf(distanceX * distanceX +distanceY * distanceY);
+    if (pinch.state == UIGestureRecognizerStateBegan) {
+        _lastDistance = distance;
+    }
+    CGFloat change = distance - _lastDistance;
+    change = change / CGRectGetWidth(self.bounds);
+    _lastDistance = distance;
+    NSLog(@"%f---------%f", change, pinch.scale);
+    [[SFCameraTool sharedInstance] sf_changeCameraEffectiveScale:change];
 }
 
 #pragma mark - init

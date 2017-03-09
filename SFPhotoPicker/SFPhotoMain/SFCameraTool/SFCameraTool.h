@@ -80,4 +80,9 @@ typedef void(^RequestCameraRightComplete)(AVAuthorizationStatus status);
  切换摄像头
  */
 - (void)sf_switchCameraposition;
+
+/**
+ 设置聚焦
+ */
+- (void)sf_changeCameraEffectiveScale:(CGFloat)scale;
 @end
