@@ -28,8 +28,8 @@
 - (UIButton *)backBtn{
     if (!_backBtn) {
         _backBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        [_backBtn setTitle:@"back" forState:(UIControlStateNormal)];
-        [_backBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+        [_backBtn setImage:[UIImage imageNamed:@"cancel"] forState:(UIControlStateNormal)];
+        _backBtn.backgroundColor = [UIColor clearColor];
         [self addSubview:_backBtn];
     }
     return _backBtn;

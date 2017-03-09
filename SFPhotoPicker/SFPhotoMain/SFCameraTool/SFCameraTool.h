@@ -44,6 +44,25 @@ typedef void(^RequestCameraRightComplete)(AVAuthorizationStatus status);
  */
 - (AVCaptureVideoPreviewLayer *)sf_returnCameraLayer;
 
+/**
+ 判断当前设备是否有摄像头
+
+ @return <#return value description#>
+ */
+- (BOOL)sf_deviceHasFlash;
+
+/**
+ 开启摄像头
+ */
 - (void)sf_cameraStartRunning;
+
+/**
+ 关闭摄像头
+ */
 - (void)sf_cameraStopRunning;
+
+/**
+ 打开闪光灯
+ */
+- (void)sf_openDeviceFlash;
 @end

@@ -35,6 +35,8 @@ SFCameraTool *camera = nil;
 - (instancetype)init{
     if (self = [super init]) {
         _hasCameraRight = NO;
+        _captureSession = [[AVCaptureSession alloc] init];
+        _captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     }
     return self;
 }
@@ -60,9 +62,7 @@ SFCameraTool *camera = nil;
 }
 
 - (AVCaptureVideoPreviewLayer *)sf_returnCameraLayer{
-    _captureSession = [[AVCaptureSession alloc] init];
     NSError *error;
-    _captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     [_captureDevice lockForConfiguration:nil];
     //设置闪光灯为自动
     [_captureDevice setFlashMode:AVCaptureFlashModeOff];
@@ -87,6 +87,10 @@ SFCameraTool *camera = nil;
     return _videoPreviewLayer;
 }
 
+- (BOOL)sf_deviceHasFlash{
+    return [_captureDevice hasFlash];
+}
+
 - (void)sf_cameraStartRunning{
     if (_captureSession) {
         [_captureSession startRunning];
@@ -98,5 +102,15 @@ SFCameraTool *camera = nil;
         [_captureSession stopRunning];
     }
 }
+
+- (void)sf_openDeviceFlash{
+    if ([self sf_deviceHasFlash]) {
+        [_captureDevice lockForConfiguration:nil];
+        _captureDevice.flashMode = AVCaptureFlashModeOn;
+        [_captureDevice unlockForConfiguration];
+    }
+}
+
+
 #pragma mark - method
 @end

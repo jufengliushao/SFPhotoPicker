@@ -29,7 +29,7 @@ static NSString *kHomeCellID = @"kHomeCellID";
     [super viewDidLoad];
     [self setTableView];
     // setData
-    _titleArr = @[@"当前手机相册权限状态", @"获取手机相册权限", @"相册列表", @"获取手机摄像头权限状态", @"获取手机摄像头权限", @"拍照"];
+    _titleArr = @[@"当前手机相册权限状态", @"获取手机相册权限", @"相册列表", @"获取手机摄像头权限状态", @"获取手机摄像头权限", @"判断设备是否支持闪光灯", @"拍照"];
     _tool = [SFPhotoPickerTool sharedInstance];
     _cameraTool = [SFCameraTool sharedInstance];
     // Do any additional setup after loading the view, typically from a nib.
@@ -102,6 +102,14 @@ static NSString *kHomeCellID = @"kHomeCellID";
             break;
             
         case 5:{
+            // 判断设备是否支持闪光灯
+            if ([self canGoCameraStep]) {
+                [self judgementDeviceHasFlas];
+            }
+        }
+            break;
+            
+        case 6:{
             // 拍照
             if ([self canGoCameraStep]) {
                 [self showCameraPhoto];
@@ -151,6 +159,11 @@ static NSString *kHomeCellID = @"kHomeCellID";
     [self presentViewController:vc animated:YES completion:^{
         
     }];
+}
+
+- (void)judgementDeviceHasFlas{
+    NSString *message = [_cameraTool sf_deviceHasFlash] ? @"设备支持闪光灯" : @"设备不支持摄像头";
+    [[SFThridMethod sharedInstance] showHUDWithText:message showTime:1.5 toview:self.view];
 }
 #pragma mark - public method
 - (void)judgementStatus:(PHAuthorizationStatus)status{

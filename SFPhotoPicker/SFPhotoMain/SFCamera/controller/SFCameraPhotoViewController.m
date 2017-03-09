@@ -9,6 +9,8 @@
 #import "SFCameraPhotoViewController.h"
 #import "SFCameraVideoPevView.h"
 #import "SFCameraPhotoToolView.h"
+// tool
+#import "UIButton+SFButton.h"
 @interface SFCameraPhotoViewController ()
 
 @property (nonatomic, strong) SFCameraVideoPevView *cameraPreview;
@@ -22,7 +24,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     NSLog(@"%@", self.cameraPreview);
-    NSLog(@"%@", self.cameraToolView);
+    [self blockAction];
     // Do any additional setup after loading the view.
 }
 
@@ -34,6 +36,21 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[SFCameraTool sharedInstance] sf_cameraStartRunning];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[SFCameraTool sharedInstance] sf_cameraStopRunning];
+}
+
+#pragma mark - block action
+- (void)blockAction{
+    WS(ws);
+    [self.cameraToolView.backBtn addTargetAction:^(UIButton *sender) {
+        [ws dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    }];
 }
 
 #pragma mark - init
