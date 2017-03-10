@@ -150,6 +150,17 @@ SFCameraTool *camera = nil;
         [_captureDevice unlockForConfiguration];
     }
 }
+
+- (void)sf_cameraShutterComplete:(PhotoCameraComplete)complete{
+    _captureConnection = [_stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+    [_stillImageOutput captureStillImageAsynchronouslyFromConnection:_captureConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+        NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+        UIImage *img = [UIImage imageWithData:jpegData];
+        if(complete){
+            complete(img, error);
+        }
+    }];
+}
 #pragma mark - method
 - (void)setDeviceFlashModel:(AVCaptureFlashMode)flashMode torchMode:(AVCaptureTorchMode)trochMode{
     if ([self sf_deviceHasFlash]) {

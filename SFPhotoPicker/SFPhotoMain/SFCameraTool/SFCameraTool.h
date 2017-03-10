@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef void(^RequestCameraRightComplete)(AVAuthorizationStatus status);
+typedef void(^PhotoCameraComplete)(UIImage *img, NSError *err);
 
 @interface SFCameraTool : NSObject
 
@@ -92,4 +93,9 @@ typedef void(^RequestCameraRightComplete)(AVAuthorizationStatus status);
  @param point <#point description#>
  */
 - (void)sf_setCameraFocusPoint:(CGPoint)point;
+
+/**
+ 拍照
+ */
+- (void)sf_cameraShutterComplete:(PhotoCameraComplete)complete;
 @end
