@@ -46,6 +46,7 @@
 		E6CB31521E704576001368C2 /* SFCameraPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB31511E704576001368C2 /* SFCameraPhotoViewController.m */; };
 		E6CB31551E704930001368C2 /* SFCameraVideoPevView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB31541E704930001368C2 /* SFCameraVideoPevView.m */; };
 		E6CB31581E70E4D1001368C2 /* SFCameraPhotoToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB31571E70E4D1001368C2 /* SFCameraPhotoToolView.m */; };
+		E6CB315B1E724663001368C2 /* SFCameraPhotoResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB315A1E724663001368C2 /* SFCameraPhotoResultView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +151,8 @@
 		E6CB31541E704930001368C2 /* SFCameraVideoPevView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCameraVideoPevView.m; sourceTree = "<group>"; };
 		E6CB31561E70E4D1001368C2 /* SFCameraPhotoToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCameraPhotoToolView.h; sourceTree = "<group>"; };
 		E6CB31571E70E4D1001368C2 /* SFCameraPhotoToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCameraPhotoToolView.m; sourceTree = "<group>"; };
+		E6CB31591E724663001368C2 /* SFCameraPhotoResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCameraPhotoResultView.h; sourceTree = "<group>"; };
+		E6CB315A1E724663001368C2 /* SFCameraPhotoResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCameraPhotoResultView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -439,6 +442,8 @@
 				E6CB314F1E704554001368C2 /* layerView */,
 				E6CB31561E70E4D1001368C2 /* SFCameraPhotoToolView.h */,
 				E6CB31571E70E4D1001368C2 /* SFCameraPhotoToolView.m */,
+				E6CB31591E724663001368C2 /* SFCameraPhotoResultView.h */,
+				E6CB315A1E724663001368C2 /* SFCameraPhotoResultView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -590,6 +595,7 @@
 				E62886F91E61D3C000F19D20 /* NSArray+MASAdditions.m in Sources */,
 				E62886F81E61D3C000F19D20 /* MASViewConstraint.m in Sources */,
 				E6CB30AC1E6C5F3B001368C2 /* SFPhotoDetailCollectionViewCell.m in Sources */,
+				E6CB315B1E724663001368C2 /* SFCameraPhotoResultView.m in Sources */,
 				E6CB31521E704576001368C2 /* SFCameraPhotoViewController.m in Sources */,
 				E62886F51E61D3C000F19D20 /* MASConstraintMaker.m in Sources */,
 				E62886FB1E61D3C000F19D20 /* View+MASAdditions.m in Sources */,

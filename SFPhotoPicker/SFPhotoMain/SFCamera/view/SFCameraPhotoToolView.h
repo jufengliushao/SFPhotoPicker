@@ -16,4 +16,5 @@
 @property (nonatomic, strong) UIButton *switchCameraBtn;
 @property (nonatomic, strong) UIButton *shutterBtn;
 
+- (void)configureImg:(UIImage *)img;
 @end

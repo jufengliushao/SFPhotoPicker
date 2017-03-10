@@ -7,12 +7,14 @@
 //
 
 #import "SFCameraPhotoToolView.h"
+#import "SFCameraPhotoResultView.h"
 #import "Masonry.h"
 
 @interface SFCameraPhotoToolView()<UIGestureRecognizerDelegate>{
     CGFloat _lastDistance;
 }
 
+@property (nonatomic, strong) SFCameraPhotoResultView *resultView;
 @end
 
 @implementation SFCameraPhotoToolView
@@ -32,6 +34,10 @@
 
 - (void)drawRect:(CGRect)rect{
     WS(ws);
+    [self.resultView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_offset(UIEdgeInsetsMake(0, 0, 0, 0));
+    }];
+    [self.resultView drawRect:rect];
     [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.top.mas_equalTo(20);
         make.width.height.mas_equalTo(40);
@@ -83,6 +89,17 @@
     }
     CGPoint point = [tap locationOfTouch:0 inView:self];
     [[SFCameraTool sharedInstance] sf_setCameraFocusPoint:point];
+}
+
+#pragma mark - setData
+- (void)configureImg:(UIImage *)img{
+    if (img) {
+        self.resultView.hidden = false;
+        [self.resultView configureImg:img];
+    }else{
+        self.resultView.hidden = true;
+        [self.resultView configureImg:nil];
+    }
 }
 
 #pragma mark - init
@@ -138,5 +155,19 @@
         [self addSubview:_shutterBtn];
     }
     return _shutterBtn;
+}
+
+- (SFCameraPhotoResultView *)resultView{
+    if (!_resultView) {
+        _resultView = [[SFCameraPhotoResultView alloc] init];
+        _resultView.hidden = YES;
+        BS(bs);
+        [_resultView.cancelBtn addTargetAction:^(UIButton *sender) {
+            bs->_resultView.hidden = YES;
+            [[SFCameraTool sharedInstance] sf_cameraStartRunning];
+        }];
+        [self addSubview:_resultView];
+    }
+    return _resultView;
 }
 @end

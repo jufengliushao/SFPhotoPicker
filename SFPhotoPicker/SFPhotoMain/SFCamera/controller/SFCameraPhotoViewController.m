@@ -80,7 +80,15 @@
         [[SFCameraTool sharedInstance] sf_switchCameraposition];
     }];
     [self.cameraToolView.shutterBtn addTargetAction:^(UIButton *sender) {
-        
+        [ws cameraPhotoShow];
+    }];
+}
+
+- (void)cameraPhotoShow{
+    WS(ws);
+    [[SFCameraTool sharedInstance] sf_cameraShutterComplete:^(UIImage *img, NSError *err) {
+        [ws.cameraToolView configureImg:img];
+        [[SFCameraTool sharedInstance] sf_cameraStopRunning];
     }];
 }
 
