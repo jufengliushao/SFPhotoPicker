@@ -10,6 +10,12 @@
 
 static SFThridMethod *method = nil;
 
+@interface SFThridMethod(){
+    MBProgressHUD *_hud;
+}
+
+@end
+
 @implementation SFThridMethod
 #pragma mark - system method
 +(SFThridMethod *)sharedInstance{
@@ -22,17 +28,35 @@ static SFThridMethod *method = nil;
     return method;
 }
 
+- (instancetype)init{
+    if (self = [super init]) {
+        _hud = [[MBProgressHUD alloc] init];
+    }
+    return self;
+}
+
 #pragma mark - user method
 - (void)showHUDWithText:(NSString *)message showTime:(CGFloat)showTime toview:(UIView *)view{
     if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
     // 快速显示一个提示信息
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    hud.label.text = message;
+    _hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    _hud.label.text = message;
     // 再设置模式
-    hud.mode = MBProgressHUDModeText;
+    _hud.mode = MBProgressHUDModeText;
     // 隐藏时候从父控件中移除
-    hud.removeFromSuperViewOnHide = YES;
+    _hud.removeFromSuperViewOnHide = YES;
     // 1秒之后再消失
-    [hud hideAnimated:YES afterDelay:showTime];
+    [_hud hideAnimated:YES afterDelay:showTime];
+}
+
+- (void)showWaitHUDWithMessage:(NSString *)message toView:(UIView *)view{
+    if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
+    _hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    _hud.mode = MBProgressHUDModeIndeterminate;
+    _hud.label.text = message;
+}
+
+- (void)hiddenHUD{
+    [_hud hideAnimated:YES afterDelay:0];
 }
 @end

@@ -12,6 +12,7 @@
 
 @interface SFCameraPhotoToolView()<UIGestureRecognizerDelegate>{
     CGFloat _lastDistance;
+    UIImage *_resultImg;
 }
 
 @property (nonatomic, strong) SFCameraPhotoResultView *resultView;
@@ -95,9 +96,11 @@
 - (void)configureImg:(UIImage *)img{
     if (img) {
         self.resultView.hidden = false;
+        _resultImg = img;
         [self.resultView configureImg:img];
     }else{
         self.resultView.hidden = true;
+        _resultImg = nil;
         [self.resultView configureImg:nil];
     }
 }
@@ -162,9 +165,16 @@
         _resultView = [[SFCameraPhotoResultView alloc] init];
         _resultView.hidden = YES;
         BS(bs);
+        WS(ws);
         [_resultView.cancelBtn addTargetAction:^(UIButton *sender) {
             bs->_resultView.hidden = YES;
             [[SFCameraTool sharedInstance] sf_cameraStartRunning];
+        }];
+        [_resultView.saveBtn addTargetAction:^(UIButton *sender) {
+            [[SFThridMethod sharedInstance] showWaitHUDWithMessage:@"saving..." toView:ws];
+            [[SFPhotoPickerTool sharedInstance] sf_saveImageSynchronousInCameraAlbum:bs->_resultImg complete:^(BOOL isSuccess, NSError *__autoreleasing *err, NSString *imgID) {
+                [[SFThridMethod sharedInstance] showHUDWithText:@"success" showTime:1 toview:ws];
+            }];
         }];
         [self addSubview:_resultView];
     }
