@@ -173,7 +173,8 @@
         [_resultView.saveBtn addTargetAction:^(UIButton *sender) {
             [[SFThridMethod sharedInstance] showWaitHUDWithMessage:@"saving..." toView:ws];
             [[SFPhotoPickerTool sharedInstance] sf_saveImageSynchronousInCameraAlbum:bs->_resultImg complete:^(BOOL isSuccess, NSError *__autoreleasing *err, NSString *imgID) {
-                [[SFThridMethod sharedInstance] showHUDWithText:@"success" showTime:1 toview:ws];
+                [[SFThridMethod sharedInstance] hiddenHUD];
+                bs->_resultView.hidden = YES;
             }];
         }];
         [self addSubview:_resultView];
