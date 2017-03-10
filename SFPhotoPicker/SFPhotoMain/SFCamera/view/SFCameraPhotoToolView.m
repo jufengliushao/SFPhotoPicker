@@ -50,6 +50,11 @@
         make.bottom.trailing.mas_equalTo(-20);
         make.width.height.mas_equalTo(40);
     }];
+    [self.shutterBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(ws);
+        make.bottom.mas_equalTo(-20);
+        make.width.height.mas_equalTo(60);
+    }];
     [super drawRect:rect];
 }
 
@@ -123,5 +128,15 @@
         [self addSubview:_switchCameraBtn];
     }
     return _switchCameraBtn;
+}
+
+- (UIButton *)shutterBtn{
+    if (!_shutterBtn) {
+        _shutterBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        _shutterBtn.backgroundColor = [UIColor orangeColor];
+        [_shutterBtn setImage:[UIImage imageNamed:@"camera-l"] forState:(UIControlStateNormal)];
+        [self addSubview:_shutterBtn];
+    }
+    return _shutterBtn;
 }
 @end

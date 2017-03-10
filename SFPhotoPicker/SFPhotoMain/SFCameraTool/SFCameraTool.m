@@ -16,6 +16,7 @@
     AVCaptureStillImageOutput *_stillImageOutput;/* 照片输出流 */
     AVCaptureVideoPreviewLayer *_videoPreviewLayer;/* 预览图层 */
     AVCaptureDevicePosition _desiredPosition; /* 摄像头方向 */
+    AVCaptureConnection *_captureConnection; 
     CGFloat _beginScale;
     CGFloat _effectiveScale;
 }

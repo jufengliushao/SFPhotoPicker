@@ -79,6 +79,9 @@
     [self.cameraToolView.switchCameraBtn addTargetAction:^(UIButton *sender) {
         [[SFCameraTool sharedInstance] sf_switchCameraposition];
     }];
+    [self.cameraToolView.shutterBtn addTargetAction:^(UIButton *sender) {
+        
+    }];
 }
 
 #pragma mark - init
