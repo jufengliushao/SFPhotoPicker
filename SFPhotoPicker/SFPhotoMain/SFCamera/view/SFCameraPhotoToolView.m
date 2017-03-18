@@ -20,8 +20,8 @@
 @end
 
 const static CGFloat maxLength = 80;
-const static CGFloat midScale = 5.0 / maxLength;
-const static CGFloat minScale = 3.0 / maxLength;
+const static CGFloat midScale = 50.0 / maxLength;
+const static CGFloat minScale = 30.0 / maxLength;
 
 @implementation SFCameraPhotoToolView
 #pragma mark - system method
@@ -69,7 +69,6 @@ const static CGFloat minScale = 3.0 / maxLength;
     }];
     [self.focusingView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(0);
-//        make.center.mas_equalTo(ws);
     }];
     [super drawRect:rect];
 }
@@ -105,18 +104,22 @@ const static CGFloat minScale = 3.0 / maxLength;
 
 - (void)animationView:(CGPoint)point{
     CAAnimationGroup *groupAnima = [CAAnimationGroup animation];
-    CABasicAnimation *firstAnima = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    firstAnima.duration = 1.f;
-    firstAnima.repeatCount = 1;
-    firstAnima.autoreverses = YES;
-    firstAnima.fromValue = [NSNumber numberWithFloat:1.0];
-    firstAnima.toValue = [NSNumber numberWithFloat:minScale];
-    groupAnima.animations = @[firstAnima];
+   
+    groupAnima.animations = @[[self returnTransformDuration:1 fromValue:[NSNumber numberWithFloat:1] toValue:[NSNumber numberWithFloat:0.01]]];
     groupAnima.fillMode = kCAFillModeForwards;
     groupAnima.removedOnCompletion = NO;
     [self.focusingView.layer addAnimation:groupAnima forKey:@"focusing-view"];
 }
 
+- (CABasicAnimation *)returnTransformDuration:(CGFloat)duration fromValue:(NSNumber *)from toValue:(NSNumber *)to{
+    CABasicAnimation *transformAnima = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    transformAnima.duration = duration;
+    transformAnima.repeatCount = 1;
+    transformAnima.autoreverses = NO;
+    transformAnima.fromValue = from;
+    transformAnima.toValue = to;
+    return transformAnima;
+}
 
 #pragma mark - setData
 - (void)configureImg:(UIImage *)img{
