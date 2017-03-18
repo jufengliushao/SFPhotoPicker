@@ -10,6 +10,7 @@
 #import "SFCameraPhotoResultView.h"
 #import "Masonry.h"
 
+#define HalfValue(value) value / 2.0
 @interface SFCameraPhotoToolView()<UIGestureRecognizerDelegate>{
     CGFloat _lastDistance;
     UIImage *_resultImg;
@@ -17,6 +18,10 @@
 
 @property (nonatomic, strong) SFCameraPhotoResultView *resultView;
 @end
+
+const static CGFloat maxLength = 80;
+const static CGFloat midScale = 5.0 / maxLength;
+const static CGFloat minScale = 3.0 / maxLength;
 
 @implementation SFCameraPhotoToolView
 #pragma mark - system method
@@ -94,17 +99,24 @@
     }
     CGPoint point = [tap locationInView:self];
     [[SFCameraTool sharedInstance] sf_setCameraFocusPoint:point];
-    [self.focusingView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.width.height.mas_equalTo(40);
-        make.leading.mas_equalTo(point.x - 20);
-        make.top.mas_equalTo(point.y - 20);
-    }];
-    [UIView animateWithDuration:3.f animations:^{
-        
-    } completion:^(BOOL finished) {
-        
-    }];
+    self.focusingView.frame = CGRectMake(point.x - HalfValue(maxLength), point.y - HalfValue(maxLength), maxLength, maxLength);
+    [self animationView:point];
 }
+
+- (void)animationView:(CGPoint)point{
+    CAAnimationGroup *groupAnima = [CAAnimationGroup animation];
+    CABasicAnimation *firstAnima = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    firstAnima.duration = 1.f;
+    firstAnima.repeatCount = 1;
+    firstAnima.autoreverses = YES;
+    firstAnima.fromValue = [NSNumber numberWithFloat:1.0];
+    firstAnima.toValue = [NSNumber numberWithFloat:minScale];
+    groupAnima.animations = @[firstAnima];
+    groupAnima.fillMode = kCAFillModeForwards;
+    groupAnima.removedOnCompletion = NO;
+    [self.focusingView.layer addAnimation:groupAnima forKey:@"focusing-view"];
+}
+
 
 #pragma mark - setData
 - (void)configureImg:(UIImage *)img{
