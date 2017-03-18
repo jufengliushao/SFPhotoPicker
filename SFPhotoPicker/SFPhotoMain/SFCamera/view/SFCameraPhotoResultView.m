@@ -18,7 +18,6 @@
 }
 
 - (void)drawRect:(CGRect)rect{
-    WS(ws);
     [self.resultImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_offset(UIEdgeInsetsMake(0, 0, 0, 0));
     }];

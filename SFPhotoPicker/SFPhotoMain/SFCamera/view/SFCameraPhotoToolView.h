@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UIButton *flashForbidBtn;
 @property (nonatomic, strong) UIButton *switchCameraBtn;
 @property (nonatomic, strong) UIButton *shutterBtn;
+@property (nonatomic, strong) UIView *focusingView;
 
 - (void)configureImg:(UIImage *)img;
 @end

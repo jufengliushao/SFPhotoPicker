@@ -62,6 +62,10 @@
         make.bottom.mas_equalTo(-20);
         make.width.height.mas_equalTo(60);
     }];
+    [self.focusingView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(0);
+//        make.center.mas_equalTo(ws);
+    }];
     [super drawRect:rect];
 }
 
@@ -88,8 +92,18 @@
     if (tap.numberOfTouches != 1) {
         return;
     }
-    CGPoint point = [tap locationOfTouch:0 inView:self];
+    CGPoint point = [tap locationInView:self];
     [[SFCameraTool sharedInstance] sf_setCameraFocusPoint:point];
+    [self.focusingView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.height.mas_equalTo(40);
+        make.leading.mas_equalTo(point.x - 20);
+        make.top.mas_equalTo(point.y - 20);
+    }];
+    [UIView animateWithDuration:3.f animations:^{
+        
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 #pragma mark - setData
@@ -180,5 +194,16 @@
         [self addSubview:_resultView];
     }
     return _resultView;
+}
+
+- (UIView *)focusingView{
+    if (!_focusingView) {
+        _focusingView = [[UIView alloc] init];
+        _focusingView.backgroundColor = [UIColor clearColor];
+        _focusingView.layer.borderColor = [UIColor yellowColor].CGColor;
+        _focusingView.layer.borderWidth = 1.5;
+        [self addSubview:_focusingView];
+    }
+    return _focusingView;
 }
 @end
