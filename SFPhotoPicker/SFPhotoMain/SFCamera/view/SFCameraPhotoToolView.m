@@ -20,8 +20,7 @@
 @end
 
 const static CGFloat maxLength = 80;
-const static CGFloat midScale = 60.0 / maxLength;
-const static CGFloat minScale = 40.0 / maxLength;
+const static CGFloat minScale = 60.0 / maxLength;
 
 @implementation SFCameraPhotoToolView
 #pragma mark - system method
@@ -97,6 +96,7 @@ const static CGFloat minScale = 40.0 / maxLength;
     if (tap.numberOfTouches != 1) {
         return;
     }
+    self.focusingView.layer.borderColor = [UIColor yellowColor].CGColor;
     CGPoint point = [tap locationInView:self];
     [[SFCameraTool sharedInstance] sf_setCameraFocusPoint:CGPointMake(point.x / VIEW_WIDTH(self), point.y / VIEW_HEIGHT(self))];
     self.focusingView.frame = CGRectMake(point.x - HalfValue(maxLength), point.y - HalfValue(maxLength), maxLength, maxLength);
@@ -106,10 +106,10 @@ const static CGFloat minScale = 40.0 / maxLength;
 - (void)animationView:(CGPoint)point{
     CAAnimationGroup *groupAnima = [CAAnimationGroup animation];
    
-    groupAnima.animations = @[[self returnTransformDuration:1.2 fromValue:[NSNumber numberWithFloat:1] toValue:[NSNumber numberWithFloat:minScale] beginTime:0.0 keyPath:@"transform.scale"], [self returnTransformDuration:0.3 fromValue:[NSNumber numberWithFloat:0.0] toValue:[NSNumber numberWithFloat:1.0] beginTime:0.0 keyPath:@"opacity"]];
+    groupAnima.animations = @[[self returnTransformDuration:0.7 fromValue:[NSNumber numberWithFloat:1] toValue:[NSNumber numberWithFloat:minScale] beginTime:0.0 keyPath:@"transform.scale"], [self returnTransformDuration:0.2 fromValue:[NSNumber numberWithFloat:0.0] toValue:[NSNumber numberWithFloat:1.0] beginTime:0.0 keyPath:@"opacity"]];
     groupAnima.fillMode = kCAFillModeForwards;
     groupAnima.removedOnCompletion = NO;
-    groupAnima.duration = 1.2;
+    groupAnima.duration = 0.7;
     [self.focusingView.layer addAnimation:groupAnima forKey:@"focusing-view"];
 }
 
@@ -126,7 +126,7 @@ const static CGFloat minScale = 40.0 / maxLength;
 
 #pragma mark -SFCameraDelegate
 - (void)sf_CamerafocusingComplete{
-    
+    self.focusingView.layer.borderColor = [UIColor colorWithRed:174/255.0 green:174/255.0 blue:21/255.0 alpha:1].CGColor;
 }
 
 #pragma mark - setData
