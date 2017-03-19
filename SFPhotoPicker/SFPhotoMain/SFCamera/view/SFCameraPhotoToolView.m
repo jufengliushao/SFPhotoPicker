@@ -11,7 +11,7 @@
 #import "Masonry.h"
 
 #define HalfValue(value) value / 2.0
-@interface SFCameraPhotoToolView()<UIGestureRecognizerDelegate>{
+@interface SFCameraPhotoToolView()<UIGestureRecognizerDelegate, SFCameraDelegate>{
     CGFloat _lastDistance;
     UIImage *_resultImg;
 }
@@ -34,6 +34,7 @@ const static CGFloat minScale = 40.0 / maxLength;
         tap.numberOfTapsRequired = 1;
         tap.numberOfTouchesRequired = 1;
         [self addGestureRecognizer:tap];
+        [SFCameraTool sharedInstance].delegate = self;
     }
     return self;
 }
@@ -105,15 +106,15 @@ const static CGFloat minScale = 40.0 / maxLength;
 - (void)animationView:(CGPoint)point{
     CAAnimationGroup *groupAnima = [CAAnimationGroup animation];
    
-    groupAnima.animations = @[[self returnTransformDuration:1 fromValue:[NSNumber numberWithFloat:1] toValue:[NSNumber numberWithFloat:minScale] beginTime:0.0], [self returnTransformDuration:1 fromValue:[NSNumber numberWithFloat:minScale] toValue:[NSNumber numberWithFloat:midScale] beginTime:1.0], [self returnTransformDuration:1.0 fromValue:[NSNumber numberWithFloat:midScale] toValue:[NSNumber numberWithFloat:minScale] beginTime:2.0]];
+    groupAnima.animations = @[[self returnTransformDuration:1.2 fromValue:[NSNumber numberWithFloat:1] toValue:[NSNumber numberWithFloat:minScale] beginTime:0.0 keyPath:@"transform.scale"], [self returnTransformDuration:0.3 fromValue:[NSNumber numberWithFloat:0.0] toValue:[NSNumber numberWithFloat:1.0] beginTime:0.0 keyPath:@"opacity"]];
     groupAnima.fillMode = kCAFillModeForwards;
     groupAnima.removedOnCompletion = NO;
-    groupAnima.duration = 3.0;
+    groupAnima.duration = 1.2;
     [self.focusingView.layer addAnimation:groupAnima forKey:@"focusing-view"];
 }
 
-- (CABasicAnimation *)returnTransformDuration:(CGFloat)duration fromValue:(NSNumber *)from toValue:(NSNumber *)to beginTime:(CGFloat)begin{
-    CABasicAnimation *transformAnima = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+- (CABasicAnimation *)returnTransformDuration:(CGFloat)duration fromValue:(NSNumber *)from toValue:(NSNumber *)to beginTime:(CGFloat)begin keyPath:(NSString *)keyPath{
+    CABasicAnimation *transformAnima = [CABasicAnimation animationWithKeyPath:keyPath];
     transformAnima.duration = duration;
     transformAnima.repeatCount = 1;
     transformAnima.autoreverses = NO;
@@ -121,6 +122,11 @@ const static CGFloat minScale = 40.0 / maxLength;
     transformAnima.toValue = to;
     transformAnima.beginTime = begin;
     return transformAnima;
+}
+
+#pragma mark -SFCameraDelegate
+- (void)sf_CamerafocusingComplete{
+    
 }
 
 #pragma mark - setData
