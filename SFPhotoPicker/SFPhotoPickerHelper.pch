@@ -22,5 +22,6 @@
 #define IS_IOS_10 floorf([[UIDevice currentDevice].systemVersion floatValue]) >=10.0 ? 1 : 0
 
 #import "SFPhotoPickerHeader.h"
+#import "SFViewPropertyHelper.h"
 
 #endif /* SFPhotoPickerHelper_pch */

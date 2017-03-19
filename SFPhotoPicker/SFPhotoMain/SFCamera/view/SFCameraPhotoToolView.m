@@ -20,8 +20,8 @@
 @end
 
 const static CGFloat maxLength = 80;
-const static CGFloat midScale = 50.0 / maxLength;
-const static CGFloat minScale = 30.0 / maxLength;
+const static CGFloat midScale = 60.0 / maxLength;
+const static CGFloat minScale = 40.0 / maxLength;
 
 @implementation SFCameraPhotoToolView
 #pragma mark - system method
@@ -97,7 +97,7 @@ const static CGFloat minScale = 30.0 / maxLength;
         return;
     }
     CGPoint point = [tap locationInView:self];
-    [[SFCameraTool sharedInstance] sf_setCameraFocusPoint:point];
+    [[SFCameraTool sharedInstance] sf_setCameraFocusPoint:CGPointMake(point.x / VIEW_WIDTH(self), point.y / VIEW_HEIGHT(self))];
     self.focusingView.frame = CGRectMake(point.x - HalfValue(maxLength), point.y - HalfValue(maxLength), maxLength, maxLength);
     [self animationView:point];
 }
@@ -105,19 +105,21 @@ const static CGFloat minScale = 30.0 / maxLength;
 - (void)animationView:(CGPoint)point{
     CAAnimationGroup *groupAnima = [CAAnimationGroup animation];
    
-    groupAnima.animations = @[[self returnTransformDuration:1 fromValue:[NSNumber numberWithFloat:1] toValue:[NSNumber numberWithFloat:0.01]]];
+    groupAnima.animations = @[[self returnTransformDuration:1 fromValue:[NSNumber numberWithFloat:1] toValue:[NSNumber numberWithFloat:minScale] beginTime:0.0], [self returnTransformDuration:1 fromValue:[NSNumber numberWithFloat:minScale] toValue:[NSNumber numberWithFloat:midScale] beginTime:1.0], [self returnTransformDuration:1.0 fromValue:[NSNumber numberWithFloat:midScale] toValue:[NSNumber numberWithFloat:minScale] beginTime:2.0]];
     groupAnima.fillMode = kCAFillModeForwards;
     groupAnima.removedOnCompletion = NO;
+    groupAnima.duration = 3.0;
     [self.focusingView.layer addAnimation:groupAnima forKey:@"focusing-view"];
 }
 
-- (CABasicAnimation *)returnTransformDuration:(CGFloat)duration fromValue:(NSNumber *)from toValue:(NSNumber *)to{
+- (CABasicAnimation *)returnTransformDuration:(CGFloat)duration fromValue:(NSNumber *)from toValue:(NSNumber *)to beginTime:(CGFloat)begin{
     CABasicAnimation *transformAnima = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     transformAnima.duration = duration;
     transformAnima.repeatCount = 1;
     transformAnima.autoreverses = NO;
     transformAnima.fromValue = from;
     transformAnima.toValue = to;
+    transformAnima.beginTime = begin;
     return transformAnima;
 }
 

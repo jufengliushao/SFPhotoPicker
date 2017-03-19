@@ -122,6 +122,7 @@
 		E62887041E62582F00F19D20 /* SFPhotoPickerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoPickerHeader.h; sourceTree = "<group>"; };
 		E62887061E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoPickerAlbumListTableViewCell.h; sourceTree = "<group>"; };
 		E62887071E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoPickerAlbumListTableViewCell.m; sourceTree = "<group>"; };
+		E66EAE0D1E7E10EE0040ED33 /* SFViewPropertyHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFViewPropertyHelper.h; sourceTree = "<group>"; };
 		E6CB2F8C1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoPickerImageSmallCollectionViewCell.h; sourceTree = "<group>"; };
 		E6CB2F8D1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoPickerImageSmallCollectionViewCell.m; sourceTree = "<group>"; };
 		E6CB2F8F1E640226001368C2 /* SFPhotoAssetInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoAssetInfoModel.h; sourceTree = "<group>"; };
@@ -213,6 +214,7 @@
 				E628868E1E5EC73B00F19D20 /* ViewController.m */,
 				E62887031E62578600F19D20 /* SFPhotoPickerHelper.pch */,
 				E62887041E62582F00F19D20 /* SFPhotoPickerHeader.h */,
+				E66EAE0D1E7E10EE0040ED33 /* SFViewPropertyHelper.h */,
 				E62886901E5EC73B00F19D20 /* Main.storyboard */,
 				E62886931E5EC73B00F19D20 /* Assets.xcassets */,
 				E62886951E5EC73B00F19D20 /* LaunchScreen.storyboard */,
