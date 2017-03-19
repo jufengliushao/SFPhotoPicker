@@ -48,6 +48,10 @@ SFCameraTool *camera = nil;
     return self;
 }
 
+- (void)dealloc{
+    [_captureDevice removeObserver:self forKeyPath:@"adjustingFocus" context:nil];
+}
+
 #pragma mark - public method
 - (AVAuthorizationStatus)sf_askCameraRightStuts{
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
@@ -204,11 +208,12 @@ SFCameraTool *camera = nil;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
     if ([keyPath isEqualToString:@"adjustingFocus"]) {
-        NSLog(@"%@", change);
+        if (![change[@"new"] boolValue]) {
+            // focusing complete
+            if (_delegate && [_delegate respondsToSelector:@selector(sf_CamerafocusingComplete)]) {
+                [_delegate sf_CamerafocusingComplete];
+            }
+        }
     }
-}
-
-- (void)dealloc{
-    [_captureDevice removeObserver:self forKeyPath:@"adjustingFocus" context:nil];
 }
 @end

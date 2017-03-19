@@ -11,6 +11,12 @@
 typedef void(^RequestCameraRightComplete)(AVAuthorizationStatus status);
 typedef void(^PhotoCameraComplete)(UIImage *img, NSError *err);
 
+@protocol SFCameraDelegate <NSObject>
+@optional
+- (void)sf_CamerafocusingComplete;
+
+@end
+
 @interface SFCameraTool : NSObject
 
 /**
@@ -19,6 +25,8 @@ typedef void(^PhotoCameraComplete)(UIImage *img, NSError *err);
  @return <#return value description#>
  */
 + (SFCameraTool *)sharedInstance;
+
+@property (nonatomic, assign) id <SFCameraDelegate>delegate;
 
 /**
  查询当前应用对相机的权限
