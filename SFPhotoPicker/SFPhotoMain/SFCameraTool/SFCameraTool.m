@@ -73,6 +73,9 @@ SFCameraTool *camera = nil;
     [_captureDevice lockForConfiguration:nil];
     //设置闪光灯为自动
     [_captureDevice setFlashMode:AVCaptureFlashModeAuto];
+    _captureDevice.focusPointOfInterest = CGPointMake(0, 0);
+    _captureDevice.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+    [self addFocuseValueObserving];
     [_captureDevice unlockForConfiguration];
     
     _captureDeviceInput= [[AVCaptureDeviceInput alloc] initWithDevice:_captureDevice error:&error];
@@ -144,7 +147,7 @@ SFCameraTool *camera = nil;
 - (void)sf_setCameraFocusPoint:(CGPoint)point{
     if([_captureDevice lockForConfiguration:nil]){
         if ([_captureDevice isFocusPointOfInterestSupported]) {
-            [_captureDevice setFocusPointOfInterest:point];
+            _captureDevice.focusPointOfInterest = point;
             _captureDevice.focusMode = AVCaptureFocusModeAutoFocus;
         }
         [_captureDevice unlockForConfiguration];
@@ -190,5 +193,22 @@ SFCameraTool *camera = nil;
         [_captureSession addInput:_captureDeviceInput];
     }
     [_captureSession commitConfiguration];
+}
+
+- (void)addFocuseValueObserving{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [_captureDevice addObserver:self forKeyPath:@"adjustingFocus" options:(NSKeyValueObservingOptionNew) context:nil];
+    });
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    if ([keyPath isEqualToString:@"adjustingFocus"]) {
+        NSLog(@"%@", change);
+    }
+}
+
+- (void)dealloc{
+    [_captureDevice removeObserver:self forKeyPath:@"adjustingFocus" context:nil];
 }
 @end
