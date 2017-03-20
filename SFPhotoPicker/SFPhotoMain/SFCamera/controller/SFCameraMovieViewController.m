@@ -8,15 +8,19 @@
 
 #import "SFCameraMovieViewController.h"
 #import "SFCameraVideoPevView.h"
+#import "SFCameraMovieToolView.h"
+#import "UIButton+SFButton.h"
 @interface SFCameraMovieViewController ()
 @property (nonatomic, strong) SFCameraVideoPevView *moviePerView;
+@property (nonatomic, strong) SFCameraMovieToolView *toolView;
 @end
 
 @implementation SFCameraMovieViewController
-
+#pragma mark - system method
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"%@", self.moviePerView);
+//    [self blockAction];
     // Do any additional setup after loading the view.
 }
 
@@ -35,6 +39,18 @@
     [[SFCameraTool sharedInstance] sf_cameraStopRunning];
 }
 
+#pragma mark -action
+- (void)blockAction{
+    [self.toolView.recoderBtn addTargetAction:^(UIButton *sender) {
+        if(sender.isSelected){
+            [[SFCameraTool sharedInstance] sf_movieCameraStopRecoder];
+        }else{
+            [[SFCameraTool sharedInstance] sf_movieCarmeraStartRecoder];
+        }
+        sender.selected = !sender.selected;
+    }];
+}
+
 #pragma mark - init
 - (SFCameraVideoPevView *)moviePerView{
     if (!_moviePerView) {
@@ -45,6 +61,14 @@
     return _moviePerView;
 }
 
+- (SFCameraMovieToolView *)toolView{
+    if (!_toolView) {
+        _toolView = [[SFCameraMovieToolView alloc] init];
+//        _toolView.frame = self.moviePerView.bounds;
+//        [self.view addSubview:_toolView];
+    }
+    return _toolView;
+}
 /*
 #pragma mark - Navigation
 

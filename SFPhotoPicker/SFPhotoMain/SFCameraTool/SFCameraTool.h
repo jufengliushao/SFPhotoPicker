@@ -50,20 +50,6 @@ typedef void(^PhotoCameraComplete)(UIImage *img, NSError *err);
 - (void)sf_askCameraRight:(RequestCameraRightComplete)complete;
 
 /**
- 返回摄像头获取资源的layer
-
- @return <#return value description#>
- */
-- (AVCaptureVideoPreviewLayer *)sf_returnCameraLayer;
-
-/**
- 判断当前设备是否有摄像头
-
- @return <#return value description#>
- */
-- (BOOL)sf_deviceHasFlash;
-
-/**
  开启摄像头
  */
 - (void)sf_cameraStartRunning;
@@ -82,6 +68,21 @@ typedef void(^PhotoCameraComplete)(UIImage *img, NSError *err);
  强制关闭闪光灯
  */
 - (void)sf_closeDeviceFlash;
+
+/* ************************photoCamera***************************** */
+/**
+ 返回摄像头获取资源的layer
+
+ @return <#return value description#>
+ */
+- (AVCaptureVideoPreviewLayer *)sf_returnCameraLayer;
+
+/**
+ 判断当前设备是否有摄像头
+
+ @return <#return value description#>
+ */
+- (BOOL)sf_deviceHasFlash;
 
 /**
  设置闪光灯自动开启  根据需要
@@ -110,10 +111,21 @@ typedef void(^PhotoCameraComplete)(UIImage *img, NSError *err);
  */
 - (void)sf_cameraShutterComplete:(PhotoCameraComplete)complete;
 
+/* ************************movieCamera***************************** */
 /**
  返回视频录制layer
 
  @return <#return value description#>
  */
 - (AVCaptureVideoPreviewLayer *)sf_returnVideoPreviewLayer;
+
+/**
+ 开始录制
+ */
+- (void)sf_movieCarmeraStartRecoder;
+
+/**
+ 停止录制
+ */
+- (void)sf_movieCameraStopRecoder;
 @end

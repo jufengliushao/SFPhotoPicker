@@ -8,7 +8,7 @@
 
 #import "SFCameraTool.h"
 
-@interface SFCameraTool (){
+@interface SFCameraTool ()<AVCaptureFileOutputRecordingDelegate>{
     BOOL _hasCameraRight;
     AVCaptureSession *_captureSession; /* AVCaptureSession对象来执行输入设备和输出设备之间的数据传递 */
     AVCaptureDevice *_captureDevice;
@@ -75,18 +75,7 @@ SFCameraTool *camera = nil;
 }
 
 - (AVCaptureVideoPreviewLayer *)sf_returnCameraLayer{
-    NSError *error;
-    if (!_captureDevice) {
-        [self initForDevice];
-    }
-    
-    _captureDeviceInput= [[AVCaptureDeviceInput alloc] initWithDevice:_captureDevice error:&error];
-    if (error) {
-        NSLog(@"%@", error);
-    }
-    if ([_captureSession canAddInput:_captureDeviceInput]) {
-        [_captureSession addInput:_captureDeviceInput];
-    }
+    [self changeCameraTypePublicMethod];
     _stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
     NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey, nil];
     [_stillImageOutput setOutputSettings:dic];
@@ -168,16 +157,12 @@ SFCameraTool *camera = nil;
 }
 
 - (AVCaptureVideoPreviewLayer *)sf_returnVideoPreviewLayer{
-    if (_captureSession.isRunning) {
-        [self sf_cameraStopRunning];
-    }
-    if (!_captureDevice) {
-        [self initForDevice];
-    }
+    [self changeCameraTypePublicMethod];
     [_captureDevice lockForConfiguration:nil];
     NSError *error;
     _audioDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio] error:&error];
     // 添加音频流 添加视频输出流
+    
     if([_captureSession canAddInput:_audioDeviceInput]){
         [_captureSession addInput:_audioDeviceInput];
     }
@@ -188,6 +173,24 @@ SFCameraTool *camera = nil;
     [_captureDevice unlockForConfiguration];
     _videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
     return _videoPreviewLayer;
+}
+
+- (void)sf_movieCarmeraStartRecoder{
+    _captureConnection = [_movieOutput connectionWithMediaType:AVMediaTypeVideo];
+    AVCaptureVideoOrientation avcaptureOrientation = AVCaptureVideoOrientationPortrait;
+    [_captureConnection setVideoOrientation:avcaptureOrientation];
+    [_captureConnection setVideoScaleAndCropFactor:1.0];
+    NSURL *url = [NSURL URLWithString:[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject]];
+    NSLog(@"%@", url);
+    if (!_movieOutput.isRecording) {
+        [_movieOutput startRecordingToOutputFileURL:url recordingDelegate:self];
+    }
+}
+
+- (void)sf_movieCameraStopRecoder{
+    if(_movieOutput.isRecording){
+        [_movieOutput stopRecording];
+    }
 }
 #pragma mark - method
 - (void)setDeviceFlashModel:(AVCaptureFlashMode)flashMode torchMode:(AVCaptureTorchMode)trochMode{
@@ -239,15 +242,38 @@ SFCameraTool *camera = nil;
 }
 
 - (void)initForDevice{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        [_captureDevice lockForConfiguration:nil];
-        //设置闪光灯为自动
-        [_captureDevice setFlashMode:AVCaptureFlashModeAuto];
-        _captureDevice.focusPointOfInterest = CGPointMake(0, 0);
-        _captureDevice.focusMode = AVCaptureFocusModeContinuousAutoFocus;
-        [self addFocuseValueObserving];
-        [_captureDevice unlockForConfiguration];
-    });
+    [_captureDevice lockForConfiguration:nil];
+    //设置闪光灯为自动
+    [_captureDevice setFlashMode:AVCaptureFlashModeAuto];
+    _captureDevice.focusPointOfInterest = CGPointMake(0, 0);
+    _captureDevice.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+    [self addFocuseValueObserving];
+    [_captureDevice unlockForConfiguration];
+}
+
+- (void)initForDeviceInput{
+    NSError *error;
+    _captureDeviceInput= [[AVCaptureDeviceInput alloc] initWithDevice:_captureDevice error:&error];
+    if (error) {
+        NSLog(@"%@", error);
+    }
+    if ([_captureSession canAddInput:_captureDeviceInput]) {
+        [_captureSession addInput:_captureDeviceInput];
+    }
+}
+
+- (void)changeCameraTypePublicMethod{
+    if (_captureSession.isRunning) {
+        [self sf_cameraStopRunning];
+    }
+    [self initForDevice];
+    if(!_captureDeviceInput){
+        [self initForDeviceInput];
+    }
+}
+
+#pragma mark -AVCaptureFileOutputRecordingDelegate
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
+    NSLog(@"finish");
 }
 @end
