@@ -23,6 +23,10 @@
         make.bottom.mas_equalTo(-20);
         make.centerX.mas_equalTo(ws);
     }];
+    [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.top.mas_equalTo(20);
+        make.width.height.mas_equalTo(40);
+    }];
     [super drawRect:rect];
 }
 
@@ -35,5 +39,15 @@
         [self addSubview:_recoderBtn];
     }
     return _recoderBtn;
+}
+
+- (UIButton *)backBtn{
+    if (!_backBtn) {
+        _backBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        [_backBtn setImage:[UIImage imageNamed:@"cancel"] forState:(UIControlStateNormal)];
+        _backBtn.backgroundColor = [UIColor clearColor];
+        [self addSubview:_backBtn];
+    }
+    return _backBtn;
 }
 @end

@@ -10,6 +10,7 @@
 
 @interface SFCameraMovieToolView : UIView
 
+@property (nonatomic, strong) UIButton *backBtn;
 @property (nonatomic, strong) UIButton *recoderBtn;
 
 @end

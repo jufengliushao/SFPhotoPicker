@@ -19,8 +19,7 @@
 #pragma mark - system method
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"%@", self.moviePerView);
-//    [self blockAction];
+    [self blockAction];
     // Do any additional setup after loading the view.
 }
 
@@ -49,6 +48,12 @@
         }
         sender.selected = !sender.selected;
     }];
+    WS(ws);
+    [self.toolView.backBtn addTargetAction:^(UIButton *sender) {
+        [ws dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    }];
 }
 
 #pragma mark - init
@@ -64,8 +69,8 @@
 - (SFCameraMovieToolView *)toolView{
     if (!_toolView) {
         _toolView = [[SFCameraMovieToolView alloc] init];
-//        _toolView.frame = self.moviePerView.bounds;
-//        [self.view addSubview:_toolView];
+        _toolView.frame = self.moviePerView.bounds;
+        [self.moviePerView addSubview:_toolView];
     }
     return _toolView;
 }
