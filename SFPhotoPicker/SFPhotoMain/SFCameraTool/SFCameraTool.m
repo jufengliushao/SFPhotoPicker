@@ -7,7 +7,7 @@
 //
 
 #import "SFCameraTool.h"
-
+#import <AssetsLibrary/AssetsLibrary.h>
 @interface SFCameraTool ()<AVCaptureFileOutputRecordingDelegate>{
     BOOL _hasCameraRight;
     AVCaptureSession *_captureSession; /* AVCaptureSession对象来执行输入设备和输出设备之间的数据传递 */
@@ -21,6 +21,7 @@
     AVCaptureConnection *_captureConnection; 
     CGFloat _beginScale;
     CGFloat _effectiveScale;
+    NSURL *_videoURL;
 }
 
 @end
@@ -162,11 +163,11 @@ SFCameraTool *camera = nil;
     NSError *error;
     _audioDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio] error:&error];
     // 添加音频流 添加视频输出流
-    
     if([_captureSession canAddInput:_audioDeviceInput]){
         [_captureSession addInput:_audioDeviceInput];
     }
     [_captureSession removeOutput:_stillImageOutput];
+    _movieOutput = [[AVCaptureMovieFileOutput alloc] init];
     if ([_captureSession canAddOutput:_movieOutput]) {
         [_captureSession addOutput:_movieOutput];
     }
@@ -180,17 +181,25 @@ SFCameraTool *camera = nil;
     AVCaptureVideoOrientation avcaptureOrientation = AVCaptureVideoOrientationPortrait;
     [_captureConnection setVideoOrientation:avcaptureOrientation];
     [_captureConnection setVideoScaleAndCropFactor:1.0];
-    NSURL *url = [NSURL URLWithString:[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject]];
-    NSLog(@"%@", url);
+    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), @"outPut.mov"]];
     if (!_movieOutput.isRecording) {
         [_movieOutput startRecordingToOutputFileURL:url recordingDelegate:self];
     }
 }
 
 - (void)sf_movieCameraStopRecoder{
-    if(_movieOutput.isRecording){
-        [_movieOutput stopRecording];
+    [_movieOutput stopRecording];
+}
+
+- (void)sf_saveCameraMovieInPhotoAlbum{
+    if (!_videoURL) {
+        return;
     }
+    ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
+    [lib writeVideoAtPathToSavedPhotosAlbum:_videoURL completionBlock:^(NSURL *assetURL, NSError *error) {
+        [[NSFileManager defaultManager] removeItemAtURL:_videoURL error:nil];
+        NSLog(@"save complete");
+    }];
 }
 #pragma mark - method
 - (void)setDeviceFlashModel:(AVCaptureFlashMode)flashMode torchMode:(AVCaptureTorchMode)trochMode{
@@ -274,6 +283,10 @@ SFCameraTool *camera = nil;
 
 #pragma mark -AVCaptureFileOutputRecordingDelegate
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
-    NSLog(@"finish");
+    _videoURL = outputFileURL;
+}
+
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections{
+    
 }
 @end
