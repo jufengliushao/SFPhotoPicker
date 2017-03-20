@@ -13,6 +13,9 @@ typedef void(^PhotoCameraComplete)(UIImage *img, NSError *err);
 
 @protocol SFCameraDelegate <NSObject>
 @optional
+/**
+ 相机聚焦完成回调
+ */
 - (void)sf_CamerafocusingComplete;
 
 @end
@@ -106,4 +109,11 @@ typedef void(^PhotoCameraComplete)(UIImage *img, NSError *err);
  拍照
  */
 - (void)sf_cameraShutterComplete:(PhotoCameraComplete)complete;
+
+/**
+ 返回视频录制layer
+
+ @return <#return value description#>
+ */
+- (AVCaptureVideoPreviewLayer *)sf_returnVideoPreviewLayer;
 @end

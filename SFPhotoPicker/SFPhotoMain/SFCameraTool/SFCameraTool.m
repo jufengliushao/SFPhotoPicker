@@ -13,7 +13,9 @@
     AVCaptureSession *_captureSession; /* AVCaptureSession对象来执行输入设备和输出设备之间的数据传递 */
     AVCaptureDevice *_captureDevice;
     AVCaptureDeviceInput *_captureDeviceInput;/* 输入设备 */
+    AVCaptureDeviceInput *_audioDeviceInput; /* 音频输入 */
     AVCaptureStillImageOutput *_stillImageOutput;/* 照片输出流 */
+    AVCaptureMovieFileOutput *_movieOutput; /* 录制视频输出流 */
     AVCaptureVideoPreviewLayer *_videoPreviewLayer;/* 预览图层 */
     AVCaptureDevicePosition _desiredPosition; /* 摄像头方向 */
     AVCaptureConnection *_captureConnection; 
@@ -74,13 +76,9 @@ SFCameraTool *camera = nil;
 
 - (AVCaptureVideoPreviewLayer *)sf_returnCameraLayer{
     NSError *error;
-    [_captureDevice lockForConfiguration:nil];
-    //设置闪光灯为自动
-    [_captureDevice setFlashMode:AVCaptureFlashModeAuto];
-    _captureDevice.focusPointOfInterest = CGPointMake(0, 0);
-    _captureDevice.focusMode = AVCaptureFocusModeContinuousAutoFocus;
-    [self addFocuseValueObserving];
-    [_captureDevice unlockForConfiguration];
+    if (!_captureDevice) {
+        [self initForDevice];
+    }
     
     _captureDeviceInput= [[AVCaptureDeviceInput alloc] initWithDevice:_captureDevice error:&error];
     if (error) {
@@ -168,6 +166,29 @@ SFCameraTool *camera = nil;
         }
     }];
 }
+
+- (AVCaptureVideoPreviewLayer *)sf_returnVideoPreviewLayer{
+    if (_captureSession.isRunning) {
+        [self sf_cameraStopRunning];
+    }
+    if (!_captureDevice) {
+        [self initForDevice];
+    }
+    [_captureDevice lockForConfiguration:nil];
+    NSError *error;
+    _audioDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio] error:&error];
+    // 添加音频流 添加视频输出流
+    if([_captureSession canAddInput:_audioDeviceInput]){
+        [_captureSession addInput:_audioDeviceInput];
+    }
+    [_captureSession removeOutput:_stillImageOutput];
+    if ([_captureSession canAddOutput:_movieOutput]) {
+        [_captureSession addOutput:_movieOutput];
+    }
+    [_captureDevice unlockForConfiguration];
+    _videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
+    return _videoPreviewLayer;
+}
 #pragma mark - method
 - (void)setDeviceFlashModel:(AVCaptureFlashMode)flashMode torchMode:(AVCaptureTorchMode)trochMode{
     if ([self sf_deviceHasFlash]) {
@@ -215,5 +236,18 @@ SFCameraTool *camera = nil;
             }
         }
     }
+}
+
+- (void)initForDevice{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [_captureDevice lockForConfiguration:nil];
+        //设置闪光灯为自动
+        [_captureDevice setFlashMode:AVCaptureFlashModeAuto];
+        _captureDevice.focusPointOfInterest = CGPointMake(0, 0);
+        _captureDevice.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+        [self addFocuseValueObserving];
+        [_captureDevice unlockForConfiguration];
+    });
 }
 @end

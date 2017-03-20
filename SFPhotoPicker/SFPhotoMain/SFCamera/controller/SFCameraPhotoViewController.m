@@ -95,7 +95,7 @@
 #pragma mark - init
 - (SFCameraVideoPevView *)cameraPreview{
     if (!_cameraPreview) {
-        _cameraPreview = [[SFCameraVideoPevView alloc] init];
+        _cameraPreview = [[SFCameraVideoPevView alloc] initWithType:(SFCameraLayerTypePhoto)];
         _cameraPreview.frame = self.view.bounds;
         [self.view addSubview:_cameraPreview];
     }

@@ -15,9 +15,13 @@
 @end
 
 @implementation SFCameraVideoPevView
-- (instancetype)init{
+- (instancetype)initWithType:(SFCameraLayerType)layerType{
     if (self = [super init]) {
-        _videoLayer = [[SFCameraTool sharedInstance] sf_returnCameraLayer];
+        if (layerType == SFCameraLayerTypePhoto) {
+            _videoLayer = [[SFCameraTool sharedInstance] sf_returnCameraLayer];
+        }else{
+            _videoLayer = [[SFCameraTool sharedInstance] sf_returnVideoPreviewLayer];
+        }
         self.layer.masksToBounds = YES;
         [self.layer addSublayer: _videoLayer];
     }
