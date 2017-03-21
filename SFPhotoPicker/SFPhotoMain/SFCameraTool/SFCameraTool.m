@@ -8,7 +8,7 @@
 
 #import "SFCameraTool.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-@interface SFCameraTool ()<AVCaptureFileOutputRecordingDelegate>{
+@interface SFCameraTool ()<AVCaptureFileOutputRecordingDelegate, AVCaptureAudioDataOutputSampleBufferDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>{
     BOOL _hasCameraRight;
     AVCaptureSession *_captureSession; /* AVCaptureSession对象来执行输入设备和输出设备之间的数据传递 */
     AVCaptureDevice *_captureDevice;
@@ -16,9 +16,15 @@
     AVCaptureDeviceInput *_audioDeviceInput; /* 音频输入 */
     AVCaptureStillImageOutput *_stillImageOutput;/* 照片输出流 */
     AVCaptureMovieFileOutput *_movieOutput; /* 录制视频输出流 */
+    AVCaptureVideoDataOutput *_videoDataOutput; /* 视频流输出 */
+    AVCaptureAudioDataOutput *_audioDataOutput; /* 音频流输出 */
     AVCaptureVideoPreviewLayer *_videoPreviewLayer;/* 预览图层 */
+    dispatch_queue_t _videoDataQueue;
+    dispatch_queue_t _audioDataQueue;
     AVCaptureDevicePosition _desiredPosition; /* 摄像头方向 */
-    AVCaptureConnection *_captureConnection; 
+    AVCaptureConnection *_captureConnection;
+    AVCaptureConnection *_videoLivingConnect;
+    AVCaptureConnection *_audioLivingConnect;
     CGFloat _beginScale;
     CGFloat _effectiveScale;
     NSURL *_videoURL;
@@ -191,15 +197,53 @@ SFCameraTool *camera = nil;
     [_movieOutput stopRecording];
 }
 
-- (void)sf_saveCameraMovieInPhotoAlbum{
+- (void)sf_saveCameraMovieInPhotoAlbumComplete:(SaveMovieComplete)complete{
     if (!_videoURL) {
         return;
     }
     ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
     [lib writeVideoAtPathToSavedPhotosAlbum:_videoURL completionBlock:^(NSURL *assetURL, NSError *error) {
+        if (complete) {
+            complete(assetURL, error);
+        }
         [[NSFileManager defaultManager] removeItemAtURL:_videoURL error:nil];
-        NSLog(@"save complete");
     }];
+}
+
+- (AVCaptureVideoPreviewLayer *)sf_returnLivingPreviewLayer{
+    [self changeCameraTypePublicMethod];
+     NSError *error = nil;
+    AVCaptureDevice *audioLivingDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
+    AVCaptureDevice *videoLivingDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    AVCaptureDeviceInput *audioLivingInput = [AVCaptureDeviceInput deviceInputWithDevice:audioLivingDevice error:&error];
+    AVCaptureDeviceInput *videoLivingInput = [AVCaptureDeviceInput deviceInputWithDevice:videoLivingDevice error:&error];
+    if (error) {
+        NSLog(@"Error getting  input device: %@", error.description);
+        return nil;
+    }
+    _captureSession = [[AVCaptureSession alloc] init];
+    if([_captureSession canAddInput:audioLivingInput]){
+        [_captureSession addInput:audioLivingInput];
+    }
+    if ([_captureSession canAddInput:videoLivingInput]) {
+        [_captureSession addInput:videoLivingInput];
+    }
+    _videoDataQueue = dispatch_queue_create("living.sf.videoQueue", DISPATCH_QUEUE_SERIAL);
+    _audioDataQueue = dispatch_queue_create("living.sf.audioQueue", DISPATCH_QUEUE_SERIAL);
+    [_videoDataOutput setSampleBufferDelegate:self queue:_videoDataQueue];
+    [_audioDataOutput setSampleBufferDelegate:self queue:_audioDataQueue];
+     NSDictionary *captureSettings = @{(NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
+    _videoDataOutput.videoSettings = captureSettings;
+    _videoDataOutput.alwaysDiscardsLateVideoFrames = YES;
+    if ([_captureSession canAddOutput:_videoDataOutput]) {
+        [_captureSession addOutput:_videoDataOutput];
+    }
+    if([_captureSession canAddOutput:_audioDataOutput]){
+        [_captureSession addOutput:_audioDataOutput];
+    }
+    _videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
+    [_videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+    return _videoPreviewLayer;
 }
 #pragma mark - method
 - (void)setDeviceFlashModel:(AVCaptureFlashMode)flashMode torchMode:(AVCaptureTorchMode)trochMode{
@@ -288,5 +332,14 @@ SFCameraTool *camera = nil;
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections{
     
+}
+
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection{
+    // 音频
+    if(connection == _videoLivingConnect){
+        // 视频输出
+    }else{
+        // 音频输出
+    }
 }
 @end

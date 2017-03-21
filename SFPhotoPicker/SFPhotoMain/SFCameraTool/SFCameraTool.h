@@ -10,6 +10,7 @@
 
 typedef void(^RequestCameraRightComplete)(AVAuthorizationStatus status);
 typedef void(^PhotoCameraComplete)(UIImage *img, NSError *err);
+typedef void(^SaveMovieComplete)(NSURL *assetURL, NSError *error);
 
 @protocol SFCameraDelegate <NSObject>
 @optional
@@ -128,4 +129,13 @@ typedef void(^PhotoCameraComplete)(UIImage *img, NSError *err);
  停止录制
  */
 - (void)sf_movieCameraStopRecoder;
+
+/* ************************livingCamera***************************** */
+
+/**
+ 返回直播preview-layer
+
+ @return <#return value description#>
+ */
+- (AVCaptureVideoPreviewLayer *)sf_returnLivingPreviewLayer;
 @end
