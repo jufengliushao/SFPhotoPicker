@@ -8,6 +8,7 @@
 
 #import "SFCameraTool.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "GPUImage.h"
 @interface SFCameraTool ()<AVCaptureFileOutputRecordingDelegate, AVCaptureAudioDataOutputSampleBufferDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>{
     BOOL _hasCameraRight;
     AVCaptureSession *_captureSession; /* AVCaptureSession对象来执行输入设备和输出设备之间的数据传递 */
