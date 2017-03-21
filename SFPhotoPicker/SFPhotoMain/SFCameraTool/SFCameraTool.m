@@ -230,6 +230,8 @@ SFCameraTool *camera = nil;
     }
     _videoDataQueue = dispatch_queue_create("living.sf.videoQueue", DISPATCH_QUEUE_SERIAL);
     _audioDataQueue = dispatch_queue_create("living.sf.audioQueue", DISPATCH_QUEUE_SERIAL);
+    _videoDataOutput = [[AVCaptureVideoDataOutput alloc] init];
+    _audioDataOutput = [[AVCaptureAudioDataOutput alloc] init];
     [_videoDataOutput setSampleBufferDelegate:self queue:_videoDataQueue];
     [_audioDataOutput setSampleBufferDelegate:self queue:_audioDataQueue];
      NSDictionary *captureSettings = @{(NSString*)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
@@ -243,7 +245,13 @@ SFCameraTool *camera = nil;
     }
     _videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
     [_videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+
     return _videoPreviewLayer;
+}
+
+- (void)sf_startLiving{
+    _videoLivingConnect = [_videoDataOutput connectionWithMediaType:AVMediaTypeVideo];
+    _audioLivingConnect = [_audioDataOutput connectionWithMediaType:AVMediaTypeAudio];
 }
 #pragma mark - method
 - (void)setDeviceFlashModel:(AVCaptureFlashMode)flashMode torchMode:(AVCaptureTorchMode)trochMode{
@@ -335,11 +343,12 @@ SFCameraTool *camera = nil;
 }
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection{
-    // 音频
     if(connection == _videoLivingConnect){
         // 视频输出
-    }else{
+        NSLog(@"videoConnect");
+    }else if(connection == _audioLivingConnect){
         // 音频输出
+        NSLog(@"audioConnect");
     }
 }
 @end

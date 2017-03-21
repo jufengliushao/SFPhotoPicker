@@ -8,9 +8,12 @@
 
 #import "SFCameraLivingViewController.h"
 #import "SFCameraVideoPevView.h"
+#import "SFCameraLivingToolView.h"
+#import "UIButton+SFButton.h"
 @interface SFCameraLivingViewController ()
 
 @property (nonatomic, strong) SFCameraVideoPevView *perView;
+@property (nonatomic, strong) SFCameraLivingToolView *toolView;
 
 @end
 
@@ -18,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"%@", self.perView);
+    [self blockAction];
     // Do any additional setup after loading the view.
 }
 
@@ -37,6 +40,13 @@
     [super viewDidDisappear:animated];
 }
 
+#pragma mark - method
+- (void)blockAction{
+    [self.toolView.livingBtn addTargetAction:^(UIButton *sender) {
+        [[SFCameraTool sharedInstance] sf_startLiving];
+    }];
+}
+
 #pragma mark - init
 - (SFCameraVideoPevView *)perView{
     if (!_perView) {
@@ -47,6 +57,14 @@
     return _perView;
 }
 
+- (SFCameraLivingToolView *)toolView{
+    if(!_toolView){
+        _toolView = [[SFCameraLivingToolView alloc] init];
+        _toolView.frame = self.perView.bounds;
+        [self.perView addSubview:_toolView];
+    }
+    return _toolView;
+}
 /*
 #pragma mark - Navigation
 

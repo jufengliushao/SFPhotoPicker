@@ -7,15 +7,35 @@
 //
 
 #import "SFCameraLivingToolView.h"
-
+#import "Masonry.h"
 @implementation SFCameraLivingToolView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+#pragma mark - system method
+- (instancetype)init{
+    if(self = [super init]){
+        self.backgroundColor = [UIColor clearColor];
+    }
+    return self;
 }
-*/
 
+- (void)drawRect:(CGRect)rect{
+    WS(ws);
+    [self.livingBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(ws);
+    }];
+    [super drawRect:rect];
+}
+
+#pragma mark - method
+
+#pragma mark - init
+- (UIButton *)livingBtn{
+    if (!_livingBtn) {
+        _livingBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        [_livingBtn setTitle:@"start" forState:(UIControlStateNormal)];
+        [_livingBtn setTitle:@"pasue" forState:(UIControlStateSelected)];
+        [_livingBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal | UIControlStateSelected)];
+        [self addSubview:_livingBtn];
+    }
+    return _livingBtn;
+}
 @end

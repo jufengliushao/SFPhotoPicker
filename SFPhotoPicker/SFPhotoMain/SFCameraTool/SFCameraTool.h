@@ -138,4 +138,9 @@ typedef void(^SaveMovieComplete)(NSURL *assetURL, NSError *error);
  @return <#return value description#>
  */
 - (AVCaptureVideoPreviewLayer *)sf_returnLivingPreviewLayer;
+
+/**
+ 开始直播
+ */
+- (void)sf_startLiving;
 @end

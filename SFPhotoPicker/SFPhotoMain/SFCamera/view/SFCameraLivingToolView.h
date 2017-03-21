@@ -10,4 +10,6 @@
 
 @interface SFCameraLivingToolView : UIView
 
+@property (nonatomic, strong) UIButton *livingBtn;
+
 @end
