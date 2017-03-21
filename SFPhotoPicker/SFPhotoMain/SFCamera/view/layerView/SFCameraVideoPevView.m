@@ -19,8 +19,10 @@
     if (self = [super init]) {
         if (layerType == SFCameraLayerTypePhoto) {
             _videoLayer = [[SFCameraTool sharedInstance] sf_returnCameraLayer];
-        }else{
+        }else if(layerType == SFCameraLayerTypeVideo){
             _videoLayer = [[SFCameraTool sharedInstance] sf_returnVideoPreviewLayer];
+        }else{
+            _videoLayer = [[SFCameraTool sharedInstance] sf_returnLivingPreviewLayer];
         }
         self.layer.masksToBounds = YES;
         [self.layer addSublayer: _videoLayer];

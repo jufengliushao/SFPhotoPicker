@@ -33,6 +33,8 @@
 		E62887081E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E62887071E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m */; };
 		E66EAE101E7F80A50040ED33 /* SFCameraMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66EAE0F1E7F80A50040ED33 /* SFCameraMovieViewController.m */; };
 		E66EAE131E7FB2650040ED33 /* SFCameraMovieToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = E66EAE121E7FB2650040ED33 /* SFCameraMovieToolView.m */; };
+		E6A50B831E8101DB003B8310 /* SFCameraLivingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A50B821E8101DB003B8310 /* SFCameraLivingViewController.m */; };
+		E6A50B861E810D40003B8310 /* SFCameraLivingToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A50B851E810D40003B8310 /* SFCameraLivingToolView.m */; };
 		E6CB2F8E1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2F8D1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m */; };
 		E6CB2F911E640226001368C2 /* SFPhotoAssetInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2F901E640226001368C2 /* SFPhotoAssetInfoModel.m */; };
 		E6CB2F941E64064B001368C2 /* SFPhotoAlbumThumbListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB2F931E64064B001368C2 /* SFPhotoAlbumThumbListViewController.m */; };
@@ -129,6 +131,10 @@
 		E66EAE0F1E7F80A50040ED33 /* SFCameraMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCameraMovieViewController.m; sourceTree = "<group>"; };
 		E66EAE111E7FB2650040ED33 /* SFCameraMovieToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCameraMovieToolView.h; sourceTree = "<group>"; };
 		E66EAE121E7FB2650040ED33 /* SFCameraMovieToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCameraMovieToolView.m; sourceTree = "<group>"; };
+		E6A50B811E8101DB003B8310 /* SFCameraLivingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCameraLivingViewController.h; sourceTree = "<group>"; };
+		E6A50B821E8101DB003B8310 /* SFCameraLivingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCameraLivingViewController.m; sourceTree = "<group>"; };
+		E6A50B841E810D40003B8310 /* SFCameraLivingToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCameraLivingToolView.h; sourceTree = "<group>"; };
+		E6A50B851E810D40003B8310 /* SFCameraLivingToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFCameraLivingToolView.m; sourceTree = "<group>"; };
 		E6CB2F8C1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoPickerImageSmallCollectionViewCell.h; sourceTree = "<group>"; };
 		E6CB2F8D1E640002001368C2 /* SFPhotoPickerImageSmallCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFPhotoPickerImageSmallCollectionViewCell.m; sourceTree = "<group>"; };
 		E6CB2F8F1E640226001368C2 /* SFPhotoAssetInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFPhotoAssetInfoModel.h; sourceTree = "<group>"; };
@@ -442,6 +448,8 @@
 				E6CB31511E704576001368C2 /* SFCameraPhotoViewController.m */,
 				E66EAE0E1E7F80A50040ED33 /* SFCameraMovieViewController.h */,
 				E66EAE0F1E7F80A50040ED33 /* SFCameraMovieViewController.m */,
+				E6A50B811E8101DB003B8310 /* SFCameraLivingViewController.h */,
+				E6A50B821E8101DB003B8310 /* SFCameraLivingViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -456,6 +464,8 @@
 				E6CB315A1E724663001368C2 /* SFCameraPhotoResultView.m */,
 				E66EAE111E7FB2650040ED33 /* SFCameraMovieToolView.h */,
 				E66EAE121E7FB2650040ED33 /* SFCameraMovieToolView.m */,
+				E6A50B841E810D40003B8310 /* SFCameraLivingToolView.h */,
+				E6A50B851E810D40003B8310 /* SFCameraLivingToolView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -612,6 +622,7 @@
 				E62886F51E61D3C000F19D20 /* MASConstraintMaker.m in Sources */,
 				E62886FB1E61D3C000F19D20 /* View+MASAdditions.m in Sources */,
 				E6CB30B21E6E56C4001368C2 /* SFPhotoThumbHeaderView.m in Sources */,
+				E6A50B861E810D40003B8310 /* SFCameraLivingToolView.m in Sources */,
 				E6CB2F911E640226001368C2 /* SFPhotoAssetInfoModel.m in Sources */,
 				E628868F1E5EC73B00F19D20 /* ViewController.m in Sources */,
 				E62886F41E61D3C000F19D20 /* MASConstraint.m in Sources */,
@@ -622,6 +633,7 @@
 				E62887081E62590F00F19D20 /* SFPhotoPickerAlbumListTableViewCell.m in Sources */,
 				E6CB302E1E6858FC001368C2 /* SFIndexCalculateTool.m in Sources */,
 				E6CB31551E704930001368C2 /* SFCameraVideoPevView.m in Sources */,
+				E6A50B831E8101DB003B8310 /* SFCameraLivingViewController.m in Sources */,
 				E62886BE1E5ED64000F19D20 /* SFPhotoPickerTool.m in Sources */,
 				E62886F71E61D3C000F19D20 /* MASViewAttribute.m in Sources */,
 				E62886FA1E61D3C000F19D20 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,

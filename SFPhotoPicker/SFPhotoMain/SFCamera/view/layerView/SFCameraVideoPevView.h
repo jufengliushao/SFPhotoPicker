@@ -10,7 +10,8 @@
 
 typedef NS_ENUM(NSInteger, SFCameraLayerType) {
     SFCameraLayerTypePhoto, /* 照片展示层 */
-    SFCameraLayerTypeVideo /* 录制视频展示层 */
+    SFCameraLayerTypeVideo, /* 录制视频展示层 */
+    SFCameraLayerTypeLiving /* living展示层 */
 };
 
 @interface SFCameraVideoPevView : UIView

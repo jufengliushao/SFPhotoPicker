@@ -12,6 +12,7 @@
 // camera
 #import "SFCameraPhotoViewController.h"
 #import "SFCameraMovieViewController.h"
+#import "SFCameraLivingViewController.h"
 
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource>{
     NSArray *_titleArr;
@@ -30,7 +31,7 @@ static NSString *kHomeCellID = @"kHomeCellID";
     [super viewDidLoad];
     [self setTableView];
     // setData
-    _titleArr = @[@"当前手机相册权限状态", @"获取手机相册权限", @"相册列表", @"获取手机摄像头权限状态", @"获取手机摄像头权限", @"判断设备是否支持闪光灯", @"拍照", @"录像"];
+    _titleArr = @[@"当前手机相册权限状态", @"获取手机相册权限", @"相册列表", @"获取手机摄像头权限状态", @"获取手机摄像头权限", @"判断设备是否支持闪光灯", @"拍照", @"录像", @"LIVING"];
     _tool = [SFPhotoPickerTool sharedInstance];
     _cameraTool = [SFCameraTool sharedInstance];
     // Do any additional setup after loading the view, typically from a nib.
@@ -126,6 +127,14 @@ static NSString *kHomeCellID = @"kHomeCellID";
         }
             break;
             
+        case 8:{
+            // living
+            if ([self canGoCameraStep]) {
+                [self showCameraLiving];
+            }
+        }
+            break;
+            
         default:
             break;
     }
@@ -172,6 +181,13 @@ static NSString *kHomeCellID = @"kHomeCellID";
 
 - (void)showCameraMovie{
     SFCameraMovieViewController *vc = [[SFCameraMovieViewController alloc] init];
+    [self presentViewController:vc animated:YES completion:^{
+        
+    }];
+}
+
+- (void)showCameraLiving{
+    SFCameraLivingViewController *vc = [[SFCameraLivingViewController alloc] init];
     [self presentViewController:vc animated:YES completion:^{
         
     }];
