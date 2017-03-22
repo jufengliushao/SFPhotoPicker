@@ -163,7 +163,6 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
 
 - (void)gotEncodedData:(NSData*)data isKeyFrame:(BOOL)isKeyFrame
 {
-    NSLog(@"gotEncodedData %d", (int)[data length]);
     if (!fileHandle) {
         [self initForFileHandle];
     }
@@ -175,6 +174,7 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
         [fileHandle writeData:ByteHeader];
         [fileHandle writeData:data];
     }
+    
 }
 
 - (void)initForFileHandle{
@@ -182,10 +182,9 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
     [[NSFileManager defaultManager] removeItemAtPath:file error:nil];
     [[NSFileManager defaultManager] createFileAtPath:file contents:nil attributes:nil];
     fileHandle = [NSFileHandle fileHandleForWritingAtPath:file];
-    NSLog(@"%@", file);
 }
 
-- (void) encode:(CMSampleBufferRef )sampleBuffer{
+- (void)encode:(CMSampleBufferRef )sampleBuffer{
     CVImageBufferRef imageBuffer = (CVImageBufferRef)CMSampleBufferGetImageBuffer(sampleBuffer);
     // 帧时间，如果不设置会导致时间轴过长。
     CMTime presentationTimeStamp = CMTimeMake(frameID++, 1000);
