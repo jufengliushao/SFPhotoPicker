@@ -33,6 +33,15 @@ SFLivingOutputCode *coder = nil;
 
 #pragma mark - public method
 - (void)sf_videoOutputDataEncode:(CMSampleBufferRef)sampleBuffer{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self initVideoBox];
+    });
+    [self encode:sampleBuffer];
+}
+
+#pragma mark - private method
+- (void)initVideoBox{
     // 硬编码
     frameID = 0;
     int width = kSCREEN_WIDTH, height = kSCREEN_HEIGHT;
@@ -71,7 +80,6 @@ SFLivingOutputCode *coder = nil;
     VTCompressionSessionPrepareToEncodeFrames(_encodingSession);
 }
 
-#pragma mark - private method
 void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStatus status, VTEncodeInfoFlags infoFlags, CMSampleBufferRef sampleBuffer){
     NSLog(@"didCompressH264 called with status %d infoFlags %d", (int)status, (int)infoFlags);
     if (status != 0) {
@@ -174,6 +182,28 @@ void didCompressH264(void *outputCallbackRefCon, void *sourceFrameRefCon, OSStat
     [[NSFileManager defaultManager] removeItemAtPath:file error:nil];
     [[NSFileManager defaultManager] createFileAtPath:file contents:nil attributes:nil];
     fileHandle = [NSFileHandle fileHandleForWritingAtPath:file];
+    NSLog(@"%@", file);
+}
+
+- (void) encode:(CMSampleBufferRef )sampleBuffer{
+    CVImageBufferRef imageBuffer = (CVImageBufferRef)CMSampleBufferGetImageBuffer(sampleBuffer);
+    // 帧时间，如果不设置会导致时间轴过长。
+    CMTime presentationTimeStamp = CMTimeMake(frameID++, 1000);
+    VTEncodeInfoFlags flags;
+    OSStatus statusCode = VTCompressionSessionEncodeFrame(_encodingSession,
+                                                          imageBuffer,
+                                                          presentationTimeStamp,
+                                                          kCMTimeInvalid,
+                                                          NULL, NULL, &flags);
+    if (statusCode != noErr) {
+        NSLog(@"H264: VTCompressionSessionEncodeFrame failed with %d", (int)statusCode);
+        
+        VTCompressionSessionInvalidate(_encodingSession);
+        CFRelease(_encodingSession);
+        _encodingSession = NULL;
+        return;
+    }
+    NSLog(@"H264: VTCompressionSessionEncodeFrame Success");
 }
 
 - (void)EndVideoToolBox
