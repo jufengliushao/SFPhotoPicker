@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <VideoToolbox/VideoToolbox.h>
 @interface SFLivingOutputCode : NSObject
++ (instancetype)sharedInstance;
 - (void)sf_videoOutputDataEncode:(CMSampleBufferRef)sampleBuffer;
 @end
