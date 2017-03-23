@@ -8,6 +8,8 @@
 
 #import "SFCameraTool.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "GPUImage.h"
+#import "SFLivingOutputCode.h"
 @interface SFCameraTool ()<AVCaptureFileOutputRecordingDelegate, AVCaptureAudioDataOutputSampleBufferDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>{
     BOOL _hasCameraRight;
     AVCaptureSession *_captureSession; /* AVCaptureSession对象来执行输入设备和输出设备之间的数据传递 */
@@ -345,7 +347,7 @@ SFCameraTool *camera = nil;
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection{
     if(connection == _videoLivingConnect){
         // 视频输出
-        NSLog(@"videoConnect");
+        [[SFLivingOutputCode sharedInstance] sf_videoOutputDataEncode:sampleBuffer];
     }else if(connection == _audioLivingConnect){
         // 音频输出
         NSLog(@"audioConnect");
