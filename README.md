@@ -6,4 +6,4 @@
 
 ![image](https://github.com/jufengliushao/SFPhotoPicker/blob/master/screen-pict/result-1.png)
 
-![image](https://github.com/jufengliushao/SFGiftLineAnimation/blob/master/ReadmeImage/Readme-9.png)
+![image](https://github.com/jufengliushao/SFPhotoPicker/blob/master/screen-pict/result-2.gif)
