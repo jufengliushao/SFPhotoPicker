@@ -14,12 +14,12 @@
 
 ![image](https://github.com/jufengliushao/SFPhotoPicker/blob/master/screen-pict/code-list.png)
 
-<p><b>ThridTool:</b>this document contains GPUImage/SFHelper/Masonry/MBProgressHUD, which help to the project</p>
+<p><b>ThridTool:</b>this document contains GPUImage/SFHelper/Masonry/MBProgressHUD, which help to the project(项目中使用的第三方，可以根据需求进行选择添加)</p>
 <p><b>SFPhotoMain:</b></p>
-<p>SFCamera: camera function files</p>
-<p>SFPhotoPicker: photo picker function files</p>
-<p>SFPhotoModel: photo-info model files</p>
-<p>SFPhotoTool: photo-select-index model files</p>
+<p>SFCamera: camera function files(相机功能)</p>
+<p>SFPhotoPicker: photo picker function files(图片选择功能)</p>
+<p>SFPhotoModel: photo-info model files(图片信息model)</p>
+<p>SFPhotoTool: photo-select-index model files(图片选择功能)</p>
 <p><b>SFPhotoPickerHelper.pch:</b>.pch file</p>
 <p><b>SFPhotoPickerHeader.h:</b>.h assmet file</p>
 <p><b>SFViewPropertyHelper.h:</b>.h assmet file</p>
