@@ -20,3 +20,6 @@
 <p>SFPhotoPicker: photo picker function files</p>
 <p>SFPhotoModel: photo-info model files</p>
 <p>SFPhotoTool: photo-select-index model files</p>
+<p><b>SFPhotoPickerHelper.pch:</b>.pch file</p>
+<p><b>SFPhotoPickerHeader.h:</b>.h assmet file</p>
+<p><b>SFViewPropertyHelper.h:</b>.h assmet file</p>
