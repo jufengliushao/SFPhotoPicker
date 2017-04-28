@@ -4,3 +4,4 @@
 <h2>The demo function show</h2>
 <h4>项目效果展示</h4>
 ![image](https://github.com/jufengliushao/SFPhotoPicker/blob/master/screen-pict/result-1.png)
+![image](https://github.com/jufengliushao/SFGiftLineAnimation/blob/master/ReadmeImage/Readme-9.png)
