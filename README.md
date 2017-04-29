@@ -23,3 +23,8 @@
 <p><b>SFPhotoPickerHelper.pch:</b>.pch file</p>
 <p><b>SFPhotoPickerHeader.h:</b>.h assmet file</p>
 <p><b>SFViewPropertyHelper.h:</b>.h assmet file</p>
+
+<h2>2.coding (代码实现)</h2>
+<h3>2.1 sfphoto-picker realize (SFPhotoPicker 实现)</h3>
+<p><b>import this header: </b>#import "SFPhotoAlbumListViewController.h"</p>
+<p>this header is a controller which you can use navigation to push and select photos in library(这是一个controller，你可以使用此控制器实现本地图片的选择功能)</p>
