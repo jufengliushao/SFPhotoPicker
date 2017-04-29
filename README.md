@@ -31,7 +31,7 @@
 <ul>
 <li><p><b><i>import this header: </i></b>#import "SFPhotoAlbumListViewController.h"</p></li>
 <dt>this header is a controller which you can use navigation to push and select photos in library(这是一个controller，你可以使用此控制器实现本地图片的选择功能)</dt>
-<li><b><i>add key in info.plist</i></b></li>
-<dt>add the key <i>Privacy - Photo Library Usage Description</i> and the value, which type is string, to ask user photo-album right(添加<i>Privacy - Photo Library Usage Description</i>key，要求获取手机相册权限)</dt>
+<li><p><b><i>add key in info.plist</i></b></p></li>
+<dt>add the key <i><b>Privacy - Photo Library Usage Description</b></i> and the value, which type is string, to ask user photo-album right(添加<i><b>Privacy - Photo Library Usage Description</b></i>key，要求获取手机相册权限)</dt>
 <li>c</li>
 </ul>
