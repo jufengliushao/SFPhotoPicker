@@ -45,9 +45,11 @@
 </dt>
 </ul>
 <h4>get the selected pictures</h4>
-<p>you can use the coding, which in the follwing picture, to get the photo-model array</p>
+<p>you can use the coding, which follwing, to get the photo-model array</p>
 
-![image](https://github.com/jufengliushao/SFPhotoPicker/blob/master/screen-pict/des-photoGet-1.png)
+```objc
+[SFIndexCalculateTool shareInstance].selectedIndexImgArr
+```
 
 <p>you also can use the method in <b><i></i>SFIndexCalculateTool</b> to complete your-own project</p>
 
