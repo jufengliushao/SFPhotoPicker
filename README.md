@@ -36,14 +36,16 @@
 <li><p><b><i>ask the photo-album right first</i></b></p></li>
 <dt>asking photo-album right first before you select photos, using the follwing coding in the picture(在选择本地图片之前，首先要求获取相册使用权限)
 
-
-![image](https://github.com/jufengliushao/SFPhotoPicker/blob/master/screen-pict/des-photoRight-1.png)
-
-
-![image](https://github.com/jufengliushao/SFPhotoPicker/blob/master/screen-pict/des-photoRight-2.png)
-
 </dt>
 </ul>
+```objc
+SFPhotoPickerTool *_tool = [SFPhotoPickerTool sharedInstance];
+[_tool sf_askPhotoRight:^(PHAuthorizationStatus stat) {
+         dispatch_async(dispatch_get_main_queue(), ^{
+             // coding
+         });
+    }];
+```
 <h4>get the selected pictures</h4>
 <p>you can use the coding, which follwing, to get the photo-model array</p>
 
