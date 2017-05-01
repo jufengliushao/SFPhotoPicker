@@ -50,9 +50,24 @@ SFPhotoPickerTool *_tool = [SFPhotoPickerTool sharedInstance];
 <p>you can use the coding, which follwing, to get the photo-model array</p>
 
 ```objc
+// @property (nonatomic, strong, readonly) __kindof NSArray <SFPhotoAssetInfoModel *>*selectedIndexImgArr;
 [SFIndexCalculateTool shareInstance].selectedIndexImgArr
 ```
 
 <p>you also can use the method in <b><i></i>SFIndexCalculateTool</b> to complete your-own project</p>
 
 ![image](https://github.com/jufengliushao/SFPhotoPicker/blob/master/screen-pict/des-photoGet-2.png)
+
+<h3><i>Waring</i></h3><p>must clean the selected arrary when you need to select-picture again(the coding follow)</p>
+
+```objc
+/**
+ 清除所有选中的数据
+ * warning 在不选择数据的时候记得清空，否则数据会一直显示
+ */
+- (void)sf_clearAllCalculateCache;
+```
+
+```objc
+[[SFIndexCalculateTool shareInstance] sf_clearAllCalculateCache];
+```
