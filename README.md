@@ -34,10 +34,10 @@
 <li><p><b><i>add key in info.plist</i></b></p></li>
 <dt>add the key <i><b>Privacy - Photo Library Usage Description</b></i> and the value, which type is string, to ask user photo-album right(添加<i><b>Privacy - Photo Library Usage Description</b></i> key，要求获取手机相册权限)</dt>
 <li><p><b><i>ask the photo-album right first</i></b></p></li>
-<dt>asking photo-album right first before you select photos, using the follwing coding in the picture(在选择本地图片之前，首先要求获取相册使用权限)
-
+<dt>asking photo-album right first before you select photos, using the follwing coding(在选择本地图片之前，首先要求获取相册使用权限)
 </dt>
 </ul>
+
 ```objc
 SFPhotoPickerTool *_tool = [SFPhotoPickerTool sharedInstance];
 [_tool sf_askPhotoRight:^(PHAuthorizationStatus stat) {
