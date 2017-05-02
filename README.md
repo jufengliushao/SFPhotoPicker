@@ -99,3 +99,11 @@ ask right of camera
        });
     }];
 ```
+
+<ul>
+<li><b>take pictures</b></li>
+<dt>
+<p><b><i>focusing</i></b>: signal click the screen, the camera'll focusing auto.</p>
+<p><b><i>zooming</i></b>: PinchGesture.</p>
+</dt>
+</ul>
