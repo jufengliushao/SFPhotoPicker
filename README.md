@@ -76,5 +76,26 @@ SFPhotoPickerTool *_tool = [SFPhotoPickerTool sharedInstance];
 <h4>SFCamera 使用</h4>
 <ul>
 <li><p>add key<b><i> Privacy - Camera Usage Description </i></b>in info.plist</p></li>
-<li><p><b><i></i></b></p></li>
+<li><p><b><i>request camera-right first</i></b></p></li>
+<dt><p>get the camera-right-status</p></dt>
 </ul>
+init for SFCameraTool
+
+```objc
+SFCameraTool *_cameraTool = [SFCameraTool sharedInstance];
+```
+
+get camera-right-status
+
+```objc
+AVAuthorizationStatus status = [_cameraTool sf_askCameraRightStuts];
+```
+ask right of camera
+
+```objc
+[_cameraTool sf_askCameraRight:^(AVAuthorizationStatus status) {
+       dispatch_async(dispatch_get_main_queue(), ^{
+           [self judgementCameraRightStatus:status];
+       });
+    }];
+```
