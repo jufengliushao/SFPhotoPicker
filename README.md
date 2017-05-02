@@ -71,3 +71,10 @@ SFPhotoPickerTool *_tool = [SFPhotoPickerTool sharedInstance];
 ```objc
 [[SFIndexCalculateTool shareInstance] sf_clearAllCalculateCache];
 ```
+
+<h3>2.2 SFCamera usage</h3>
+<h4>SFCamera 使用</h4>
+<ul>
+<li><p>add key<b><i> Privacy - Camera Usage Description </i></b>in info.plist</p></li>
+<li><p><b><i></i></b></p></li>
+</ul>
