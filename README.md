@@ -106,4 +106,10 @@ ask right of camera
 <p><b><i>focusing</i></b>: signal click the screen, the camera'll focusing auto.</p>
 <p><b><i>zooming</i></b>: PinchGesture.</p>
 </dt>
+<li>camera functions
+<ul>
+<li>the flash aotu or open when you need</li>
+<li>the background-front camera can be changed</li>
+</ul>
+</li>
 </ul>
