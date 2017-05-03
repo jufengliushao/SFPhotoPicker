@@ -153,9 +153,41 @@ shutter codes 快门按钮代码
 
 <ul>
 <li>save photo in album</li>
-<dt>
-
-
-
-</dt>
+<dt>save method in <b><i>SFPhotoPickerTool</i></b></dt>
 </ul>
+
+```objc
+/**
+ 异步----保存照片到相机相册
+
+ @param img <#img description#>
+ @param complete <#complete description#>
+ */
+- (void)sf_saveImageSynchronousInCameraAlbum:(UIImage *)img complete:(SaveImageComplete)complete;
+
+/**
+ 同步----保存图片到相机相册
+
+ @param img <#img description#>
+ @param complete <#complete description#>
+ */
+- (void)sf_saveImageSynchronizationInCamareAlbum:(UIImage *)img complete:(SaveImageComplete)complete;
+
+/**
+ 同步------将图片添加到自定义相册
+
+ @param img 图片
+ @param albumTitle 相册名称
+ @param complete <#complete description#>
+ */
+- (void)sf_saveImageSynchronizationInAlbumWithImage:(UIImage *)img albumTitle:(NSString *)albumTitle complete:(SaveImageComplete)complete;
+
+/**
+ 异步-------将图片添加到自定义相册
+
+ @param img <#img description#>
+ @param albumTitle <#albumTitle description#>
+ @param complete <#complete description#>
+ */
+- (void)sf_saveImageSynchronousInAlbumWithImage:(UIImage *)img albumTitle:(NSString *)albumTitle complete:(SaveImageComplete)complete;
+```
