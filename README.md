@@ -113,3 +113,21 @@ ask right of camera
 </ul>
 </li>
 </ul>
+
+the flashing opening always
+
+```objc
+[[SFCameraTool sharedInstance] sf_openDeviceFlash];
+```
+
+close flash forever
+
+```objc
+[[SFCameraTool sharedInstance] sf_closeDeviceFlash];
+```
+
+auto-flashing
+
+```objc
+[[SFCameraTool sharedInstance] sf_setDeviceFlashAuto];
+```
