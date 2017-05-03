@@ -114,20 +114,26 @@ ask right of camera
 </li>
 </ul>
 
-the flashing opening always
+the flashing opening always 强制开启闪光灯
 
 ```objc
 [[SFCameraTool sharedInstance] sf_openDeviceFlash];
 ```
 
-close flash forever
+close flash forever 强制关闭闪光灯
 
 ```objc
 [[SFCameraTool sharedInstance] sf_closeDeviceFlash];
 ```
 
-auto-flashing
+auto-flashing 闪光灯自动
 
 ```objc
 [[SFCameraTool sharedInstance] sf_setDeviceFlashAuto];
+```
+
+transfrom camera position 切换摄像头
+
+```objc
+[[SFCameraTool sharedInstance] sf_switchCameraposition];
 ```
