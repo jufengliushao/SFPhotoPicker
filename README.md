@@ -150,3 +150,12 @@ shutter codes 快门按钮代码
         [[SFCameraTool sharedInstance] sf_cameraStopRunning]; // stop the camera running, if not take photo
     }];
 ```
+
+<ul>
+<li>save photo in album</li>
+<dt>
+
+
+
+</dt>
+</ul>
