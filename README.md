@@ -137,3 +137,16 @@ transfrom camera position 切换摄像头
 ```objc
 [[SFCameraTool sharedInstance] sf_switchCameraposition];
 ```
+
+<ul>
+<li>take phots 拍照</li>
+</ul>
+
+shutter codes 快门按钮代码
+
+```objc
+[[SFCameraTool sharedInstance] sf_cameraShutterComplete:^(UIImage *img, NSError *err) {
+         // add your codes
+        [[SFCameraTool sharedInstance] sf_cameraStopRunning]; // stop the camera running, if not take photo
+    }];
+```
