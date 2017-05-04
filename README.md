@@ -192,4 +192,4 @@ shutter codes 快门按钮代码
 
 <h2>3.Attention</h2>
 <p>If you have any question, please send mail to <b><i>jufengliushao@163.com</i></b>. I'll respone soon.</p>
-<p></p>
+<p>Thanks for reading.</p>
